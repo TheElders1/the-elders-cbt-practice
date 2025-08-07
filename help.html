@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elders CBT - Help</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <img src="logo.png" alt="The Elders CBT Practice Logo" id="header-logo">
+            <div>
+                <h1>Help & FAQ</h1>
+                <p>Frequently Asked Questions</p>
+            </div>
+            <button id="theme-toggle" class="nav-btn">🌙</button>
+        </div>
+    </header>
+
+    <main id="help-page">
+        <div class="page-content">
+            <h2>How do I start a quiz?</h2>
+            <p>From the <a href="index.html">Home</a> page, enter your full name, select your department from the dropdown menu, and then choose your specific course. Once all fields are filled, click the "Start Quiz" button.</p>
+
+            <h2>How are the quizzes structured?</h2>
+            <p>Each course is divided into two segments of 50 questions each. You can choose which segment you want to practice. The quiz is timed to help you practice under pressure.</p>
+
+            <h2>Can I review my answers?</h2>
+            <p>Yes. After you submit your quiz, you will see a results screen with your score. On this screen, there is a "Review Answers" button that will show you a detailed breakdown of every question, your answer, and the correct answer.</p>
+
+            <h2>The quiz for my course isn't loading. What should I do?</h2>
+            <p>Please double-check that you have selected the correct department and course name. If it still doesn't load, the quiz data for that specific course might not be available yet. Please <a href="contact.html">contact us</a> to let us know.</p>
+            
+            <h2>How do I switch between light and dark mode?</h2>
+            <p>Click the moon (🌙) or sun (☀️) icon in the top-right corner of the header to toggle between light and dark themes. Your preference will be saved for your next visit.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>The Elders CBT - Practice Makes Perfect</p>
+            <div class="footer-links">
+                <a href="index.html">🏠 Home</a>
+                <a href="contact.html">📞 Contact</a>
+                <a href="about.html">ℹ️ About</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Minimal script for theme toggler on this page
+        const themeBtn = document.getElementById('theme-toggle');
+        const applyTheme = () => {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                if(themeBtn) themeBtn.innerHTML = '☀️';
+            } else {
+                document.body.classList.remove('dark-mode');
+                if(themeBtn) themeBtn.innerHTML = '🌙';
+            }
+        };
+        themeBtn.addEventListener('click', () => {
+            let newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
+            applyTheme();
+        });
+        applyTheme();
+    </script>
+</body>
+</html>
