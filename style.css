@@ -1,11 +1,7 @@
 /* ==========================================================================
    1. Basic Reset & Global Styles
    ========================================================================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 /* ==========================================================================
    2. Color & Theme Variables
@@ -14,9 +10,7 @@
     --primary-color: #510F64;
     --primary-hover: #3C0B4A;
     --gradient-primary: linear-gradient(135deg, #510F64 0%, #3C0B4A 100%);
-    --accent-blue: #00bfff; /* For selected radio button */
-    
-    /* Light Mode */
+    --accent-blue: #00bfff;
     --page-bg: #f4f4f9;
     --container-bg: #ffffff;
     --container-border: #e0e0e0;
@@ -24,10 +18,6 @@
     --text-primary: #1a1a1a;
     --text-secondary: #555555;
     --text-on-primary-bg: #ffffff;
-    --quiz-nav-btn-bg: #e9ecef;
-    --quiz-nav-btn-text: #212529;
-
-    /* Universal */
     --success-color: #28a745;
     --danger-color: #dc3545;
     --pure-white: #ffffff;
@@ -39,15 +29,12 @@
 }
 
 body.dark-mode {
-    /* Dark Mode */
     --page-bg: #121212;
     --container-bg: #1e1e1e;
     --container-border: #3a3a3a;
     --gradient-secondary: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
     --text-primary: #f1f1f1;
     --text-secondary: #a0a0a0;
-    --quiz-nav-btn-bg: #ced4da; /* Light button for dark mode */
-    --quiz-nav-btn-text: #212529; /* Dark text on light button */
     --container-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
     --element-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
 }
@@ -59,30 +46,15 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: var(--page-bg);
     color: var(--text-primary);
-    line-height: 1.6;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    font-weight: 400;
-    transition: background-color var(--transition), color var(--transition);
+    line-height: 1.6; padding: 20px; display: flex;
+    flex-direction: column; min-height: 100vh;
 }
-
-*:focus-visible {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-}
+*:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
 
 /* ==========================================================================
    4. Header & Progress Bar
    ========================================================================== */
-header {
-    background: var(--gradient-primary);
-    color: var(--text-on-primary-bg);
-    padding: 20px; text-align: center; margin-bottom: 30px;
-    border-radius: var(--border-radius); box-shadow: var(--element-shadow);
-    position: relative; overflow: hidden;
-}
+header { background: var(--gradient-primary); color: var(--text-on-primary-bg); padding: 20px; text-align: center; margin-bottom: 30px; border-radius: var(--border-radius); box-shadow: var(--element-shadow); position: relative; overflow: hidden; }
 .header-content { display: flex; align-items: center; justify-content: space-between; gap: 15px; max-width: 900px; margin: 0 auto; }
 #header-logo { height: 60px; }
 header h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin: 0; font-weight: 700; }
@@ -98,69 +70,80 @@ header p { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-on-primary-b
 .step-label { font-size: 0.9em; font-weight: 500; color: var(--text-primary); }
 
 /* ==========================================================================
-   5. Main Containers & Forms (WITH RESTORED STYLES)
+   5. Main Containers & Forms
    ========================================================================== */
-main, section#support-content {
-    background-color: var(--container-bg);
-    padding: clamp(15px, 4vw, 30px); border-radius: var(--border-radius);
-    border: 1px solid var(--container-border); max-width: 800px;
-    margin: 0 auto 20px auto; box-shadow: var(--container-shadow);
-}
-#quiz-setup { max-width: 600px; } /* Constrain setup form width */
-
+main, section#support-content { background-color: var(--container-bg); padding: clamp(15px, 4vw, 30px); border-radius: var(--border-radius); border: 1px solid var(--container-border); max-width: 800px; margin: 0 auto 20px auto; box-shadow: var(--container-shadow); }
+#quiz-setup { max-width: 600px; }
 .setup-header h2, .support-header h2, .results-header h2, .segment-header h2 { color: var(--primary-color); font-weight: 700; margin-bottom: 10px; }
 .setup-subtitle, .support-subtitle, .results-subtitle, .segment-subtitle { color: var(--text-secondary); font-size: 1.1em; }
 .form-group { margin-bottom: 20px; }
 .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-primary); }
 .input-wrapper, .select-wrapper { position: relative; }
-input[type="text"], select {
-    width: 100%; padding: 12px 15px; font-size: 1em; color: var(--text-primary);
-    background-color: var(--page-bg); border: 1px solid var(--container-border);
-    border-radius: var(--border-radius-small); font-family: inherit; appearance: none;
-}
+input[type="text"], select { width: 100%; padding: 12px 15px; font-size: 1em; color: var(--text-primary); background-color: var(--page-bg); border: 1px solid var(--container-border); border-radius: var(--border-radius-small); font-family: inherit; appearance: none; }
 input::placeholder { color: var(--text-secondary); opacity: 0.8; }
 select:invalid { color: var(--text-secondary); }
 .input-icon, .select-arrow { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-secondary); }
-
-/* RESTORED: Form Feedback Styles */
 .form-feedback { font-size: 0.9em; margin-top: 5px; min-height: 20px; font-weight: 500; }
 .form-feedback.success { color: var(--success-color); }
 .form-feedback.error { color: var(--danger-color); }
-
-/* RESTORED: Form Actions for Start Quiz button */
 .form-actions { margin-top: 30px; }
 
 /* ==========================================================================
    6. Buttons
    ========================================================================== */
-.segment-btn, .nav-btn {
-    border: none; padding: 12px 25px; border-radius: var(--border-radius-small);
-    cursor: pointer; font-size: 1em; font-weight: 600; transition: var(--transition);
-    box-shadow: var(--element-shadow); display: inline-flex; align-items: center;
-    justify-content: center; gap: 8px; text-decoration: none;
-}
-.segment-btn { background: var(--gradient-primary); color: var(--text-on-primary-bg); width: 100%; }
+.segment-btn { border: none; padding: 14px 25px; border-radius: var(--border-radius-small); cursor: pointer; font-size: 1em; font-weight: 600; transition: var(--transition); box-shadow: var(--element-shadow); display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; background: var(--gradient-primary); color: var(--text-on-primary-bg); width: 100%; }
 .segment-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(81, 15, 100, 0.3); }
-.nav-btn { background-color: var(--container-bg); color: var(--text-primary); border: 1px solid var(--container-border); }
-.nav-btn:hover { border-color: var(--primary-color); color: var(--primary-color); }
 
 /* ==========================================================================
-   7. Other Component Styles
+   7. *** NEW: Segment Selection Screen Design ***
    ========================================================================== */
-.quick-stats {
-    margin-top: 30px; padding: 25px; background: var(--gradient-secondary);
-    border-radius: var(--border-radius); border: 1px solid var(--container-border);
-    display: flex; flex-direction: column; gap: 20px;
+.segment-block {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--container-border);
 }
-.stat-item { display: flex; align-items: center; gap: 15px; }
-.stat-number { font-size: 2em; font-weight: 700; color: var(--primary-color); min-width: 55px; text-align: right; }
-.stat-label { font-size: 1em; font-weight: 500; color: var(--text-secondary); }
-.back-link { margin-top: 30px; text-align: center; }
-.back-link a { color: var(--primary-color); text-decoration: none; font-weight: 600; padding: 10px 20px; border-radius: var(--border-radius-small); background-color: rgba(81, 15, 100, 0.1); transition: var(--transition); }
-.back-link a:hover { background-color: rgba(81, 15, 100, 0.2); }
+.segment-block:last-of-type {
+    border-bottom: none; /* No border for the last block */
+}
+.segment-title {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+.segment-details {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+.segment-details p { margin-bottom: 5px; }
+.segment-stats {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+}
+.back-link-wrapper {
+    text-align: center;
+    margin-top: 30px;
+}
+.back-link-btn {
+    color: var(--text-primary);
+    background-color: var(--page-bg);
+    border: 1px solid var(--container-border);
+    padding: 10px 25px;
+    border-radius: var(--border-radius-small);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition);
+}
+.back-link-btn:hover {
+    background-color: var(--container-border);
+}
 
 /* ==========================================================================
-   8. Quiz Interface Styles
+   8. Quiz Interface
    ========================================================================== */
 #quiz-info { display: flex; justify-content: space-between; align-items: center; color: var(--text-secondary); font-weight: 500; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--container-border); }
 #timer { font-weight: 700; color: var(--primary-color); }
@@ -180,13 +163,17 @@ body.dark-mode #timer { color: var(--accent-blue); }
 #navigation-area { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--container-border); }
 .question-counter { color: var(--text-secondary); font-weight: 500; }
 .quiz-nav-btn, .submit-btn { padding: 10px 25px; font-weight: 700; border-radius: 8px; border: none; cursor: pointer; transition: var(--transition); }
-.quiz-nav-btn { background-color: var(--quiz-nav-btn-bg); color: var(--quiz-nav-btn-text); }
+.quiz-nav-btn { background-color: var(--page-bg); color: var(--text-primary); border: 1px solid var(--container-border); }
 .quiz-nav-btn:hover { filter: brightness(95%); }
 .submit-btn { background: var(--primary-color); color: var(--text-on-primary-bg); }
 
 /* ==========================================================================
-   9. Footer
+   9. Footer & Other Components
    ========================================================================== */
+.quick-stats { margin-top: 30px; padding: 25px; background: var(--gradient-secondary); border-radius: var(--border-radius); border: 1px solid var(--container-border); display: flex; flex-direction: column; gap: 20px; }
+.stat-item { display: flex; align-items: center; gap: 15px; }
+.stat-number { font-size: 2em; font-weight: 700; color: var(--primary-color); min-width: 55px; text-align: right; }
+.stat-label { font-size: 1em; font-weight: 500; color: var(--text-secondary); }
 footer { text-align: center; margin-top: auto; padding: 20px; font-size: 0.9em; background: var(--gradient-primary); color: var(--text-on-primary-bg); opacity: 0.95; border-radius: var(--border-radius); }
 footer a { color: var(--text-on-primary-bg); opacity: 0.8; }
 footer a:hover { color: var(--pure-white); opacity: 1; }
@@ -211,4 +198,4 @@ footer a:hover { color: var(--pure-white); opacity: 1; }
     .question-counter { order: 1; }
     #next-btn, #submit-btn { order: 3; width: 100%; }
     .quiz-nav-btn { width: 100%; }
-}
+}```
