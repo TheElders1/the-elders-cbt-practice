@@ -8,12 +8,15 @@
 }
 
 /* ==========================================================================
-   2. Color & Theme Variables
+   2. Color & Theme Variables (Includes new variables for quiz)
    ========================================================================== */
 :root {
     --primary-color: #510F64;
     --primary-hover: #3C0B4A;
     --gradient-primary: linear-gradient(135deg, #510F64 0%, #3C0B4A 100%);
+    --accent-blue: #00bfff; /* For selected radio button */
+    
+    /* Light Mode */
     --page-bg: #f4f4f9;
     --container-bg: #ffffff;
     --container-border: #e0e0e0;
@@ -21,6 +24,10 @@
     --text-primary: #1a1a1a;
     --text-secondary: #555555;
     --text-on-primary-bg: #ffffff;
+    --quiz-nav-btn-bg: #e9ecef;
+    --quiz-nav-btn-text: #212529;
+
+    /* Universal */
     --success-color: #28a745;
     --danger-color: #dc3545;
     --pure-white: #ffffff;
@@ -32,18 +39,21 @@
 }
 
 body.dark-mode {
+    /* Dark Mode */
     --page-bg: #121212;
     --container-bg: #1e1e1e;
     --container-border: #3a3a3a;
     --gradient-secondary: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
     --text-primary: #f1f1f1;
     --text-secondary: #a0a0a0;
+    --quiz-nav-btn-bg: #ced4da; /* Light button for dark mode */
+    --quiz-nav-btn-text: #212529; /* Dark text on light button */
     --container-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
     --element-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 /* ==========================================================================
-   3. Base Layout & Typography
+   3. Base Layout & Typography (Your Code)
    ========================================================================== */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -64,7 +74,7 @@ body {
 }
 
 /* ==========================================================================
-   4. Header & Progress Bar
+   4. Header & Progress Bar (Your Code)
    ========================================================================== */
 header {
     background: var(--gradient-primary);
@@ -119,7 +129,7 @@ header p { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-on-primary-b
 .step-label { font-size: 0.9em; font-weight: 500; color: var(--text-primary); }
 
 /* ==========================================================================
-   5. Main Containers, Forms & Buttons
+   5. Main Containers, Forms & Buttons (Your Code)
    ========================================================================== */
 main, section#support-content {
     background-color: var(--container-bg);
@@ -155,25 +165,16 @@ select:invalid { color: var(--text-secondary); }
 .segment-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(81, 15, 100, 0.3); }
 
 /* ==========================================================================
-   6. New & Corrected Component Styles
+   6. Component Styles (Your Code)
    ========================================================================== */
-
-/* CORRECTED: Quick Stats Alignment */
 .quick-stats {
     margin-top: 30px; padding: 25px; background: var(--gradient-secondary);
     border-radius: var(--border-radius); border: 1px solid var(--container-border);
     display: flex; flex-direction: column; gap: 20px;
 }
-.stat-item {
-    display: flex; align-items: center; gap: 15px;
-}
-.stat-number {
-    font-size: 2em; font-weight: 700; color: var(--primary-color);
-    min-width: 55px; text-align: right;
-}
+.stat-item { display: flex; align-items: center; gap: 15px; }
+.stat-number { font-size: 2em; font-weight: 700; color: var(--primary-color); min-width: 55px; text-align: right; }
 .stat-label { font-size: 1em; font-weight: 500; color: var(--text-secondary); }
-
-/* NEW: Segment Card Design */
 .segment-cards { display: grid; gap: 25px; }
 .segment-card {
     display: flex; flex-direction: column; background: var(--page-bg);
@@ -181,38 +182,77 @@ select:invalid { color: var(--text-secondary); }
     padding: 20px; transition: var(--transition);
 }
 .segment-card:hover { transform: translateY(-5px); box-shadow: var(--container-shadow); }
-.segment-card-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 15px; border-bottom: 1px solid var(--container-border);
-    padding-bottom: 10px;
-}
+.segment-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--container-border); padding-bottom: 10px; }
 .segment-card-header h3 { color: var(--text-primary); font-size: 1.2em; }
-.segment-badge {
-    background: var(--primary-color); color: var(--pure-white);
-    font-size: 0.8em; font-weight: 600; padding: 4px 10px;
-    border-radius: 20px;
-}
+.segment-badge { background: var(--primary-color); color: var(--pure-white); font-size: 0.8em; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
 .segment-card-body { margin-bottom: 20px; flex-grow: 1; color: var(--text-secondary); }
 .segment-description { margin-top: 5px; font-style: italic; }
-.segment-stats {
-    display: flex; gap: 20px; margin-top: 15px;
-    font-size: 0.9em; font-weight: 500;
-}
-
-/* CORRECTED: Centralized Back Link */
-.back-link {
-    margin-top: 30px;
-    text-align: center; /* This is the key fix */
-}
-.back-link a {
-    color: var(--primary-color); text-decoration: none; font-weight: 600;
-    padding: 10px 20px; border-radius: var(--border-radius-small);
-    background-color: rgba(81, 15, 100, 0.1); transition: var(--transition);
-}
+.segment-stats { display: flex; gap: 20px; margin-top: 15px; font-size: 0.9em; font-weight: 500; }
+.back-link { margin-top: 30px; text-align: center; }
+.back-link a { color: var(--primary-color); text-decoration: none; font-weight: 600; padding: 10px 20px; border-radius: var(--border-radius-small); background-color: rgba(81, 15, 100, 0.1); transition: var(--transition); }
 .back-link a:hover { background-color: rgba(81, 15, 100, 0.2); }
 
 /* ==========================================================================
-   7. Footer
+   7. *** ADDED: New Quiz Interface Styles ***
+   ========================================================================== */
+#quiz-info {
+    display: flex; justify-content: space-between; align-items: center;
+    color: var(--text-secondary); font-weight: 500; margin-bottom: 15px;
+    padding-bottom: 15px; border-bottom: 1px solid var(--container-border);
+}
+#timer { font-weight: 700; color: var(--primary-color); }
+body.dark-mode #timer { color: var(--accent-blue); }
+
+#question-area { margin: 25px 0; }
+#question-text { font-size: clamp(1.1rem, 3vw, 1.4rem); font-weight: 600; line-height: 1.5; }
+
+/* Custom Radio Buttons */
+#options-container { display: flex; flex-direction: column; gap: 15px; }
+.option {
+    display: block; position: relative;
+    padding: 12px 15px 12px 45px;
+    border: 1px solid var(--container-border);
+    border-radius: var(--border-radius-small);
+    cursor: pointer; transition: var(--transition);
+}
+.option:hover { background-color: rgba(128, 128, 128, 0.1); }
+.option input[type="radio"] { display: none; }
+.option label { font-size: 1rem; color: var(--text-primary); }
+
+.option label::before {
+    content: ''; position: absolute; left: 15px; top: 50%;
+    transform: translateY(-50%); width: 20px; height: 20px;
+    border-radius: 50%; border: 2px solid var(--text-secondary); transition: var(--transition);
+}
+.option label::after {
+    content: ''; position: absolute; left: 20px; top: 50%;
+    transform: translateY(-50%) scale(0); width: 10px; height: 10px;
+    border-radius: 50%; background-color: var(--accent-blue); transition: var(--transition);
+}
+.option input:checked + label::before { border-color: var(--accent-blue); }
+.option input:checked + label::after { transform: translateY(-50%) scale(1); }
+.option:has(input:checked) {
+    border-color: var(--accent-blue);
+    background-color: rgba(0, 191, 255, 0.1);
+}
+
+/* Quiz Navigation */
+#navigation-area {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--container-border);
+}
+.question-counter { color: var(--text-secondary); font-weight: 500; }
+.quiz-nav-btn, .submit-btn {
+    padding: 10px 25px; font-weight: 700;
+    border-radius: 8px; border: none; cursor: pointer;
+    transition: var(--transition);
+}
+.quiz-nav-btn { background-color: var(--quiz-nav-btn-bg); color: var(--quiz-nav-btn-text); }
+.quiz-nav-btn:hover { filter: brightness(95%); }
+.submit-btn { background: var(--primary-color); color: var(--text-on-primary-bg); }
+
+/* ==========================================================================
+   8. Footer (Your Code)
    ========================================================================== */
 footer {
     text-align: center; margin-top: auto; padding: 20px; font-size: 0.9em;
@@ -223,7 +263,7 @@ footer a { color: var(--text-on-primary-bg); opacity: 0.8; }
 footer a:hover { color: var(--pure-white); opacity: 1; }
 
 /* ==========================================================================
-   8. Responsive Adjustments
+   9. Responsive Adjustments (Your Code, with quiz nav added)
    ========================================================================== */
 @media (max-width: 768px) {
     body { padding: 15px; }
@@ -237,19 +277,20 @@ footer a:hover { color: var(--pure-white); opacity: 1; }
 @media (max-width: 600px) {
     body { padding: 10px; }
     
-    /* CORRECTED: Progress Bar layout on mobile */
-    .progress-bar {
-        justify-content: space-evenly; /* Evenly space the numbers */
-    }
-    .progress-step {
-        padding: 0 5px; /* Reduce padding to bring them closer */
-    }
-    .step-label {
-        display: none; /* Hide labels to prevent crowding */
-    }
-    .progress-bar::before {
-        left: 15%; right: 15%; /* Adjust line to fit */
-    }
+    .progress-bar { justify-content: space-evenly; }
+    .progress-step { padding: 0 5px; }
+    .step-label { display: none; }
+    .progress-bar::before { left: 15%; right: 15%; }
     
     .footer-links { flex-direction: column; gap: 10px; }
+
+    /* Added: Responsive quiz navigation */
+    #navigation-area {
+        flex-direction: column;
+        gap: 15px;
+    }
+    #prev-btn { order: 2; }
+    .question-counter { order: 1; }
+    #next-btn, #submit-btn { order: 3; width: 100%; }
+    .quiz-nav-btn { width: 100%; }
 }
