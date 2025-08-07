@@ -11,10 +11,13 @@
    2. Color & Theme Variables
    ========================================================================== */
 :root {
+    /* Brand & Accent Colors */
     --primary-color: #510F64;
     --primary-hover: #3C0B4A;
     --gradient-primary: linear-gradient(135deg, #510F64 0%, #3C0B4A 100%);
-    --accent-blue: #00bfff;
+    --accent-blue: #00bfff; /* For selected quiz options */
+
+    /* Light Mode Palette */
     --page-bg: #f4f4f9;
     --container-bg: #ffffff;
     --container-border: #e0e0e0;
@@ -22,9 +25,13 @@
     --text-primary: #1a1a1a;
     --text-secondary: #555555;
     --text-on-primary-bg: #ffffff;
+    
+    /* Universal UI Colors */
     --success-color: #28a745;
     --danger-color: #dc3545;
     --pure-white: #ffffff;
+    
+    /* Sizing & Effects */
     --border-radius: 12px;
     --border-radius-small: 8px;
     --transition: all 0.3s ease;
@@ -33,6 +40,7 @@
 }
 
 body.dark-mode {
+    /* Dark Mode Palette */
     --page-bg: #121212;
     --container-bg: #1e1e1e;
     --container-border: #3a3a3a;
@@ -77,13 +85,13 @@ header p { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-on-primary-b
 .step-label { font-size: 0.9em; font-weight: 500; color: var(--text-primary); }
 
 /* ==========================================================================
-   5. Main Containers & Forms
+   5. Main Containers, Forms & Setup Page
    ========================================================================== */
 main, section#support-content { background-color: var(--container-bg); padding: clamp(15px, 4vw, 30px); border-radius: var(--border-radius); border: 1px solid var(--container-border); max-width: 800px; margin: 0 auto 20px auto; box-shadow: var(--container-shadow); }
 #quiz-setup { max-width: 600px; }
-.setup-header, .segment-header { text-align: center; margin-bottom: 25px; }
-.setup-header h2, .segment-header h2 { color: var(--primary-color); font-weight: 700; margin-bottom: 10px; }
-.setup-subtitle, .segment-subtitle { color: var(--text-secondary); font-size: 1.1em; }
+.setup-header, .segment-header, .results-header { text-align: center; margin-bottom: 25px; }
+.setup-header h2, .segment-header h2, .results-header h2 { color: var(--primary-color); font-weight: 700; margin-bottom: 10px; }
+.setup-subtitle, .segment-subtitle, .results-subtitle { color: var(--text-secondary); font-size: 1.1em; }
 .form-group { margin-bottom: 20px; }
 .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-primary); }
 .input-wrapper, .select-wrapper { position: relative; }
@@ -95,31 +103,31 @@ select:invalid { color: var(--text-secondary); }
 .form-feedback.success { color: var(--success-color); }
 .form-feedback.error { color: var(--danger-color); }
 .form-actions { margin-top: 30px; }
-
-/* ==========================================================================
-   6. Buttons & Links
-   ========================================================================== */
-.segment-btn, .nav-btn { border: none; padding: 12px 25px; border-radius: var(--border-radius-small); cursor: pointer; font-size: 1em; font-weight: 600; transition: var(--transition); box-shadow: var(--element-shadow); display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
-.segment-btn { background: var(--gradient-primary); color: var(--text-on-primary-bg); width: 100%; }
-.segment-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(81, 15, 100, 0.3); }
-.nav-btn { background-color: var(--container-bg); color: var(--text-primary); border: 1px solid var(--container-border); }
-.nav-btn:hover { border-color: var(--primary-color); color: var(--primary-color); }
-.segment-actions { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
-.back-link-wrapper { text-align: center; }
-.back-link-btn { color: var(--text-primary); background-color: var(--page-bg); border: 1px solid var(--container-border); padding: 10px 25px; border-radius: var(--border-radius-small); text-decoration: none; font-weight: 600; transition: var(--transition); }
-.back-link-btn:hover { background-color: var(--container-border); }
-
-/* ==========================================================================
-   7. Other Components
-   ========================================================================== */
 .quick-stats { margin-top: 30px; padding: 25px; background: var(--gradient-secondary); border-radius: var(--border-radius); border: 1px solid var(--container-border); display: flex; flex-direction: column; gap: 20px; }
 .stat-item { display: flex; align-items: center; gap: 15px; }
 .stat-number { font-size: 2em; font-weight: 700; color: var(--primary-color); min-width: 55px; text-align: right; }
 .stat-label { font-size: 1em; font-weight: 500; color: var(--text-secondary); }
 
 /* ==========================================================================
-   8. Quiz Interface
+   6. Buttons & Links
    ========================================================================== */
+.segment-btn, .nav-btn, .quiz-nav-btn, .submit-btn { border: none; padding: 12px 25px; border-radius: var(--border-radius-small); cursor: pointer; font-size: 1em; font-weight: 600; transition: var(--transition); box-shadow: var(--element-shadow); display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+.segment-btn { background: var(--gradient-primary); color: var(--text-on-primary-bg); width: 100%; }
+.segment-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(81, 15, 100, 0.3); }
+.nav-btn { background-color: var(--container-bg); color: var(--text-primary); border: 1px solid var(--container-border); } /* General nav button (like theme toggle) */
+.nav-btn:hover { border-color: var(--primary-color); color: var(--primary-color); }
+.segment-actions { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
+.back-link-wrapper { text-align: center; margin-top: 20px; }
+.back-link-btn { color: var(--text-primary); background-color: var(--page-bg); border: 1px solid var(--container-border); padding: 10px 25px; border-radius: var(--border-radius-small); text-decoration: none; font-weight: 600; transition: var(--transition); }
+.back-link-btn:hover { background-color: var(--container-border); }
+
+/* ==========================================================================
+   7. Quiz Interface & Results
+   ========================================================================== */
+.quiz-progress-container { margin-bottom: 20px; }
+.quiz-progress-bar { width: 100%; height: 8px; background: var(--container-border); border-radius: 4px; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: var(--gradient-primary); width: 0%; transition: width 0.3s ease; }
+#progress-percentage { text-align: right; font-size: 0.9em; font-weight: 600; color: var(--primary-color); }
 #quiz-info { display: flex; justify-content: space-between; align-items: center; color: var(--text-secondary); font-weight: 500; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--container-border); }
 #timer { font-weight: 700; color: var(--primary-color); }
 body.dark-mode #timer { color: var(--accent-blue); }
@@ -137,20 +145,32 @@ body.dark-mode #timer { color: var(--accent-blue); }
 .option:has(input:checked) { border-color: var(--accent-blue); background-color: rgba(0, 191, 255, 0.1); }
 #navigation-area { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--container-border); }
 .question-counter { color: var(--text-secondary); font-weight: 500; }
-.quiz-nav-btn, .submit-btn { padding: 10px 25px; font-weight: 700; border-radius: 8px; border: none; cursor: pointer; transition: var(--transition); }
-.quiz-nav-btn { background-color: var(--page-bg); color: var(--text-primary); border: 1px solid var(--container-border); }
+.quiz-nav-btn { padding: 10px 25px; background-color: var(--page-bg); color: var(--text-primary); border: 1px solid var(--container-border); }
 .quiz-nav-btn:hover { filter: brightness(95%); }
 .submit-btn { background: var(--primary-color); color: var(--text-on-primary-bg); }
+.submit-btn:disabled, .quiz-nav-btn:disabled { background-color: var(--container-border); color: var(--text-secondary); cursor: not-allowed; }
+.results-header .results-icon { font-size: 3em; }
+.score-display { text-align: center; margin: 20px 0; }
+.score-circle { width: 120px; height: 120px; border-radius: 50%; background: var(--gradient-primary); color: white; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 15px; }
+#score-percentage { font-size: 2em; font-weight: 700; }
+#score-text { font-size: 1.2em; font-weight: 600; }
+#feedback-text { font-size: 1.1em; color: var(--text-secondary); font-style: italic; }
+.results-actions { display: flex; flex-direction: column; gap: 15px; margin: 20px 0; }
+#detailed-results { margin-top: 30px; border-top: 1px solid var(--container-border); padding-top: 20px; }
+.result-item { margin-bottom: 15px; padding: 10px; border-left: 4px solid var(--danger-color); background-color: rgba(220, 53, 69, 0.1); }
+.result-item.correct { border-left-color: var(--success-color); background-color: rgba(40, 167, 69, 0.1); }
+.result-item p { margin: 5px 0; }
+.correct-answer { font-weight: bold; }
 
 /* ==========================================================================
-   9. Footer
+   8. Footer
    ========================================================================== */
 footer { text-align: center; margin-top: auto; padding: 20px; font-size: 0.9em; background: var(--gradient-primary); color: var(--text-on-primary-bg); opacity: 0.95; border-radius: var(--border-radius); }
-footer a { color: var(--text-on-primary-bg); opacity: 0.8; }
+footer a { color: var(--text-on-primary-bg); opacity: 0.8; margin: 0 10px; }
 footer a:hover { color: var(--pure-white); opacity: 1; }
 
 /* ==========================================================================
-   10. Responsive Adjustments
+   9. Responsive Adjustments
    ========================================================================== */
 @media (max-width: 768px) {
     body { padding: 15px; }
@@ -163,10 +183,10 @@ footer a:hover { color: var(--pure-white); opacity: 1; }
     .progress-step { padding: 0 5px; }
     .step-label { display: none; }
     .progress-bar::before { left: 15%; right: 15%; }
-    .footer-links { flex-direction: column; gap: 10px; }
     #navigation-area { flex-direction: column; gap: 15px; }
     #prev-btn { order: 2; }
     .question-counter { order: 1; }
     #next-btn, #submit-btn { order: 3; width: 100%; }
     .quiz-nav-btn { width: 100%; }
-}
+    footer a { margin: 5px 10px; }
+}```
