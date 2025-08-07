@@ -32,7 +32,7 @@
     --pure-white: #ffffff;
     
     /* Sizing & Effects */
-    --border-radius: 16px; /* Slightly larger radius */
+    --border-radius: 16px;
     --border-radius-small: 10px;
     --transition: all 0.3s ease;
     --container-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
@@ -112,153 +112,98 @@ input[type="text"], select { width: 100%; padding: 12px 15px; font-size: 1em; co
 .back-link-btn:hover { background-color: var(--container-border); }
 
 /* ==========================================================================
-   7. *** ADVANCED QUIZ INTERFACE DESIGN ***
+   7. ADVANCED QUIZ INTERFACE DESIGN
    ========================================================================== */
 #quiz-host {
-    /* Remove default main container styling for the quiz host */
-    background: none;
-    border: none;
-    box-shadow: none;
-    padding: 0;
+    background: none; border: none; box-shadow: none; padding: 0;
 }
 #quiz-container {
-    background: var(--glass-bg);
-    border: 1px solid var(--container-border);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: var(--container-shadow);
-    border-radius: var(--border-radius);
+    background: var(--glass-bg); border: 1px solid var(--container-border);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--container-shadow); border-radius: var(--border-radius);
     padding: clamp(20px, 4vw, 40px);
 }
+.quiz-progress-container { margin-bottom: 20px; }
+.quiz-progress-bar { width: 100%; height: 8px; background: var(--container-border); border-radius: 4px; overflow: hidden; }
+.quiz-progress-fill { height: 100%; background: var(--gradient-primary); width: 0%; transition: width 0.3s ease; }
+#progress-percentage { text-align: right; font-size: 0.9em; font-weight: 600; color: var(--primary-color); }
+#quiz-info { display: flex; justify-content: space-between; align-items: center; color: var(--text-secondary); font-weight: 500; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--container-border); }
+#timer { font-weight: 700; color: var(--primary-color); }
+body.dark-mode #timer { color: var(--accent-blue); }
 #question-area { margin: 30px 0; }
 #question-text { font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 700; line-height: 1.5; text-align: center; }
-
-/* Custom Quiz Options */
-#options-container {
-    display: grid;
-    gap: 15px;
-    counter-reset: options-counter; /* Initialize a counter */
-}
-.option {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    border: 1px solid var(--container-border);
-    border-radius: var(--border-radius-small);
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    background: var(--page-bg);
-}
-.option:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--element-shadow);
-    border-color: var(--primary-color);
-}
-.option input[type="radio"] { display: none; } /* Hide original radio */
-.option label {
-    font-size: 1rem;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    width: 100%;
-    cursor: pointer;
-}
-.option label::before {
-    counter-increment: options-counter;
-    content: counter(options-counter, upper-alpha); /* A, B, C, D */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    border: 2px solid var(--text-secondary);
-    color: var(--text-secondary);
-    font-weight: 700;
-    margin-right: 15px;
-    flex-shrink: 0;
-    transition: var(--transition);
-}
-.option:has(input:checked) {
-    border-color: var(--primary-color);
-    background-color: rgba(81, 15, 100, 0.1);
-}
-.option:has(input:checked) label::before {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-    color: var(--pure-white);
-}
-
-/* Advanced Navigation Area */
-#navigation-area {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid var(--container-border);
-}
-.quiz-nav-btn, .submit-btn {
-    padding: 12px 30px;
-    font-weight: 700;
-    border-radius: var(--border-radius-small);
-    border: none;
-    cursor: pointer;
-    transition: var(--transition);
-}
-#prev-btn {
-    background-color: transparent;
-    color: var(--text-secondary);
-    border: 2px solid var(--container-border);
-}
-#prev-btn:hover {
-    background-color: var(--page-bg);
-    color: var(--text-primary);
-    border-color: var(--text-primary);
-}
-#next-btn {
-    background: var(--gradient-primary);
-    color: var(--text-on-primary-bg);
-    box-shadow: 0 4px 15px rgba(81, 15, 100, 0.3);
-}
-#next-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(81, 15, 100, 0.4);
-}
-.submit-btn {
-    background-color: var(--success-color);
-    color: var(--pure-white);
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-}
+#options-container { display: grid; gap: 15px; counter-reset: options-counter; }
+.option { display: flex; align-items: center; padding: 15px; border: 1px solid var(--container-border); border-radius: var(--border-radius-small); cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; background: var(--page-bg); }
+.option:hover { transform: translateY(-3px); box-shadow: var(--element-shadow); border-color: var(--primary-color); }
+.option input[type="radio"] { display: none; }
+.option label { font-size: 1rem; color: var(--text-primary); display: flex; align-items: center; width: 100%; cursor: pointer; }
+.option label::before { counter-increment: options-counter; content: counter(options-counter, upper-alpha); display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--text-secondary); color: var(--text-secondary); font-weight: 700; margin-right: 15px; flex-shrink: 0; transition: var(--transition); }
+.option:has(input:checked) { border-color: var(--primary-color); background-color: rgba(81, 15, 100, 0.1); }
+.option:has(input:checked) label::before { background-color: var(--primary-color); border-color: var(--primary-color); color: var(--pure-white); }
+#navigation-area { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--container-border); }
+.question-counter { color: var(--text-secondary); font-weight: 500; }
+.quiz-nav-btn, .submit-btn { padding: 12px 30px; font-weight: 700; border-radius: var(--border-radius-small); border: none; cursor: pointer; transition: var(--transition); }
+#prev-btn { background-color: transparent; color: var(--text-secondary); border: 2px solid var(--container-border); }
+#prev-btn:hover { background-color: var(--page-bg); color: var(--text-primary); border-color: var(--text-primary); }
+#next-btn { background: var(--gradient-primary); color: var(--text-on-primary-bg); box-shadow: 0 4px 15px rgba(81, 15, 100, 0.3); }
+#next-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(81, 15, 100, 0.4); }
+.submit-btn { background-color: var(--success-color); color: var(--pure-white); box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3); }
+.submit-btn:disabled, .quiz-nav-btn:disabled { background-color: var(--container-border); color: var(--text-secondary); cursor: not-allowed; box-shadow: none; transform: none; }
 
 /* ==========================================================================
-   8. Results & Other Pages
+   8. Results, Footer & Other Components
    ========================================================================== */
-#results-container {
-    background: var(--glass-bg);
-    border: 1px solid var(--container-border);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: var(--container-shadow);
-    border-radius: var(--border-radius);
-    padding: clamp(20px, 4vw, 40px);
-}
+#results-container { background: var(--glass-bg); border: 1px solid var(--container-border); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: var(--container-shadow); border-radius: var(--border-radius); padding: clamp(20px, 4vw, 40px); }
+.results-header .results-icon { font-size: 3em; }
+.score-display { display: flex; align-items: center; justify-content: center; text-align: left; gap: 20px; margin: 20px 0; }
+.score-circle { width: 100px; height: 100px; border-radius: 50%; background: var(--gradient-primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.8em; font-weight: 700; flex-shrink: 0; }
+#score-text { font-size: 1.2em; font-weight: 600; }
+#feedback-text { font-size: 1.1em; color: var(--text-secondary); font-style: italic; }
+.results-actions { display: flex; flex-direction: column; gap: 15px; margin: 20px 0; }
+#detailed-results { margin-top: 30px; border-top: 1px solid var(--container-border); padding-top: 20px; }
+.result-item { margin-bottom: 15px; padding: 10px; border-left: 4px solid var(--danger-color); background-color: rgba(220, 53, 69, 0.1); }
+.result-item.correct { border-left-color: var(--success-color); background-color: rgba(40, 167, 69, 0.1); }
+.result-item p { margin: 5px 0; }
+.correct-answer { font-weight: bold; }
+footer { text-align: center; margin-top: auto; padding: 20px; font-size: 0.9em; background: var(--gradient-primary); color: var(--text-on-primary-bg); opacity: 0.95; border-radius: var(--border-radius); }
+footer a { color: var(--text-on-primary-bg); opacity: 0.8; margin: 0 10px; text-decoration: none; }
+footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underline; }
+
+/* ==========================================================================
+   9. ADVANCED STATIC PAGE DESIGNS (Contact, About, Help)
+   ========================================================================== */
 .page-header, .page-section { text-align: center; margin-bottom: 40px; }
+.page-section.text-center { max-width: 700px; margin-left: auto; margin-right: auto; }
+.page-header h2, .page-section h2 { font-size: 2em; color: var(--primary-color); margin-bottom: 10px; }
+.page-header p, .section-subtitle { font-size: 1.1em; color: var(--text-secondary); }
 .advanced-card { background-color: var(--page-bg); border: 1px solid var(--container-border); border-radius: var(--border-radius); padding: 25px; text-align: center; transition: var(--transition); }
 .advanced-card:hover { transform: translateY(-5px); box-shadow: var(--container-shadow); }
 .card-icon { font-size: 2.5em; margin-bottom: 15px; line-height: 1; }
 .advanced-card h3 { font-size: 1.3em; margin-bottom: 10px; color: var(--text-primary); }
+.advanced-card p { color: var(--text-secondary); line-height: 1.7; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+.card-description { margin-bottom: 20px; min-height: 60px; }
+.card-details { text-align: left; color: var(--text-secondary); }
+.card-details p { margin-bottom: 10px; }
+.copy-container { display: flex; justify-content: space-between; align-items: center; }
+.copy-btn { padding: 5px 12px; border: 1px solid var(--container-border); background-color: var(--container-bg); color: var(--text-primary); border-radius: var(--border-radius-small); cursor: pointer; font-weight: 600; }
+.copy-btn.copied { background-color: var(--success-color); color: var(--pure-white); border-color: var(--success-color); }
+.card-actions { display: flex; flex-direction: column; gap: 15px; }
+.action-btn { padding: 12px; border-radius: var(--border-radius-small); text-decoration: none; font-weight: 600; color: var(--pure-white); transition: var(--transition); }
+.whatsapp-btn { background-color: #25D366; }
+.phone-btn { background-color: #34B7F1; }
+.action-btn:hover { filter: brightness(110%); }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 20px; }
 .faq-container { max-width: 750px; margin: 0 auto; }
 .faq-item { border-bottom: 1px solid var(--container-border); }
 .faq-question { width: 100%; background: none; border: none; padding: 20px; text-align: left; font-size: 1.1em; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--text-primary); }
+.faq-question:hover { background-color: rgba(128, 128, 128, 0.05); }
+.faq-icon { font-size: 1.5em; font-weight: 300; color: var(--primary-color); transition: transform 0.2s ease; }
+.faq-question.active .faq-icon { transform: rotate(45deg); }
 .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding: 0 20px; }
-
-/* ==========================================================================
-   9. Footer
-   ========================================================================== */
-footer { text-align: center; margin-top: auto; padding: 20px; font-size: 0.9em; background: var(--gradient-primary); color: var(--text-on-primary-bg); opacity: 0.95; border-radius: var(--border-radius); }
-footer a { color: var(--text-on-primary-bg); opacity: 0.8; margin: 0 10px; text-decoration: none; }
-footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underline; }
+.faq-answer p { padding-bottom: 20px; color: var(--text-secondary); line-height: 1.8; }
+.faq-answer a { color: var(--primary-color); font-weight: 600; text-decoration: none; }
+.faq-answer a:hover { text-decoration: underline; }
 
 /* ==========================================================================
    10. Responsive Adjustments
@@ -267,6 +212,7 @@ footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underlin
     body { padding: 15px; }
     .header-content { flex-direction: column; gap: 15px; text-align: center; position: relative; }
     #theme-toggle { position: absolute; top: 15px; right: 15px; width: auto; }
+    .contact-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
     body { padding: 10px; }
@@ -278,4 +224,6 @@ footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underlin
     #prev-btn { order: 2; }
     .question-counter { order: 1; }
     #next-btn, .submit-btn { order: 3; }
+    .footer-links { flex-direction: column; gap: 10px; text-align: center; }
+    .score-display { flex-direction: column; text-align: center; }
 }
