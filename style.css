@@ -1,7 +1,11 @@
 /* ==========================================================================
    1. Basic Reset & Global Styles
    ========================================================================== */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 /* ==========================================================================
    2. Color & Theme Variables
@@ -46,8 +50,11 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: var(--page-bg);
     color: var(--text-primary);
-    line-height: 1.6; padding: 20px; display: flex;
-    flex-direction: column; min-height: 100vh;
+    line-height: 1.6;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 *:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
 
@@ -74,8 +81,9 @@ header p { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-on-primary-b
    ========================================================================== */
 main, section#support-content { background-color: var(--container-bg); padding: clamp(15px, 4vw, 30px); border-radius: var(--border-radius); border: 1px solid var(--container-border); max-width: 800px; margin: 0 auto 20px auto; box-shadow: var(--container-shadow); }
 #quiz-setup { max-width: 600px; }
-.setup-header h2, .support-header h2, .results-header h2, .segment-header h2 { color: var(--primary-color); font-weight: 700; margin-bottom: 10px; }
-.setup-subtitle, .support-subtitle, .results-subtitle, .segment-subtitle { color: var(--text-secondary); font-size: 1.1em; }
+.setup-header, .segment-header { text-align: center; margin-bottom: 25px; }
+.setup-header h2, .segment-header h2 { color: var(--primary-color); font-weight: 700; margin-bottom: 10px; }
+.setup-subtitle, .segment-subtitle { color: var(--text-secondary); font-size: 1.1em; }
 .form-group { margin-bottom: 20px; }
 .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-primary); }
 .input-wrapper, .select-wrapper { position: relative; }
@@ -89,58 +97,25 @@ select:invalid { color: var(--text-secondary); }
 .form-actions { margin-top: 30px; }
 
 /* ==========================================================================
-   6. Buttons
+   6. Buttons & Links
    ========================================================================== */
-.segment-btn { border: none; padding: 14px 25px; border-radius: var(--border-radius-small); cursor: pointer; font-size: 1em; font-weight: 600; transition: var(--transition); box-shadow: var(--element-shadow); display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; background: var(--gradient-primary); color: var(--text-on-primary-bg); width: 100%; }
+.segment-btn, .nav-btn { border: none; padding: 12px 25px; border-radius: var(--border-radius-small); cursor: pointer; font-size: 1em; font-weight: 600; transition: var(--transition); box-shadow: var(--element-shadow); display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+.segment-btn { background: var(--gradient-primary); color: var(--text-on-primary-bg); width: 100%; }
 .segment-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(81, 15, 100, 0.3); }
+.nav-btn { background-color: var(--container-bg); color: var(--text-primary); border: 1px solid var(--container-border); }
+.nav-btn:hover { border-color: var(--primary-color); color: var(--primary-color); }
+.segment-actions { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
+.back-link-wrapper { text-align: center; }
+.back-link-btn { color: var(--text-primary); background-color: var(--page-bg); border: 1px solid var(--container-border); padding: 10px 25px; border-radius: var(--border-radius-small); text-decoration: none; font-weight: 600; transition: var(--transition); }
+.back-link-btn:hover { background-color: var(--container-border); }
 
 /* ==========================================================================
-   7. *** NEW: Segment Selection Screen Design ***
+   7. Other Components
    ========================================================================== */
-.segment-block {
-    padding: 20px 0;
-    border-bottom: 1px solid var(--container-border);
-}
-.segment-block:last-of-type {
-    border-bottom: none; /* No border for the last block */
-}
-.segment-title {
-    font-size: 1.5em;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 10px;
-}
-.segment-details {
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: 15px;
-}
-.segment-details p { margin-bottom: 5px; }
-.segment-stats {
-    display: flex;
-    gap: 20px;
-    font-size: 0.9em;
-    font-weight: 500;
-    color: var(--text-secondary);
-    margin-bottom: 20px;
-}
-.back-link-wrapper {
-    text-align: center;
-    margin-top: 30px;
-}
-.back-link-btn {
-    color: var(--text-primary);
-    background-color: var(--page-bg);
-    border: 1px solid var(--container-border);
-    padding: 10px 25px;
-    border-radius: var(--border-radius-small);
-    text-decoration: none;
-    font-weight: 600;
-    transition: var(--transition);
-}
-.back-link-btn:hover {
-    background-color: var(--container-border);
-}
+.quick-stats { margin-top: 30px; padding: 25px; background: var(--gradient-secondary); border-radius: var(--border-radius); border: 1px solid var(--container-border); display: flex; flex-direction: column; gap: 20px; }
+.stat-item { display: flex; align-items: center; gap: 15px; }
+.stat-number { font-size: 2em; font-weight: 700; color: var(--primary-color); min-width: 55px; text-align: right; }
+.stat-label { font-size: 1em; font-weight: 500; color: var(--text-secondary); }
 
 /* ==========================================================================
    8. Quiz Interface
@@ -168,12 +143,8 @@ body.dark-mode #timer { color: var(--accent-blue); }
 .submit-btn { background: var(--primary-color); color: var(--text-on-primary-bg); }
 
 /* ==========================================================================
-   9. Footer & Other Components
+   9. Footer
    ========================================================================== */
-.quick-stats { margin-top: 30px; padding: 25px; background: var(--gradient-secondary); border-radius: var(--border-radius); border: 1px solid var(--container-border); display: flex; flex-direction: column; gap: 20px; }
-.stat-item { display: flex; align-items: center; gap: 15px; }
-.stat-number { font-size: 2em; font-weight: 700; color: var(--primary-color); min-width: 55px; text-align: right; }
-.stat-label { font-size: 1em; font-weight: 500; color: var(--text-secondary); }
 footer { text-align: center; margin-top: auto; padding: 20px; font-size: 0.9em; background: var(--gradient-primary); color: var(--text-on-primary-bg); opacity: 0.95; border-radius: var(--border-radius); }
 footer a { color: var(--text-on-primary-bg); opacity: 0.8; }
 footer a:hover { color: var(--pure-white); opacity: 1; }
@@ -198,4 +169,4 @@ footer a:hover { color: var(--pure-white); opacity: 1; }
     .question-counter { order: 1; }
     #next-btn, #submit-btn { order: 3; width: 100%; }
     .quiz-nav-btn { width: 100%; }
-}```
+}
