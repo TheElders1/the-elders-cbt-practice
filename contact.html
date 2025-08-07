@@ -23,37 +23,36 @@
     </header>
 
     <main id="contact-page">
-        <div class="support-header">
-            <h2>Support the Project</h2>
-            <p class="support-subtitle">If you find this tool helpful, your support is greatly appreciated.</p>
+        <div class="page-header">
+            <h2>We're Here to Help</h2>
+            <p>Choose a contact method or consider supporting our mission.</p>
         </div>
 
-        <div class="contact-card">
-            <h3>Financial Support</h3>
-            <div class="detail-item">
-                <span>Bank Name:</span>
-                <span>Moniepoint</span>
+        <div class="contact-grid">
+            <!-- Financial Support Card -->
+            <div class="advanced-card">
+                <div class="card-icon">💳</div>
+                <h3>Financial Support</h3>
+                <p class="card-description">Your support helps us maintain and improve this platform for everyone.</p>
+                <div class="card-details">
+                    <p><strong>Bank:</strong> Moniepoint</p>
+                    <p><strong>Name:</strong> Samuel Daniel Bassey</p>
+                    <div class="copy-container">
+                        <p><strong>Account:</strong> 5554267465</p>
+                        <button class="copy-btn" onclick="copyToClipboard('5554267465', this)">Copy</button>
+                    </div>
+                </div>
             </div>
-            <div class="detail-item">
-                <span>Account Name:</span>
-                <span>Samuel Daniel Bassey</span>
-            </div>
-            <div class="detail-item copy-container">
-                <span>Account Number:</span>
-                <span id="account-number" class="copyable-text">5554267465</span>
-                <button class="copy-btn" onclick="copyToClipboard('5554267465', this)">Copy</button>
-            </div>
-        </div>
 
-        <div class="contact-card">
-            <h3>General Inquiries</h3>
-             <div class="detail-item">
-                <span>WhatsApp:</span>
-                <a href="https://wa.me/2348162638106" class="contact-link">08162638106</a>
-            </div>
-            <div class="detail-item">
-                <span>Phone:</span>
-                <a href="tel:+2347045900244" class="contact-link">07045900244</a>
+            <!-- General Inquiries Card -->
+            <div class="advanced-card">
+                <div class="card-icon">💬</div>
+                <h3>General Inquiries</h3>
+                <p class="card-description">For questions, feedback, or issues, please reach out via WhatsApp or phone.</p>
+                <div class="card-actions">
+                    <a href="https://wa.me/2348162638106" class="action-btn whatsapp-btn">Message on WhatsApp</a>
+                    <a href="tel:+2347045900244" class="action-btn phone-btn">Call Us</a>
+                </div>
             </div>
         </div>
     </main>
@@ -69,36 +68,17 @@
         </div>
     </footer>
 
-    <!-- Small, isolated script for theme and copy functionality -->
+    <script src="main.js" defer></script>
     <script>
-        // Theme toggler
-        const themeBtn = document.getElementById('theme-toggle');
-        const applyTheme = () => {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-                if(themeBtn) themeBtn.innerHTML = '☀️';
-            } else {
-                document.body.classList.remove('dark-mode');
-                if(themeBtn) themeBtn.innerHTML = '🌙';
-            }
-        };
-        themeBtn.addEventListener('click', () => {
-            let newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
-            localStorage.setItem('theme', newTheme);
-            applyTheme();
-        });
-        applyTheme();
-
-        // Copy functionality
+        // Page-specific script for copy-to-clipboard
         function copyToClipboard(text, btn) {
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = btn.textContent;
                 btn.textContent = 'Copied!';
-                btn.style.backgroundColor = 'var(--success-color)';
+                btn.classList.add('copied');
                 setTimeout(() => {
                     btn.textContent = originalText;
-                    btn.style.backgroundColor = '';
+                    btn.classList.remove('copied');
                 }, 2000);
             }).catch(err => console.error('Failed to copy: ', err));
         }
