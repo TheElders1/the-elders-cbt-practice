@@ -15,24 +15,44 @@
         <div class="header-content">
             <img src="logo.png" alt="The Elders CBT Practice Logo" id="header-logo">
             <div>
-                <h1>About the Project</h1>
-                <p>Our Mission and Vision</p>
+                <h1>About The Project</h1>
+                <p>Our Mission and Key Features</p>
             </div>
             <button id="theme-toggle" class="nav-btn">🌙</button>
         </div>
     </header>
 
     <main id="about-page">
-        <div class="page-content">
+        <section class="page-section text-center">
             <h2>Our Mission</h2>
-            <p>The Elders CBT Practice is a tool designed to help students and learners prepare for their Cognitive Behavioral Therapy (CBT) assessments and practice exams. We believe that practice is the key to mastery, and our platform provides a comprehensive and user-friendly environment to test and improve your knowledge.</p>
-            
-            <h2>What We Offer</h2>
-            <p>Our platform features a wide range of questions across multiple departments and courses. Each quiz is timed and structured to simulate real exam conditions, allowing you to build confidence and identify areas for improvement. With detailed results and answer reviews, you can learn from your mistakes and track your progress over time.</p>
+            <p class="section-subtitle">To provide students with a powerful, accessible, and user-friendly platform to master their CBT coursework through dedicated practice.</p>
+        </section>
 
+        <section class="page-section">
+            <h2 class="text-center">Key Features</h2>
+            <div class="features-grid">
+                <div class="advanced-card feature-card">
+                    <div class="card-icon">📚</div>
+                    <h3>Comprehensive Question Bank</h3>
+                    <p>Access a wide range of questions across multiple departments, from fundamentals to advanced topics.</p>
+                </div>
+                <div class="advanced-card feature-card">
+                    <div class="card-icon">⏱️</div>
+                    <h3>Realistic Exam Simulation</h3>
+                    <p>Practice under timed conditions to build speed and confidence for your actual assessments.</p>
+                </div>
+                <div class="advanced-card feature-card">
+                    <div class="card-icon">📊</div>
+                    <h3>Detailed Performance Review</h3>
+                    <p>Instantly see your score and review your answers to understand your strengths and weaknesses.</p>
+                </div>
+            </div>
+        </section>
+
+         <section class="page-section text-center">
             <h2>Why "The Elders"?</h2>
-            <p>The name "The Elders" is inspired by the idea of learning from the wisdom and experience of those who have gone before. We aim to provide a solid foundation of knowledge, much like the guidance of a respected elder, to help you succeed in your academic journey.</p>
-        </div>
+            <p class="section-subtitle">The name is inspired by the idea of learning from the wisdom of those who have paved the way. We aim to be a reliable source of knowledge, guiding you toward success in your academic journey.</p>
+        </section>
     </main>
 
     <footer>
@@ -45,26 +65,7 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        // Minimal script for theme toggler on this page
-        const themeBtn = document.getElementById('theme-toggle');
-        const applyTheme = () => {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-                if(themeBtn) themeBtn.innerHTML = '☀️';
-            } else {
-                document.body.classList.remove('dark-mode');
-                if(themeBtn) themeBtn.innerHTML = '🌙';
-            }
-        };
-        themeBtn.addEventListener('click', () => {
-            let newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
-            localStorage.setItem('theme', newTheme);
-            applyTheme();
-        });
-        applyTheme();
-    </script>
+    
+    <script src="main.js" defer></script>
 </body>
 </html>
