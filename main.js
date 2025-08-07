@@ -3,34 +3,37 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================================
     // 1. UNIVERSAL LOGIC (Runs on every page)
     // =========================================================================
+    
+    // --- Theme Toggler ---
     const themeToggleBtn = document.getElementById('theme-toggle');
-    const applyTheme = () => {
-        const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            if (themeToggleBtn) themeToggleBtn.innerHTML = '☀️';
-        } else {
-            document.body.classList.remove('dark-mode');
-            if (themeToggleBtn) themeToggleBtn.innerHTML = '🌙';
-        }
-    };
     if (themeToggleBtn) {
+        const applyTheme = () => {
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeToggleBtn.innerHTML = '☀️';
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeToggleBtn.innerHTML = '🌙';
+            }
+        };
         themeToggleBtn.addEventListener('click', () => {
             let newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
             localStorage.setItem('theme', newTheme);
             applyTheme();
         });
+        applyTheme(); // Apply theme on initial load
     }
-    applyTheme();
 
-    // Securely sends a notification using our Netlify Function.
-    // This is a "fire-and-forget" function; it doesn't block other code.
+    // --- Secure Notification Helper ---
+    // This function sends data to our Netlify function without blocking the UI.
     async function sendNotification(message) {
         if (!navigator.onLine) {
             console.log("Offline: Skipping notification.");
             return;
         }
         try {
+            // "Fire-and-forget" call. We don't wait for the response.
             fetch('/.netlify/functions/notify', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -71,8 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 isValid = false;
             } else { showFormFeedback('department', '', 'success'); }
 
-            if (!courseSelect.value) {
-                showFormFeedback('course', 'Please select a course.');
+            if (courseGroup.style.display !== 'none' && !courseSelect.value) {
+                showFormfeedback('course', 'Please select a course.');
                 isValid = false;
             } else { showFormFeedback('course', '', 'success'); }
             
@@ -129,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================================
     const quizHost = document.getElementById('quiz-host');
     if (quizHost) {
-        // --- DOM Elements for Quiz Page ---
+        // --- DOM Elements ---
         const loadingQuizEl = document.getElementById('loading-quiz');
         const segmentSelectionEl = document.getElementById('segment-selection-quiz');
         const quizContainer = document.getElementById('quiz-container');
@@ -151,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const answeredCountEl = document.getElementById('answered-count');
         const totalCountEl = document.getElementById('total-count');
         const scorePercentageEl = document.getElementById('score-percentage');
+        const progressPercentageEl = document.getElementById('progress-percentage');
 
         // --- State Variables ---
         let fullCourseQuestions = [];
@@ -162,12 +166,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentQuestionIndex = 0;
         const TIME_LIMIT_SECONDS = 25 * 60; // 25 minutes
 
-        // --- Core Functions ---
+        // --- Core Quiz Functions ---
         const showScreen = (screen) => {
-            [loadingQuizEl, segmentSelectionEl, quizContainer, resultsContainer].forEach(el => {
-                if (el) el.style.display = 'none';
-            });
-            if (screen) screen.style.display = 'block';
+            [loadingQuizEl, segmentSelectionEl, quizContainer, resultsContainer].forEach(el => el.style.display = 'none');
+            screen.style.display = 'block';
         };
 
         const shuffleArray = (array) => {
@@ -187,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            currentSegmentQuestions = fullCourseQuestions.slice(startIndex, startIndex + segmentSize);
+            currentSegmentQuestions = [...fullCourseQuestions].slice(startIndex, startIndex + segmentSize);
             shuffleArray(currentSegmentQuestions);
             userAnswers = new Array(currentSegmentQuestions.length).fill(null);
             score = 0;
@@ -206,20 +208,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!currentSegmentQuestions[index]) return;
             const question = currentSegmentQuestions[index];
             questionNumberEl.textContent = index + 1;
-            questionTextEl.innerHTML = question.question; // Use innerHTML for potential formatting
+            questionTextEl.innerHTML = question.question;
             optionsContainerEl.innerHTML = '';
 
-            question.options.forEach((option, i) => {
+            question.options.forEach((optionText, i) => {
                 const optionId = `q${index}_o${i}`;
                 const optionDiv = document.createElement('div');
                 optionDiv.className = 'option';
-                optionDiv.innerHTML = `<input type="radio" id="${optionId}" name="q_options" value="${option}"><label for="${optionId}">${option}</label>`;
-                if (userAnswers[index] === option) {
+                optionDiv.innerHTML = `<input type="radio" id="${optionId}" name="q_options" value="${optionText}"><label for="${optionId}">${optionText}</label>`;
+                if (userAnswers[index] === optionText) {
                     optionDiv.querySelector('input').checked = true;
                 }
                 optionDiv.addEventListener('click', () => {
                     optionDiv.querySelector('input').checked = true;
-                    userAnswers[index] = option;
+                    userAnswers[index] = optionText;
                     updateQuizProgress();
                 });
                 optionsContainerEl.appendChild(optionDiv);
@@ -237,9 +239,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const updateQuizProgress = () => {
             const answeredCount = userAnswers.filter(answer => answer !== null).length;
             answeredCountEl.textContent = answeredCount;
-            const percentage = (answeredCount / currentSegmentQuestions.length) * 100;
+            const percentage = Math.round((answeredCount / currentSegmentQuestions.length) * 100);
             quizProgressFill.style.width = `${percentage}%`;
-            document.getElementById('progress-percentage').textContent = `${Math.round(percentage)}%`;
+            progressPercentageEl.textContent = `${percentage}%`;
         };
 
         const startTimer = () => {
@@ -265,13 +267,11 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(timerInterval);
             score = 0;
             userAnswers.forEach((answer, index) => {
-                if (answer === currentSegmentQuestions[index].answer) {
-                    score++;
-                }
+                if (answer === currentSegmentQuestions[index].answer) { score++; }
             });
             
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="btn-text">Submitting...</span><span class="btn-icon">⏳</span>';
+            submitBtn.innerHTML = '<span class="btn-text">Submitting...</span>';
 
             const params = new URLSearchParams(window.location.search);
             const userName = params.get('name');
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const department = params.get('department');
             
             let resultsMessage = `✅ Quiz Result: ${userName} ✅\n\n`;
-            resultsMessage += `Department: ${department}\nCourse: ${courseCode}\n`;
+            resultsMessage += `Dept: ${department}\nCourse: ${courseCode}\n`;
             resultsMessage += `Segment: ${currentSegmentNumber}\n`;
             resultsMessage += `Score: ${score} out of ${currentSegmentQuestions.length}`;
             sendNotification(resultsMessage);
@@ -304,12 +304,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (detailedResultsEl.style.display === 'none') {
                 detailedResultsEl.innerHTML = '<h3>Answer Review</h3>';
                 currentSegmentQuestions.forEach((q, i) => {
-                    const userAnswer = userAnswers[i];
+                    const userAnswer = userAnswers[i] || 'Not Answered';
                     const isCorrect = userAnswer === q.answer;
                     detailedResultsEl.innerHTML += `
                         <div class="result-item ${isCorrect ? 'correct' : 'incorrect'}">
                             <p><b>Q${i + 1}:</b> ${q.question}</p>
-                            <p>Your Answer: ${userAnswer || 'Not Answered'}</p>
+                            <p>Your Answer: ${userAnswer}</p>
                             ${!isCorrect ? `<p class="correct-answer">Correct Answer: ${q.answer}</p>` : ''}
                         </div>`;
                 });
@@ -344,9 +344,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const userName = params.get('name');
         const courseCode = params.get('course');
+        const department = params.get('department');
 
-        if (!userName || !courseCode) {
-            alert("Error: Missing user or course data. Redirecting to homepage.");
+        if (!userName || !courseCode || !department) {
+            alert("Error: Missing required data. Redirecting to homepage.");
             window.location.href = 'index.html';
             return;
         }
@@ -369,4 +370,38 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         document.head.appendChild(script);
     }
+    
+    // --- FAQ Accordion Logic (For help.html) ---
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const answer = btn.nextElementSibling;
+            const icon = btn.querySelector('.faq-icon');
+            btn.classList.toggle('active');
+            if (btn.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                icon.textContent = '−';
+            } else {
+                answer.style.maxHeight = '0px';
+                icon.textContent = '+';
+            }
+        });
+    });
+
+    // --- Copy to Clipboard (For contact.html) ---
+    // Note: This logic is simple and relies on an onclick attribute in contact.html
+    // A more robust solution would use event delegation if more elements needed this.
 });
+
+// We define this function in the global scope so the onclick attribute can find it.
+function copyToClipboard(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.textContent = originalText;
+            btn.classList.remove('copied');
+        }, 2000);
+    }).catch(err => console.error('Failed to copy: ', err));
+}
