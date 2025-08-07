@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elders CBT - Contact & Support</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <img src="logo.png" alt="The Elders CBT Practice Logo" id="header-logo">
+            <div>
+                <h1>The Elders CBT Practice</h1>
+                <p>Support & Contact Information</p>
+            </div>
+            <button id="theme-toggle" class="nav-btn">🌙</button>
+        </div>
+    </header>
+
+    <section id="support-content">
+        <div class="support-header">
+            <div class="support-icon">🤝</div>
+            <h2>Support the Project</h2>
+            <p class="support-subtitle">Thank you for using The Elders CBT Practice tool!</p>
+        </div>
+        
+        <div class="support-message">
+            <p>If you find this resource helpful and wish to contribute to its maintenance and improvement, your support is greatly appreciated.</p>
+        </div>
+
+        <div class="contact-cards">
+            <div class="contact-card">
+                <div class="card-header">
+                    <span class="card-icon">💳</span>
+                    <h3>Financial Support Details</h3>
+                </div>
+                <div class="card-body">
+                    <div class="detail-item">
+                        <span class="detail-label">Bank Name:</span>
+                        <span class="detail-value">Moniepoint</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Account Name:</span>
+                        <span class="detail-value">Samuel Daniel Bassey</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Account Number:</span>
+                        <span class="detail-value copyable" onclick="copyToClipboard('5554267465')">5554267465</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <div class="card-header">
+                    <span class="card-icon">📞</span>
+                    <h3>General Inquiries</h3>
+                </div>
+                <div class="card-body">
+                    <div class="detail-item">
+                        <span class="detail-label">WhatsApp:</span>
+                        <a href="https://wa.me/2348162638106" class="detail-value contact-link">08162638106</a>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Phone:</span>
+                        <a href="tel:+2347045900244" class="detail-value contact-link">07045900244</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="support-footer">
+            <p>Every contribution, no matter the size, helps keep this project going.</p>
+            <p><strong>Thank you for your support! 🙏</strong></p>
+        </div>
+
+        <p class="back-link">
+            <a href="index.html">← Back to Quiz Selection</a>
+        </p>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>The Elders CBT - Practice Makes Perfect</p>
+            <div class="footer-links">
+                <a href="index.html">🏠 Home</a>
+                <a href="#" onclick="window.history.back()">← Back</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js" defer></script>
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Show a temporary success message
+                const element = event.target;
+                const originalText = element.textContent;
+                element.textContent = 'Copied!';
+                element.style.color = '#28a745';
+                setTimeout(() => {
+                    element.textContent = originalText;
+                    element.style.color = '';
+                }, 2000);
+            });
+        }
+    </script>
+
+</body>
+</html>

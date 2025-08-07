@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elders CBT - Quiz</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="logo.png" alt="The Elders CBT Practice Logo" id="header-logo">
+            <div>
+                <h1 id="quiz-header-title">The Elders CBT - Quiz</h1>
+                <p id="user-info-display">Loading...</p>
+            </div>
+            <button id="theme-toggle" class="nav-btn">🌙</button>
+        </div>
+    </header>
+
+    <main id="quiz-host">
+        
+        <div id="loading-quiz" style="text-align: center; padding: 50px; font-size: 1.2em;">
+            <div class="loading-spinner"></div>
+            <p>Preparing your course...</p>
+            <div class="loading-tips">
+                <p>💡 <strong>Tip:</strong> Take your time to read each question carefully</p>
+            </div>
+        </div>
+
+        <div id="segment-selection-quiz" style="display: none;">
+            <div class="segment-header">
+                <h2>Choose a Segment to Begin</h2>
+                <p class="segment-subtitle">Each segment contains 50 carefully selected questions</p>
+            </div>
+            
+            <div class="segment-cards">
+                <div class="segment-card">
+                    <div class="segment-card-header">
+                        <h3>📚 Segment 1</h3>
+                        <span class="segment-badge">Fundamentals</span>
+                    </div>
+                    <div class="segment-card-body">
+                        <p>Questions 1-50</p>
+                        <p class="segment-description">Core concepts and basic principles</p>
+                        <div class="segment-stats">
+                            <span>⏱️ 25 minutes</span>
+                            <span>📝 50 questions</span>
+                        </div>
+                    </div>
+                    <button id="start-segment-1" class="segment-btn">Start Segment 1</button>
+                </div>
+                
+                <div class="segment-card">
+                    <div class="segment-card-header">
+                        <h3>🎯 Segment 2</h3>
+                        <span class="segment-badge">Advanced</span>
+                    </div>
+                    <div class="segment-card-body">
+                        <p>Questions 51-100</p>
+                        <p class="segment-description">Advanced topics and applications</p>
+                        <div class="segment-stats">
+                            <span>⏱️ 25 minutes</span>
+                            <span>📝 50 questions</span>
+                        </div>
+                    </div>
+                    <button id="start-segment-2" class="segment-btn">Start Segment 2</button>
+                </div>
+            </div>
+
+            <p class="back-link">
+                <a href="index.html">← Choose Another Course</a>
+            </p>
+
+        </div>
+
+        <div id="quiz-container" style="display: none;">
+            <!-- Quiz Progress Bar -->
+            <div class="quiz-progress-container">
+                <div class="quiz-progress-bar">
+                    <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
+                </div>
+                <div class="quiz-progress-text">
+                    <span id="progress-percentage">0%</span>
+                </div>
+            </div>
+            
+            <div id="quiz-info">
+                <div class="quiz-info-left">
+                    <span id="question-header">Question <span id="question-number">1</span> of <span id="total-questions">50</span></span>
+                    <div class="question-indicator">
+                        <span class="indicator-dot answered" id="question-indicators"></span>
+                    </div>
+                </div>
+                <div class="quiz-info-right">
+                    <span id="timer">Time Left: 25:00</span>
+                    <button id="quiz-menu-btn" class="menu-btn">⋮</button>
+                </div>
+            </div>
+            
+            <div id="question-area">
+                <div class="question-container">
+                    <p id="question-text">Loading question...</p>
+                </div>
+                <div id="options-container"></div>
+            </div>
+            
+            <div id="navigation-area">
+                <div class="nav-left">
+                    <button id="prev-btn" class="nav-btn">
+                        <span class="btn-icon">←</span>
+                        <span class="btn-text">Previous</span>
+                    </button>
+                </div>
+                <div class="nav-center">
+                    <div class="question-counter">
+                        <span id="answered-count">0</span> / <span id="total-count">50</span> answered
+                    </div>
+                </div>
+                <div class="nav-right">
+                    <button id="next-btn" class="nav-btn">
+                        <span class="btn-text">Next</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                    <button id="submit-btn" class="nav-btn submit-btn" style="display: none;">
+                        <span class="btn-text">Submit Quiz</span>
+                        <span class="btn-icon">✓</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <section id="results-container" style="display: none;">
+            <div class="results-header">
+                <div class="results-icon">🎉</div>
+                <h2>Quiz Complete!</h2>
+                <p class="results-subtitle">Great job on completing your practice session</p>
+            </div>
+            
+            <div class="score-display">
+                <div class="score-circle">
+                    <div class="score-inner">
+                        <span id="score-percentage">0%</span>
+                        <span class="score-label">Score</span>
+                    </div>
+                </div>
+                <div class="score-details">
+                    <p id="score-text">Your Score: -- / --</p>
+                    <p id="feedback-text">Loading feedback...</p>
+                </div>
+            </div>
+            
+            <div class="results-actions">
+                <button id="restart-btn" class="segment-btn">
+                    <span class="btn-text">Choose Another Segment</span>
+                    <span class="btn-icon">🔄</span>
+                </button>
+                <button id="review-btn" class="nav-btn">
+                    <span class="btn-text">Review Answers</span>
+                    <span class="btn-icon">📋</span>
+                </button>
+            </div>
+            
+            <div id="detailed-results"></div>
+        </section>
+
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p>The Elders CBT - Practice Makes Perfect</p>
+            <div class="footer-links">
+                <a href="contact.html">📞 Contact</a>
+                <a href="index.html">🏠 Home</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="main.js" defer></script>
+</body>
+</html>
