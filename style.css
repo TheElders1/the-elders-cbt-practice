@@ -8,31 +8,22 @@
 }
 
 /* ==========================================================================
-   2. Color & Theme Variables (The Core of the Color System)
+   2. Color & Theme Variables
    ========================================================================== */
 :root {
-    /* Brand Colors */
     --primary-color: #510F64;
     --primary-hover: #3C0B4A;
     --gradient-primary: linear-gradient(135deg, #510F64 0%, #3C0B4A 100%);
-    
-    /* Light Mode Palette */
     --page-bg: #f4f4f9;
     --container-bg: #ffffff;
     --container-border: #e0e0e0;
     --gradient-secondary: linear-gradient(135deg, #fdfdff 0%, #f4f4f9 100%);
-
-    /* Text Colors for Light Mode */
-    --text-primary: #1a1a1a;        /* For main text, headers */
-    --text-secondary: #555555;      /* For subtitles, placeholders */
-    --text-on-primary-bg: #ffffff;  /* Text on dark/purple backgrounds */
-
-    /* Universal UI Colors */
+    --text-primary: #1a1a1a;
+    --text-secondary: #555555;
+    --text-on-primary-bg: #ffffff;
     --success-color: #28a745;
     --danger-color: #dc3545;
     --pure-white: #ffffff;
-    
-    /* Sizing & Effects */
     --border-radius: 12px;
     --border-radius-small: 8px;
     --transition: all 0.3s ease;
@@ -41,17 +32,12 @@
 }
 
 body.dark-mode {
-    /* Dark Mode Palette */
     --page-bg: #121212;
     --container-bg: #1e1e1e;
     --container-border: #3a3a3a;
     --gradient-secondary: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
-
-    /* Text Colors for Dark Mode */
     --text-primary: #f1f1f1;
     --text-secondary: #a0a0a0;
-    
-    /* Shadows for Dark Mode */
     --container-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
     --element-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
 }
@@ -72,15 +58,13 @@ body {
     transition: background-color var(--transition), color var(--transition);
 }
 
-/* Accessibility: Clear focus state */
 *:focus-visible {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
-    box-shadow: 0 0 0 4px rgba(81, 15, 100, 0.2);
 }
 
 /* ==========================================================================
-   4. Header
+   4. Header & Progress Bar
    ========================================================================== */
 header {
     background: var(--gradient-primary);
@@ -93,7 +77,6 @@ header {
     position: relative;
     overflow: hidden;
 }
-
 .header-content {
     display: flex;
     align-items: center;
@@ -102,299 +85,171 @@ header {
     max-width: 900px;
     margin: 0 auto;
 }
-
-.header-content > div { text-align: left; }
 #header-logo { height: 60px; }
-header h1 { 
-    font-size: clamp(1.5rem, 4vw, 2.2rem); 
-    margin: 0; 
-    font-weight: 700;
-}
-header p { 
-    font-size: clamp(0.9rem, 2vw, 1.1rem);
-    color: var(--text-on-primary-bg);
-    opacity: 0.85;
-}
-
+header h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin: 0; font-weight: 700; }
+header p { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-on-primary-bg); opacity: 0.85; }
 #theme-toggle {
-    font-size: 1.5rem; /* Correct sizing */
-    line-height: 1;
-    padding: 10px 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--text-on-primary-bg);
-    border: none;
-    cursor: pointer;
+    font-size: 1.5rem; line-height: 1; padding: 10px 12px;
+    border-radius: 50%; background: rgba(255, 255, 255, 0.1);
+    color: var(--text-on-primary-bg); border: none; cursor: pointer;
     transition: var(--transition);
 }
-#theme-toggle:hover {
-    transform: scale(1.1) rotate(15deg);
-    background: rgba(255, 255, 255, 0.2);
+#theme-toggle:hover { transform: scale(1.1) rotate(15deg); background: rgba(255, 255, 255, 0.2); }
+
+.progress-container { max-width: 800px; margin: 0 auto 30px auto; }
+.progress-bar { display: flex; justify-content: space-between; position: relative; }
+.progress-bar::before {
+    content: ''; position: absolute; top: 20px; left: 40px; right: 40px;
+    height: 2px; background: var(--container-border); z-index: 1;
 }
+.progress-step {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    position: relative; z-index: 2; background: var(--page-bg); padding: 0 10px;
+}
+.step-circle {
+    width: 40px; height: 40px; border-radius: 50%; background: var(--container-bg);
+    border: 2px solid var(--container-border); display: flex; align-items: center;
+    justify-content: center; font-weight: 600; color: var(--text-secondary);
+    transition: var(--transition);
+}
+.progress-step.active .step-circle {
+    background: var(--primary-color); border-color: var(--primary-color);
+    color: var(--pure-white);
+}
+.step-label { font-size: 0.9em; font-weight: 500; color: var(--text-primary); }
 
 /* ==========================================================================
-   5. Main Containers & Cards
+   5. Main Containers, Forms & Buttons
    ========================================================================== */
-main#quiz-setup,
-main#quiz-host,
-section#support-content {
+main, section#support-content {
     background-color: var(--container-bg);
-    padding: clamp(15px, 4vw, 30px);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--container-border);
-    max-width: 800px;
-    margin: 0 auto 20px auto;
-    box-shadow: var(--container-shadow);
+    padding: clamp(15px, 4vw, 30px); border-radius: var(--border-radius);
+    border: 1px solid var(--container-border); max-width: 800px;
+    margin: 0 auto 20px auto; box-shadow: var(--container-shadow);
 }
-
-.segment-header, .setup-header, .support-header, .results-header {
-    text-align: center;
-    margin-bottom: 30px;
+.setup-header h2, .support-header h2, .results-header h2, .segment-header h2 {
+    color: var(--primary-color); font-weight: 700; margin-bottom: 10px;
 }
-.segment-header h2, .setup-header h2, .support-header h2, .results-header h2 {
-    color: var(--primary-color);
-    font-weight: 700;
-    margin-bottom: 10px;
+.setup-subtitle, .support-subtitle, .results-subtitle, .segment-subtitle {
+    color: var(--text-secondary); font-size: 1.1em;
 }
-.segment-subtitle, .setup-subtitle, .support-subtitle, .results-subtitle {
-    color: var(--text-secondary);
-    font-size: 1.1em;
-}
-
-/* ==========================================================================
-   6. Forms & Inputs
-   ========================================================================== */
-#quiz-setup { max-width: 600px; }
-.form-group { margin-bottom: 20px; }
-.form-group label { 
-    display: block; 
-    font-weight: 600; 
-    margin-bottom: 8px; 
-    color: var(--text-primary);
-}
-.input-wrapper, .select-wrapper { position: relative; }
-
+.form-group label { display: block; font-weight: 600; margin-bottom: 8px; }
 input[type="text"], select {
-    width: 100%;
-    padding: 12px 15px;
-    font-size: 1em;
-    color: var(--text-primary); /* Ensures typed text is visible */
-    background-color: var(--page-bg);
-    border: 1px solid var(--container-border);
-    border-radius: var(--border-radius-small);
-    transition: var(--transition);
-    font-family: inherit;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+    width: 100%; padding: 12px 15px; font-size: 1em; color: var(--text-primary);
+    background-color: var(--page-bg); border: 1px solid var(--container-border);
+    border-radius: var(--border-radius-small); font-family: inherit; appearance: none;
 }
-input[type="text"]:focus, select:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(81, 15, 100, 0.15);
-}
-/* Placeholder text color */
 input::placeholder { color: var(--text-secondary); opacity: 0.8; }
-select { color: var(--text-primary); }
 select:invalid { color: var(--text-secondary); }
-
 .input-icon, .select-arrow {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: none;
-    color: var(--text-secondary);
+    position: absolute; right: 15px; top: 50%;
+    transform: translateY(-50%); pointer-events: none; color: var(--text-secondary);
 }
-
-/* ==========================================================================
-   7. Buttons
-   ========================================================================== */
 .segment-btn, .nav-btn {
-    border: none;
-    padding: 12px 25px;
-    border-radius: var(--border-radius-small);
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: 600;
-    transition: var(--transition);
-    box-shadow: var(--element-shadow);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-family: inherit;
-    text-decoration: none;
+    border: none; padding: 12px 25px; border-radius: var(--border-radius-small);
+    cursor: pointer; font-size: 1em; font-weight: 600; transition: var(--transition);
+    box-shadow: var(--element-shadow); display: inline-flex; align-items: center;
+    justify-content: center; gap: 8px; text-decoration: none;
 }
-.segment-btn {
-    background: var(--gradient-primary);
-    color: var(--text-on-primary-bg);
-    width: 100%;
-}
-.segment-btn:hover { 
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(81, 15, 100, 0.3);
-}
-.nav-btn {
-    background: var(--container-bg);
-    color: var(--text-primary); /* Correct color for both themes */
-    border: 1px solid var(--container-border);
-}
-.nav-btn:hover {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
-}
-.nav-btn.submit-btn {
-    background: linear-gradient(135deg, #198754 0%, #157347 100%);
-    color: var(--text-on-primary-bg);
-    border: none;
-}
-#prev-btn, #next-btn {
-    background: var(--gradient-primary);
-    color: var(--text-on-primary-bg);
-    border: none;
-}
+.segment-btn { background: var(--gradient-primary); color: var(--text-on-primary-bg); width: 100%; }
+.segment-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(81, 15, 100, 0.3); }
 
 /* ==========================================================================
-   8. Quiz Interface
+   6. New & Corrected Component Styles
    ========================================================================== */
-#question-text {
-    font-size: 1.25em; 
-    font-weight: 600; 
-    line-height: 1.5; 
-    margin: 0;
-    color: var(--text-primary);
+
+/* CORRECTED: Quick Stats Alignment */
+.quick-stats {
+    margin-top: 30px; padding: 25px; background: var(--gradient-secondary);
+    border-radius: var(--border-radius); border: 1px solid var(--container-border);
+    display: flex; flex-direction: column; gap: 20px;
 }
-#options-container { display: flex; flex-direction: column; gap: 15px; }
-.option {
-    display: flex; 
-    align-items: center;
-    background-color: var(--page-bg);
-    color: var(--text-primary);
-    padding: 14px 18px; 
-    border-radius: var(--border-radius-small);
-    border: 1px solid var(--container-border); 
-    cursor: pointer;
-    transition: var(--transition);
+.stat-item {
+    display: flex; align-items: center; gap: 15px;
 }
-.option:hover { 
-    background-color: var(--container-bg);
-    border-color: var(--primary-color);
-    transform: translateX(5px);
+.stat-number {
+    font-size: 2em; font-weight: 700; color: var(--primary-color);
+    min-width: 55px; text-align: right;
 }
-.option label { 
-    cursor: pointer; 
-    font-size: 1em; 
-    flex: 1;
-    color: var(--text-primary); /* Ensure label text is correct */
+.stat-label { font-size: 1em; font-weight: 500; color: var(--text-secondary); }
+
+/* NEW: Segment Card Design */
+.segment-cards { display: grid; gap: 25px; }
+.segment-card {
+    display: flex; flex-direction: column; background: var(--page-bg);
+    border: 1px solid var(--container-border); border-radius: var(--border-radius);
+    padding: 20px; transition: var(--transition);
 }
-#navigation-area {
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center;
-    margin-top: 30px; 
-    padding-top: 25px;
-    border-top: 1px dashed var(--container-border);
-    flex-wrap: wrap; 
-    gap: 15px;
+.segment-card:hover { transform: translateY(-5px); box-shadow: var(--container-shadow); }
+.segment-card-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 15px; border-bottom: 1px solid var(--container-border);
+    padding-bottom: 10px;
 }
-.question-counter {
-    color: var(--text-secondary);
+.segment-card-header h3 { color: var(--text-primary); font-size: 1.2em; }
+.segment-badge {
+    background: var(--primary-color); color: var(--pure-white);
+    font-size: 0.8em; font-weight: 600; padding: 4px 10px;
+    border-radius: 20px;
+}
+.segment-card-body { margin-bottom: 20px; flex-grow: 1; color: var(--text-secondary); }
+.segment-description { margin-top: 5px; font-style: italic; }
+.segment-stats {
+    display: flex; gap: 20px; margin-top: 15px;
+    font-size: 0.9em; font-weight: 500;
 }
 
+/* CORRECTED: Centralized Back Link */
+.back-link {
+    margin-top: 30px;
+    text-align: center; /* This is the key fix */
+}
+.back-link a {
+    color: var(--primary-color); text-decoration: none; font-weight: 600;
+    padding: 10px 20px; border-radius: var(--border-radius-small);
+    background-color: rgba(81, 15, 100, 0.1); transition: var(--transition);
+}
+.back-link a:hover { background-color: rgba(81, 15, 100, 0.2); }
+
 /* ==========================================================================
-   9. Footer
+   7. Footer
    ========================================================================== */
 footer {
-    text-align: center; 
-    margin-top: auto; 
-    padding: 20px;
-    font-size: 0.9em; 
-    background: var(--gradient-primary);
-    color: var(--text-on-primary-bg); 
-    opacity: 0.95;
-    border-radius: var(--border-radius);
+    text-align: center; margin-top: auto; padding: 20px; font-size: 0.9em;
+    background: var(--gradient-primary); color: var(--text-on-primary-bg);
+    opacity: 0.95; border-radius: var(--border-radius);
 }
-.footer-links {
-    margin-top: 10px; 
-    display: flex; 
-    justify-content: center;
-    gap: 20px; 
-    flex-wrap: wrap;
-}
-footer a { 
-    color: var(--text-on-primary-bg);
-    text-decoration: none; 
-    transition: var(--transition); 
-    opacity: 0.8;
-}
-footer a:hover { 
-    text-decoration: underline; 
-    color: var(--pure-white); 
-    opacity: 1;
-}
+footer a { color: var(--text-on-primary-bg); opacity: 0.8; }
+footer a:hover { color: var(--pure-white); opacity: 1; }
 
 /* ==========================================================================
-   10. Responsive Adjustments (Includes all previous fixes)
+   8. Responsive Adjustments
    ========================================================================== */
-
-/* Tablets and larger phones */
 @media (max-width: 768px) {
-    body {
-        padding: 15px;
-    }
-
-    /* Fix for header layout and toggle button */
+    body { padding: 15px; }
     .header-content {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-        position: relative; /* Anchor for the button */
+        flex-direction: column; gap: 15px; text-align: center; position: relative;
     }
-    .header-content > div { text-align: center; }
     #theme-toggle {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        width: auto; /* Prevent stretching */
-    }
-
-    .quick-stats {
-        flex-direction: column;
-        gap: 20px;
+        position: absolute; top: 15px; right: 15px; width: auto;
     }
 }
-
-/* Small mobile phones */
 @media (max-width: 600px) {
     body { padding: 10px; }
     
-    #navigation-area { 
-        flex-direction: column; 
-        gap: 15px; 
-    }
-    .nav-left, .nav-right, .nav-center {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-    #prev-btn, #next-btn, #submit-btn, .results-actions .segment-btn {
-        width: 100%; /* Make nav/result buttons full-width */
-    }
-    .footer-links {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    /* Fix for bunched progress bar labels */
-    .step-label {
-        display: none;
-    }
+    /* CORRECTED: Progress Bar layout on mobile */
     .progress-bar {
-        justify-content: space-around;
+        justify-content: space-evenly; /* Evenly space the numbers */
+    }
+    .progress-step {
+        padding: 0 5px; /* Reduce padding to bring them closer */
+    }
+    .step-label {
+        display: none; /* Hide labels to prevent crowding */
     }
     .progress-bar::before {
-        left: 20%;
-        right: 20%;
+        left: 15%; right: 15%; /* Adjust line to fit */
     }
+    
+    .footer-links { flex-direction: column; gap: 10px; }
 }
