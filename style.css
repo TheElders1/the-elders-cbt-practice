@@ -94,13 +94,15 @@ main { background-color: var(--container-bg); padding: clamp(15px, 4vw, 30px); b
 .setup-subtitle, .segment-subtitle, .results-subtitle { color: var(--text-secondary); font-size: 1.1em; }
 .form-group { margin-bottom: 20px; }
 .form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-primary); }
+.input-wrapper, .select-wrapper { position: relative; }
+.input-icon, .select-arrow { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-secondary); }
 input[type="text"], select { width: 100%; padding: 12px 15px; font-size: 1em; color: var(--text-primary); background-color: var(--page-bg); border: 1px solid var(--container-border); border-radius: var(--border-radius-small); font-family: inherit; appearance: none; }
 .form-feedback { font-size: 0.9em; margin-top: 5px; min-height: 20px; font-weight: 500; }
 .form-feedback.success { color: var(--success-color); }
 .form-feedback.error { color: var(--danger-color); }
 .form-actions { margin-top: 30px; }
 
-/* --- CORRECTED: Quick Stats Section --- */
+/* --- Restored Quick Stats Section --- */
 .quick-stats {
     margin-top: 30px;
     padding: 20px;
@@ -108,7 +110,7 @@ input[type="text"], select { width: 100%; padding: 12px 15px; font-size: 1em; co
     border-radius: var(--border-radius);
     border: 1px solid var(--container-border);
     display: flex;
-    justify-content: space-around; /* This makes them side-by-side */
+    justify-content: space-around;
     align-items: center;
     text-align: center;
 }
@@ -248,12 +250,17 @@ footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underlin
     #prev-btn { order: 2; }
     .question-counter { order: 1; }
     #next-btn, .submit-btn { order: 3; }
-    .footer-links { flex-direction: column; gap: 10px; text-align: center; }
+    footer .footer-links { flex-direction: column; gap: 10px; text-align: center; }
     .score-display { flex-direction: column; text-align: center; }
-    /* Corrected responsive for quick stats */
     .quick-stats {
         flex-direction: column;
-        align-items: center; /* Center the items when stacked */
+        align-items: flex-start; /* Aligns items to the left when stacked */
         gap: 20px;
+    }
+    .stat-item {
+        display: flex; /* Make stat items flex to align number and label */
+        align-items: center;
+        gap: 15px;
+        width: 100%;
     }
 }
