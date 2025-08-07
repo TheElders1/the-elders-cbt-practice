@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Elders CBT - Help</title>
+    <title>The Elders CBT - Help & FAQ</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,21 +23,51 @@
     </header>
 
     <main id="help-page">
-        <div class="page-content">
-            <h2>How do I start a quiz?</h2>
-            <p>From the <a href="index.html">Home</a> page, enter your full name, select your department from the dropdown menu, and then choose your specific course. Once all fields are filled, click the "Start Quiz" button.</p>
+        <div class="page-header">
+            <h2>How Can We Help?</h2>
+            <p>Find answers to common questions below.</p>
+        </div>
 
-            <h2>How are the quizzes structured?</h2>
-            <p>Each course is divided into two segments of 50 questions each. You can choose which segment you want to practice. The quiz is timed to help you practice under pressure.</p>
+        <div class="faq-container">
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How do I start a quiz?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Go to the <a href="index.html">Home</a> page, enter your full name (at least 6 characters), select your department, and then choose your specific course from the dropdown menus. Click the "Start Quiz" button to proceed.</p>
+                </div>
+            </div>
 
-            <h2>Can I review my answers?</h2>
-            <p>Yes. After you submit your quiz, you will see a results screen with your score. On this screen, there is a "Review Answers" button that will show you a detailed breakdown of every question, your answer, and the correct answer.</p>
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>How are the quizzes structured?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Each course is divided into two segments of 50 questions each, covering different aspects of the curriculum. The quiz is timed for 25 minutes to simulate real exam conditions and help you practice managing your time effectively.</p>
+                </div>
+            </div>
 
-            <h2>The quiz for my course isn't loading. What should I do?</h2>
-            <p>Please double-check that you have selected the correct department and course name. If it still doesn't load, the quiz data for that specific course might not be available yet. Please <a href="contact.html">contact us</a> to let us know.</p>
-            
-            <h2>How do I switch between light and dark mode?</h2>
-            <p>Click the moon (🌙) or sun (☀️) icon in the top-right corner of the header to toggle between light and dark themes. Your preference will be saved for your next visit.</p>
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Can I review my answers after finishing?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Absolutely. After submitting your quiz, the results screen will show your score. Click the "Review Answers" button to see a detailed list of every question, your chosen answer, and the correct answer, helping you learn from your mistakes.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>My course quiz isn't loading. What's wrong?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Please double-check that you have selected the correct department and course name. If it still doesn't load, the quiz data for that specific course might not be available yet. Please <a href="contact.html">contact us</a> to report the issue.</p>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -52,25 +82,26 @@
         </div>
     </footer>
 
+    <script src="main.js" defer></script>
     <script>
-        // Minimal script for theme toggler on this page
-        const themeBtn = document.getElementById('theme-toggle');
-        const applyTheme = () => {
-            const theme = localStorage.getItem('theme');
-            if (theme === 'dark') {
-                document.body.classList.add('dark-mode');
-                if(themeBtn) themeBtn.innerHTML = '☀️';
-            } else {
-                document.body.classList.remove('dark-mode');
-                if(themeBtn) themeBtn.innerHTML = '🌙';
-            }
-        };
-        themeBtn.addEventListener('click', () => {
-            let newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
-            localStorage.setItem('theme', newTheme);
-            applyTheme();
+        // Page-specific script for the FAQ accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const answer = btn.nextElementSibling;
+                const icon = btn.querySelector('.faq-icon');
+
+                btn.classList.toggle('active');
+                
+                if (btn.classList.contains('active')) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    icon.textContent = '−';
+                } else {
+                    answer.style.maxHeight = '0px';
+                    icon.textContent = '+';
+                }
+            });
         });
-        applyTheme();
     </script>
 </body>
 </html>
