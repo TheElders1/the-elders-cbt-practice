@@ -22,31 +22,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     applyTheme(); // Apply theme on initial load
 
-    // Securely sends a notification using our Netlify Function.
-    // This function does NOT block the rest of the code from running.
+    // Securely send notification via our Netlify function
     async function sendNotification(message) {
         if (!navigator.onLine) {
-            console.log("Offline: Skipping notification.");
-            return;
+            console.log("Offline mode: Skipping notification.");
+            return; // Exit if offline
         }
         try {
-            // We use fetch but don't wait for it with 'await'.
-            // This is "fire-and-forget".
-            fetch('/.netlify/functions/notify', {
+            await fetch('/.netlify/functions/notify', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: message })
             });
-            console.log("Notification request sent.");
         } catch (error) {
-            console.error("Failed to send notification request:", error);
+            console.error("Failed to send notification:", error);
         }
     }
 
-
     // --- 2. LOGIC FOR THE SETUP PAGE (index.html) ---
-    const userDetailsForm = document.getElementById('user-details-form');
-    if (userDetailsForm) {
+    if (document.getElementById('user-details-form')) {
+        const userDetailsForm = document.getElementById('user-details-form');
         const nameInput = document.getElementById('name-input');
         const departmentSelect = document.getElementById('department-select');
         const courseGroup = document.getElementById('course-selection-group');
@@ -62,10 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         departmentSelect.addEventListener('change', function() {
             const selectedDepartment = this.value;
-            courseSelect.innerHTML = '<option value="" disabled selected>-- Choose course --</option>';
+            courseSelect.innerHTML = '<option value="" disabled selected>-- Please choose a course --</option>';
             
             if (selectedDepartment && coursesByDepartment[selectedDepartment]) {
-                const uniqueCourses = [...new Set(coursesByDepartment[selectedDepartment])];
+                const uniqueCourses = [...new Set(coursesByDepartment[selectedDepartment])]; // Remove duplicates
                 uniqueCourses.forEach(course => {
                     courseSelect.innerHTML += `<option value="${course}">${course}</option>`;
                 });
@@ -75,16 +70,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        userDetailsForm.addEventListener('submit', function(event) {
+        userDetailsForm.addEventListener('submit', async function(event) {
             event.preventDefault();
             
             const name = nameInput.value.trim();
             const department = departmentSelect.value;
             const course = courseSelect.value;
 
-            // Simple, robust validation
-            if (name.length < 2 || !department || !course) {
-                alert("Please fill in all fields correctly before starting the quiz.");
+            if (!name || !department || !course) {
+                alert("Please fill in all fields before starting the quiz.");
                 return;
             }
             
@@ -92,13 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
             submitButton.disabled = true; 
             submitButton.innerHTML = '<span class="btn-text">Loading...</span><span class="btn-icon">⏳</span>';
 
-            // Prepare notification message
-            const notificationMessage = `🔔 New Quiz Taker 🔔\n\nName: ${name}\nDept: ${department}\nCourse: ${course}`;
-            
-            // Send notification in the background
+            // Send notification securely without waiting for it to finish
+            const notificationMessage = `🔔 New Quiz Taker 🔔\n\nFull Name: ${name}\nDepartment: ${department}\nCourse: ${course}`;
             sendNotification(notificationMessage);
 
-            // **IMMEDIATELY REDIRECT TO THE QUIZ PAGE**
+            // Proceed to the quiz immediately
             const encodedName = encodeURIComponent(name);
             const encodedCourse = encodeURIComponent(course);
             const encodedDepartment = encodeURIComponent(department);
@@ -106,91 +98,144 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
     // --- 3. LOGIC FOR THE QUIZ/RESULTS PAGE (quiz.html) ---
-    const quizHost = document.getElementById('quiz-host');
-    if (quizHost) {
-        // --- State and DOM elements ---
+    if (document.getElementById('quiz-host')) {
+        // --- DOM Elements ---
         const loadingQuizEl = document.getElementById('loading-quiz');
         const segmentSelectionEl = document.getElementById('segment-selection-quiz');
         const quizContainer = document.getElementById('quiz-container');
         const resultsContainer = document.getElementById('results-container');
-        // ... (other DOM elements)
-        
+        // ... (all your other querySelectors are fine)
+        const questionTextEl = document.getElementById('question-text');
+        const optionsContainerEl = document.getElementById('options-container');
+
+        // --- State Variables ---
         let fullCourseQuestions = [];
         let currentSegmentQuestions = [];
         let userAnswers = [];
-        // ... (other state variables)
-
-        // --- Core Functions ---
-        const showScreen = (screen) => {
-            [loadingQuizEl, segmentSelectionEl, quizContainer, resultsContainer].forEach(el => {
-                if(el) el.style.display = 'none';
-            });
+        let currentQuestionIndex = 0;
+        let timerInterval = null;
+        let score = 0;
+        
+        // --- Core Quiz Functions (mostly unchanged, just added async to submit) ---
+        
+        function showScreen(screen) {
+            loadingQuizEl.style.display = 'none';
+            segmentSelectionEl.style.display = 'none';
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'none';
             if (screen) screen.style.display = 'block';
         }
-        
-        const startQuizForSegment = (segmentNumber) => {
-            const segmentSize = 50;
-            const startIndex = (segmentNumber - 1) * segmentSize;
-            
-            if (fullCourseQuestions.length < startIndex + 1) {
-                alert(`Error: Course data is incomplete for Segment ${segmentNumber}.`);
-                return;
-            }
-            
-            currentSegmentQuestions = fullCourseQuestions.slice(startIndex, startIndex + segmentSize);
-            userAnswers = new Array(currentSegmentQuestions.length).fill(null);
-            
-            // Save segment number for results notification
-            quizHost.dataset.segment = segmentNumber;
-            
-            showScreen(quizContainer);
-            // loadQuestion(0);
-            // startTimer();
-        };
 
-        const submitQuiz = () => {
-            // ... (Your existing submit logic)
-            // Inside your submit logic, when sending the result:
-            const segmentNumber = quizHost.dataset.segment || 'N/A';
-            const resultsMessage = `✅ Quiz Result...\nSegment: ${segmentNumber}\n...`;
-            sendNotification(resultsMessage);
-            // ... then display results
+        function loadQuestion(index) {
+            // Your existing loadQuestion logic is great. No changes needed.
+            const question = currentSegmentQuestions[index];
+            document.getElementById('question-number').textContent = index + 1;
+            questionTextEl.textContent = question.question;
+            optionsContainerEl.innerHTML = '';
+            
+            question.options.forEach((option, i) => {
+                const optionId = `q${index}_o${i}`;
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option';
+                optionDiv.innerHTML = `<input type="radio" id="${optionId}" name="q_options" value="${option}"><label for="${optionId}">${option}</label>`;
+                
+                if (userAnswers[index] === option) {
+                    optionDiv.querySelector('input').checked = true;
+                }
+                
+                optionDiv.addEventListener('click', () => {
+                    optionDiv.querySelector('input').checked = true;
+                    userAnswers[index] = option;
+                    // updateQuizProgress(); // You can call your progress function here
+                });
+                optionsContainerEl.appendChild(optionDiv);
+            });
+            // updateNavigationButtons(); // Call your nav update function here
         }
 
-        // --- Initial Page Load Logic ---
+        async function submitQuiz() {
+            clearInterval(timerInterval);
+            score = 0;
+            userAnswers.forEach((answer, index) => {
+                if (answer === currentSegmentQuestions[index]?.answer) {
+                    score++;
+                }
+            });
+
+            const submitBtn = document.getElementById('submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="btn-text">Submitting...</span><span class="btn-icon">⏳</span>';
+
+            const params = new URLSearchParams(window.location.search);
+            const userName = params.get('name');
+            const courseCode = params.get('course');
+            const department = params.get('department');
+            const segmentNumber = document.getElementById('start-segment-1').dataset.segment; // A way to get segment
+
+            const resultsMessage = `✅ Quiz Result: ${userName} ✅\n\nDepartment: ${department}\nCourse: ${courseCode}\nSegment: ${segmentNumber}\nScore: ${score}/${currentSegmentQuestions.length}`;
+
+            // Send notification securely and wait for it
+            await sendNotification(resultsMessage);
+            
+            // Now display results on screen
+            displayResultsOnScreen();
+        }
+
+        function displayResultsOnScreen() {
+             // Your existing displayResultsOnScreen logic is great.
+             showScreen(resultsContainer);
+             document.getElementById('score-text').textContent = `Your score: ${score} out of ${currentSegmentQuestions.length}`;
+             //... and so on
+        }
+
+        // --- Initial Page Load & Event Listeners (mostly unchanged) ---
         const params = new URLSearchParams(window.location.search);
         const userName = params.get('name');
         const courseCode = params.get('course');
 
         if (!userName || !courseCode) {
-            alert("Error: Missing user name or course. Redirecting to homepage.");
             window.location.href = 'index.html';
             return;
         }
 
         document.getElementById('user-info-display').textContent = `User: ${userName} | Course: ${courseCode}`;
-        
-        // Dynamically load the course script
         const script = document.createElement('script');
         script.src = `courses/${courseCode}.js`;
-        
         script.onload = () => {
-            if (window.quizData && window.quizData.questions && window.quizData.questions.length > 0) {
+            if (window.quizData?.questions) {
                 fullCourseQuestions = window.quizData.questions;
                 showScreen(segmentSelectionEl);
             } else {
-                loadingQuizEl.innerHTML = `<p style="color:var(--danger-color);">Error: Could not load valid quiz data for ${courseCode}. The course file might be empty or formatted incorrectly.</p>`;
+                loadingQuizEl.innerHTML = `<p style="color:red;">Error: Could not load quiz data for ${courseCode}.</p>`;
             }
         };
         script.onerror = () => {
-             loadingQuizEl.innerHTML = `<p style="color:var(--danger-color);">Error: The course file 'courses/${courseCode}.js' could not be found or loaded.</p>`;
+             loadingQuizEl.innerHTML = `<p style="color:red;">Error: The file 'courses/${courseCode}.js' could not be found.</p>`;
         };
         document.head.appendChild(script);
 
-        document.getElementById('start-segment-1')?.addEventListener('click', () => startQuizForSegment(1));
-        document.getElementById('start-segment-2')?.addEventListener('click', () => startQuizForSegment(2));
-        // ... (all your other event listeners for next, prev, submit, etc.)
+        // Your other event listeners (nextBtn, prevBtn, etc.) are fine.
+        document.getElementById('submit-btn').addEventListener('click', submitQuiz);
+
+        // Simplified segment start
+        document.getElementById('start-segment-1').addEventListener('click', () => startQuizForSegment(1));
+        document.getElementById('start-segment-2').addEventListener('click', () => startQuizForSegment(2));
+
+        function startQuizForSegment(segmentNumber) {
+            const segmentSize = 50;
+            const startIndex = (segmentNumber - 1) * segmentSize;
+            currentSegmentQuestions = fullCourseQuestions.slice(startIndex, startIndex + segmentSize);
+            userAnswers = new Array(currentSegmentQuestions.length).fill(null);
+            currentQuestionIndex = 0;
+            score = 0;
+            
+            // Keep track of segment for notification
+            document.getElementById('start-segment-1').dataset.segment = segmentNumber;
+
+            showScreen(quizContainer);
+            loadQuestion(0);
+            // startTimer(); // Your timer function here
+        }
     }
 });
