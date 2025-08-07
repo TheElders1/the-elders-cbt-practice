@@ -8,12 +8,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Open Graph / Facebook / LinkedIn / Link Preview Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://the-elders-cbt-practice.netlify.app/" />
+    <meta property="og:title" content="The Elders CBT Practice - Prepare for Success" />
+    <meta property="og:description" content="Master your CBT assessments with our practice quizzes across various departments and courses." />
+    <meta property="og:image" content="https://the-elders-cbt-practice.netlify.app/ELD.png" />
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://the-elders-cbt-practice.netlify.app/" />
+    <meta property="twitter:title" content="The Elders CBT Practice - Prepare for Success" />
+    <meta property="twitter:description" content="Master your CBT assessments with our practice quizzes across various departments and courses." />
+    <meta property="twitter:image" content="https://the-elders-cbt-practice.netlify.app/ELD.png" />
 </head>
 <body>
 
     <header>
         <div class="header-content">
-            <img src="logo.png" alt="The Elders CBT Practice Logo" id="header-logo">
+            <img src="ELD.png" alt="The Elders CBT Practice Logo" id="header-logo">
             <div>
                 <h1>Contact & Support</h1>
                 <p>Get in touch or support the project</p>
@@ -29,7 +43,6 @@
         </div>
 
         <div class="contact-grid">
-            <!-- Financial Support Card -->
             <div class="advanced-card">
                 <div class="card-icon">💳</div>
                 <h3>Financial Support</h3>
@@ -44,7 +57,6 @@
                 </div>
             </div>
 
-            <!-- General Inquiries Card -->
             <div class="advanced-card">
                 <div class="card-icon">💬</div>
                 <h3>General Inquiries</h3>
@@ -64,13 +76,15 @@
                 <a href="index.html">🏠 Home</a>
                 <a href="about.html">ℹ️ About</a>
                 <a href="help.html">❓ Help</a>
+                <a href="https://github.com/TheElders1/the-elders-cbt-practice" target="_blank" class="footer-github-link">
+                    <img src="github-icon.svg" alt="GitHub" class="link-icon"> GitHub
+                </a>
             </div>
         </div>
     </footer>
 
     <script src="main.js" defer></script>
     <script>
-        // Page-specific script for copy-to-clipboard
         function copyToClipboard(text, btn) {
             navigator.clipboard.writeText(text).then(() => {
                 const originalText = btn.textContent;
