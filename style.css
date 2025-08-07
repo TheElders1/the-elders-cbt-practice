@@ -11,20 +11,27 @@
    2. Color & Theme Variables
    ========================================================================== */
 :root {
+    /* Brand & Accent Colors */
     --primary-color: #510F64;
     --primary-hover: #3C0B4A;
     --gradient-primary: linear-gradient(135deg, #510F64 0%, #3C0B4A 100%);
-    --accent-blue: #00bfff;
+    --accent-blue: #00bfff; /* For selected quiz options */
+
+    /* Light Mode Palette */
     --page-bg: #f4f4f9;
     --container-bg: #ffffff;
     --container-border: #e0e0e0;
-    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-bg: rgba(255, 255, 255, 0.6); /* For glass effect */
     --text-primary: #1a1a1a;
     --text-secondary: #555555;
     --text-on-primary-bg: #ffffff;
+    
+    /* Universal UI Colors */
     --success-color: #28a745;
     --danger-color: #dc3545;
     --pure-white: #ffffff;
+    
+    /* Sizing & Effects */
     --border-radius: 16px;
     --border-radius-small: 10px;
     --transition: all 0.3s ease;
@@ -33,10 +40,11 @@
 }
 
 body.dark-mode {
-    --page-bg: #1e1e1e;
-    --container-bg: #2a2a2a;
+    /* Dark Mode Palette */
+    --page-bg: #121212;
+    --container-bg: #1e1e1e;
     --container-border: #3a3a3a;
-    --glass-bg: rgba(30, 30, 30, 0.75);
+    --glass-bg: rgba(30, 30, 30, 0.75); /* Darker glass effect */
     --text-primary: #f1f1f1;
     --text-secondary: #a0a0a0;
     --container-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
@@ -59,86 +67,7 @@ body {
 *:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
 
 /* ==========================================================================
-   4. NEW SETUP PAGE (index.html) DESIGN
-   ========================================================================== */
-body.setup-page {
-    justify-content: center; /* Vertically center the content */
-    background-color: #f0f2f5;
-}
-body.dark-mode.setup-page {
-    background-color: #121212;
-}
-
-/* New Progress Bar style */
-.setup-page .progress-container {
-    max-width: 300px;
-    margin-bottom: 30px;
-}
-.setup-page .progress-bar {
-    justify-content: center;
-    gap: 20px;
-}
-.setup-page .progress-bar::before {
-    display: none; /* Remove the connecting line */
-}
-.setup-page .step-circle {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: var(--container-bg); border: 2px solid var(--container-border);
-    color: var(--text-secondary); font-weight: 700;
-}
-.setup-page .progress-step.active .step-circle {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-    color: var(--pure-white);
-}
-
-/* New Setup Form Card */
-.setup-page main#quiz-setup {
-    border: none;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-    background-color: var(--container-bg);
-    border-radius: 20px;
-}
-
-/* New Form Field Styles */
-.setup-page .form-group {
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 25px;
-}
-.setup-page .form-group label {
-    font-weight: 600;
-    font-size: 1.1em;
-    margin-bottom: 8px;
-}
-.setup-page .input-icon, .setup-page .select-arrow {
-    position: absolute;
-    left: 0;
-    top: 55%; /* Vertically align with the input box */
-    font-size: 1.5em;
-    color: var(--primary-color);
-}
-.setup-page .select-arrow {
-    font-size: 1em;
-}
-.setup-page input[type="text"], .setup-page select {
-    padding: 15px;
-    background-color: var(--page-bg);
-    border-radius: var(--border-radius-small);
-    border: 1px solid var(--container-border);
-}
-.setup-page input[type="text"]:focus, .setup-page select:focus {
-    border-color: var(--primary-color);
-}
-.setup-page .segment-btn {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    font-size: 1.1em;
-    border-radius: var(--border-radius-small);
-}
-
-/* ==========================================================================
-   5. General Header (For other pages) & Progress Bar
+   4. Header & Progress Bar
    ========================================================================== */
 header { background: var(--gradient-primary); color: var(--text-on-primary-bg); padding: 20px; text-align: center; margin-bottom: 30px; border-radius: var(--border-radius); box-shadow: var(--element-shadow); position: relative; overflow: hidden; }
 .header-content { display: flex; align-items: center; justify-content: space-between; gap: 15px; max-width: 900px; margin: 0 auto; }
@@ -147,14 +76,60 @@ header h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin: 0; font-weight: 700; 
 header p { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-on-primary-bg); opacity: 0.85; }
 #theme-toggle { font-size: 1.5rem; line-height: 1; padding: 10px 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: var(--text-on-primary-bg); border: none; cursor: pointer; transition: var(--transition); }
 #theme-toggle:hover { transform: scale(1.1) rotate(15deg); background: rgba(255, 255, 255, 0.2); }
+.progress-container { max-width: 800px; margin: 0 auto 30px auto; }
+.progress-bar { display: flex; justify-content: space-between; position: relative; }
+.progress-bar::before { content: ''; position: absolute; top: 20px; left: 40px; right: 40px; height: 2px; background: var(--container-border); z-index: 1; }
+.progress-step { display: flex; flex-direction: column; align-items: center; gap: 8px; position: relative; z-index: 2; background: var(--page-bg); padding: 0 10px; }
+.step-circle { width: 40px; height: 40px; border-radius: 50%; background: var(--container-bg); border: 2px solid var(--container-border); display: flex; align-items: center; justify-content: center; font-weight: 600; color: var(--text-secondary); transition: var(--transition); }
+.progress-step.active .step-circle { background: var(--primary-color); border-color: var(--primary-color); color: var(--pure-white); }
+.step-label { font-size: 0.9em; font-weight: 500; color: var(--text-primary); }
 
 /* ==========================================================================
-   6. General Main Containers & Buttons
+   5. Main Containers, Forms & Setup Page
    ========================================================================== */
 main { background-color: var(--container-bg); padding: clamp(15px, 4vw, 30px); border-radius: var(--border-radius); border: 1px solid var(--container-border); max-width: 800px; margin: 0 auto 20px auto; box-shadow: var(--container-shadow); }
-.segment-header, .results-header { text-align: center; margin-bottom: 25px; }
-.segment-header h2, .results-header h2 { color: var(--primary-color); font-weight: 700; margin-bottom: 10px; }
-.segment-subtitle, .results-subtitle { color: var(--text-secondary); font-size: 1.1em; }
+#quiz-setup { max-width: 600px; }
+.setup-header, .segment-header, .results-header { text-align: center; margin-bottom: 25px; }
+.setup-header h2, .segment-header h2, .results-header h2 { color: var(--primary-color); font-weight: 700; margin-bottom: 10px; }
+.setup-subtitle, .segment-subtitle, .results-subtitle { color: var(--text-secondary); font-size: 1.1em; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-weight: 600; margin-bottom: 8px; color: var(--text-primary); }
+input[type="text"], select { width: 100%; padding: 12px 15px; font-size: 1em; color: var(--text-primary); background-color: var(--page-bg); border: 1px solid var(--container-border); border-radius: var(--border-radius-small); font-family: inherit; appearance: none; }
+.form-feedback { font-size: 0.9em; margin-top: 5px; min-height: 20px; font-weight: 500; }
+.form-feedback.success { color: var(--success-color); }
+.form-feedback.error { color: var(--danger-color); }
+.form-actions { margin-top: 30px; }
+
+/* --- CORRECTED: Quick Stats Section --- */
+.quick-stats {
+    margin-top: 30px;
+    padding: 20px;
+    background: var(--gradient-secondary, var(--page-bg));
+    border-radius: var(--border-radius);
+    border: 1px solid var(--container-border);
+    display: flex;
+    justify-content: space-around; /* This makes them side-by-side */
+    align-items: center;
+    text-align: center;
+}
+.stat-number {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+.stat-label {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    margin-top: 5px;
+}
+
+
+/* ==========================================================================
+   6. Buttons & Links
+   ========================================================================== */
+.segment-btn, .nav-btn { border: none; padding: 12px 25px; border-radius: var(--border-radius-small); cursor: pointer; font-size: 1em; font-weight: 600; transition: var(--transition); box-shadow: var(--element-shadow); display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; }
+.segment-btn { background: var(--gradient-primary); color: var(--text-on-primary-bg); width: 100%; }
+.segment-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(81, 15, 100, 0.3); }
 .segment-actions { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
 .back-link-wrapper { text-align: center; margin-top: 20px; }
 .back-link-btn { color: var(--text-primary); background-color: var(--page-bg); border: 1px solid var(--container-border); padding: 10px 25px; border-radius: var(--border-radius-small); text-decoration: none; font-weight: 600; transition: var(--transition); }
@@ -163,8 +138,15 @@ main { background-color: var(--container-bg); padding: clamp(15px, 4vw, 30px); b
 /* ==========================================================================
    7. ADVANCED QUIZ INTERFACE DESIGN
    ========================================================================== */
-#quiz-host { background: none; border: none; box-shadow: none; padding: 0; }
-#quiz-container { background: var(--glass-bg); border: 1px solid var(--container-border); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: var(--container-shadow); border-radius: var(--border-radius); padding: clamp(20px, 4vw, 40px); }
+#quiz-host {
+    background: none; border: none; box-shadow: none; padding: 0;
+}
+#quiz-container {
+    background: var(--glass-bg); border: 1px solid var(--container-border);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    box-shadow: var(--container-shadow); border-radius: var(--border-radius);
+    padding: clamp(20px, 4vw, 40px);
+}
 .quiz-progress-container { margin-bottom: 20px; }
 .quiz-progress-bar { width: 100%; height: 8px; background: var(--container-border); border-radius: 4px; overflow: hidden; }
 .quiz-progress-fill { height: 100%; background: var(--gradient-primary); width: 0%; transition: width 0.3s ease; }
@@ -251,11 +233,13 @@ footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underlin
    10. Responsive Adjustments
    ========================================================================== */
 @media (max-width: 768px) {
-    body:not(.setup-page) .header-content { flex-direction: column; gap: 15px; text-align: center; position: relative; }
-    body:not(.setup-page) #theme-toggle { position: absolute; top: 15px; right: 15px; width: auto; }
+    body { padding: 15px; }
+    .header-content { flex-direction: column; gap: 15px; text-align: center; position: relative; }
+    #theme-toggle { position: absolute; top: 15px; right: 15px; width: auto; }
     .contact-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
+    body { padding: 10px; }
     .progress-bar { justify-content: space-evenly; }
     .step-label { display: none; }
     .progress-bar::before { left: 15%; right: 15%; }
@@ -264,6 +248,12 @@ footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underlin
     #prev-btn { order: 2; }
     .question-counter { order: 1; }
     #next-btn, .submit-btn { order: 3; }
-    footer .footer-links { flex-direction: column; gap: 10px; text-align: center; }
+    .footer-links { flex-direction: column; gap: 10px; text-align: center; }
     .score-display { flex-direction: column; text-align: center; }
+    /* Corrected responsive for quick stats */
+    .quick-stats {
+        flex-direction: column;
+        align-items: center; /* Center the items when stacked */
+        gap: 20px;
+    }
 }
