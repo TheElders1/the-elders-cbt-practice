@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elders CBT - About</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <img src="logo.png" alt="The Elders CBT Practice Logo" id="header-logo">
+            <div>
+                <h1>About the Project</h1>
+                <p>Our Mission and Vision</p>
+            </div>
+            <button id="theme-toggle" class="nav-btn">🌙</button>
+        </div>
+    </header>
+
+    <main id="about-page">
+        <div class="page-content">
+            <h2>Our Mission</h2>
+            <p>The Elders CBT Practice is a tool designed to help students and learners prepare for their Cognitive Behavioral Therapy (CBT) assessments and practice exams. We believe that practice is the key to mastery, and our platform provides a comprehensive and user-friendly environment to test and improve your knowledge.</p>
+            
+            <h2>What We Offer</h2>
+            <p>Our platform features a wide range of questions across multiple departments and courses. Each quiz is timed and structured to simulate real exam conditions, allowing you to build confidence and identify areas for improvement. With detailed results and answer reviews, you can learn from your mistakes and track your progress over time.</p>
+
+            <h2>Why "The Elders"?</h2>
+            <p>The name "The Elders" is inspired by the idea of learning from the wisdom and experience of those who have gone before. We aim to provide a solid foundation of knowledge, much like the guidance of a respected elder, to help you succeed in your academic journey.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>The Elders CBT - Practice Makes Perfect</p>
+            <div class="footer-links">
+                <a href="index.html">🏠 Home</a>
+                <a href="contact.html">📞 Contact</a>
+                <a href="help.html">❓ Help</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Minimal script for theme toggler on this page
+        const themeBtn = document.getElementById('theme-toggle');
+        const applyTheme = () => {
+            const theme = localStorage.getItem('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                if(themeBtn) themeBtn.innerHTML = '☀️';
+            } else {
+                document.body.classList.remove('dark-mode');
+                if(themeBtn) themeBtn.innerHTML = '🌙';
+            }
+        };
+        themeBtn.addEventListener('click', () => {
+            let newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+            localStorage.setItem('theme', newTheme);
+            applyTheme();
+        });
+        applyTheme();
+    </script>
+</body>
+</html>
