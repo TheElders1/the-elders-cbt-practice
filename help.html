@@ -9,19 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Open Graph / Facebook / LinkedIn / Link Preview Meta Tags -->
+    <!-- Open Graph / Link Preview Meta Tags -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://the-elders-cbt-practice.netlify.app/" />
     <meta property="og:title" content="The Elders CBT Practice - Prepare for Success" />
-    <meta property="og:description" content="Master your CBT assessments with our practice quizzes across various departments and courses." />
+    <meta property="og:description" content="Master your CBT assessments with our practice quizzes." />
     <meta property="og:image" content="https://the-elders-cbt-practice.netlify.app/ELD.png" />
-
-    <!-- Twitter Card -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://the-elders-cbt-practice.netlify.app/" />
-    <meta property="twitter:title" content="The Elders CBT Practice - Prepare for Success" />
-    <meta property="twitter:description" content="Master your CBT assessments with our practice quizzes across various departments and courses." />
-    <meta property="twitter:image" content="https://the-elders-cbt-practice.netlify.app/ELD.png" />
 </head>
 <body>
 
@@ -75,6 +69,16 @@
 
             <div class="faq-item">
                 <button class="faq-question">
+                    <span>What is the "Mark for Review" feature?</span>
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>During the quiz, you can click the "🚩 Mark" button in the bottom navigation bar to flag any question you're unsure about. On the results page, you can then filter your review to show only the questions you marked, helping you focus on your weak points.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <button class="faq-question">
                     <span>My course quiz isn't loading. What's wrong?</span>
                     <span class="faq-icon">+</span>
                 </button>
@@ -96,23 +100,7 @@
         </div>
     </footer>
 
+    <!-- This single script now controls the theme and the FAQ accordion -->
     <script src="main.js" defer></script>
-    <script>
-        const faqQuestions = document.querySelectorAll('.faq-question');
-        faqQuestions.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const answer = btn.nextElementSibling;
-                const icon = btn.querySelector('.faq-icon');
-                btn.classList.toggle('active');
-                if (btn.classList.contains('active')) {
-                    answer.style.maxHeight = answer.scrollHeight + 'px';
-                    icon.textContent = '−';
-                } else {
-                    answer.style.maxHeight = '0px';
-                    icon.textContent = '+';
-                }
-            });
-        });
-    </script>
 </body>
 </html>
