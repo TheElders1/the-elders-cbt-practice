@@ -126,8 +126,8 @@ input[type="text"], select { width: 100%; padding: 12px 15px; font-size: 1em; co
 .quiz-progress-bar { width: 100%; height: 8px; background: var(--container-border); border-radius: 4px; overflow: hidden; }
 .quiz-progress-fill { height: 100%; background: var(--gradient-primary); width: 0%; transition: width 0.3s ease; }
 #progress-percentage { text-align: right; font-size: 0.9em; font-weight: 600; color: var(--primary-color); }
-#quiz-info { display: flex; justify-content: space-between; align-items: center; color: var(--text-secondary); font-weight: 500; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--container-border); gap: 15px; }
-#timer { font-weight: 700; color: var(--primary-color); flex-shrink: 0; }
+#quiz-info { display: flex; justify-content: space-between; align-items: center; color: var(--text-secondary); font-weight: 500; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--container-border); }
+#timer { font-weight: 700; color: var(--primary-color); }
 body.dark-mode #timer { color: var(--accent-blue); }
 #question-area { margin: 30px 0; }
 #question-text { font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 700; line-height: 1.5; text-align: center; }
@@ -139,7 +139,10 @@ body.dark-mode #timer { color: var(--accent-blue); }
 .option label::before { counter-increment: options-counter; content: counter(options-counter, upper-alpha); display: flex; align-items: center; justify-content: center; width: 35px; height: 35px; border-radius: 50%; border: 2px solid var(--text-secondary); color: var(--text-secondary); font-weight: 700; margin-right: 15px; flex-shrink: 0; transition: var(--transition); }
 .option:has(input:checked) { border-color: var(--primary-color); background-color: rgba(81, 15, 100, 0.1); }
 .option:has(input:checked) label::before { background-color: var(--primary-color); border-color: var(--primary-color); color: var(--pure-white); }
+
+/* --- NEW Navigation Area with Center Group --- */
 #navigation-area { display: flex; justify-content: space-between; align-items: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--container-border); }
+.nav-center-group { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .question-counter { color: var(--text-secondary); font-weight: 500; }
 .quiz-nav-btn, .submit-btn { padding: 12px 30px; font-weight: 700; border-radius: var(--border-radius-small); border: none; cursor: pointer; transition: var(--transition); }
 #prev-btn { background-color: transparent; color: var(--text-secondary); border: 2px solid var(--container-border); }
@@ -148,8 +151,6 @@ body.dark-mode #timer { color: var(--accent-blue); }
 #next-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(81, 15, 100, 0.4); }
 .submit-btn { background-color: var(--success-color); color: var(--pure-white); box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3); }
 .submit-btn:disabled, .quiz-nav-btn:disabled { background-color: var(--container-border); color: var(--text-secondary); cursor: not-allowed; box-shadow: none; transform: none; }
-
-/* "Mark for Review" Button */
 .mark-btn { padding: 8px 15px; border: 2px solid var(--container-border); background-color: transparent; color: var(--text-secondary); border-radius: var(--border-radius-small); cursor: pointer; white-space: nowrap; }
 .mark-btn:hover { border-color: var(--mark-color); color: var(--mark-color); }
 .mark-btn.active { background-color: var(--mark-color); border-color: var(--mark-color); color: var(--pure-white); }
@@ -226,9 +227,9 @@ footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underlin
     .step-label { display: none; }
     .progress-bar::before { left: 15%; right: 15%; }
     #navigation-area { flex-direction: column; gap: 15px; }
-    #prev-btn, #next-btn, .submit-btn { width: 100%; }
+    #prev-btn, #next-btn, .submit-btn, .mark-btn { width: 100%; }
+    .nav-center-group { order: 1; width: 100%; }
     #prev-btn { order: 2; }
-    .question-counter { order: 1; }
     #next-btn, .submit-btn { order: 3; }
     footer .footer-links { flex-direction: column; gap: 10px; text-align: center; }
     .score-display { flex-direction: column; text-align: center; }
