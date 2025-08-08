@@ -35,14 +35,14 @@
             <p>Preparing your course...</p>
         </div>
 
+        <!-- NEW: Simplified Segment Selection Screen -->
         <div id="segment-selection-quiz" style="display: none;">
             <div class="segment-header">
-                <h2>Choose a Segment to Begin</h2>
-                <p class="segment-subtitle">Each segment contains 50 questions.</p>
+                <h2>Ready to Practice?</h2>
+                <p class="segment-subtitle">A unique set of 50 questions will be randomly selected from the full course pool.</p>
             </div>
             <div class="segment-actions">
-                 <button id="start-segment-1" class="segment-btn">Start Segment 1 (Questions 1-50)</button>
-                 <button id="start-segment-2" class="segment-btn">Start Segment 2 (Questions 51-100)</button>
+                 <button id="start-random-quiz-btn" class="segment-btn">Start 50-Question Practice Quiz</button>
             </div>
             <div class="back-link-wrapper">
                  <a href="index.html" class="back-link-btn">← Choose Another Course</a>
@@ -59,7 +59,6 @@
             
             <div id="quiz-info">
                 <span id="question-header">Question <span id="question-number">1</span> of <span id="total-questions">50</span></span>
-                <!-- The "Mark" button has been moved from here -->
                 <span id="timer">Time Left: 25:00</span>
             </div>
             
@@ -71,15 +70,12 @@
             
             <div id="navigation-area">
                 <button id="prev-btn" class="quiz-nav-btn">← Previous</button>
-                
-                <!-- NEW: Center group for counter and mark button -->
                 <div class="nav-center-group">
                     <div class="question-counter">
                         <span id="answered-count">0</span> / <span id="total-count">50</span> answered
                     </div>
                     <button id="mark-question-btn" class="nav-btn mark-btn">🚩 Mark</button>
                 </div>
-                
                 <button id="next-btn" class="quiz-nav-btn">Next →</button>
                 <button id="submit-btn" class="submit-btn" style="display: none;">Submit Quiz</button>
             </div>
@@ -102,7 +98,7 @@
             </div>
             
             <div class="results-actions">
-                <button id="restart-btn" class="segment-btn">Choose Another Segment</button>
+                <button id="restart-btn" class="segment-btn">Practice Again (New Questions)</button>
                 <button id="review-btn" class="nav-btn">Review Answers</button>
                 <button id="filter-marked-btn" class="nav-btn" style="display: none;">Show Marked Only</button>
             </div>
