@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentSegmentQuestions = [...fullCourseQuestions].slice(startIndex, startIndex + segmentSize);
             shuffleArray(currentSegmentQuestions);
             userAnswers = new Array(currentSegmentQuestions.length).fill(null);
-            markedQuestions = new Array(currentSegmentQuestions.length).fill(false); // Reset marked questions
+            markedQuestions = new Array(currentSegmentQuestions.length).fill(false);
             score = 0;
             currentQuestionIndex = 0;
             
@@ -345,13 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Event Listeners ---
         markQuestionBtn.addEventListener('click', () => {
             markedQuestions[currentQuestionIndex] = !markedQuestions[currentQuestionIndex];
-            if (markedQuestions[currentQuestionIndex]) {
-                markQuestionBtn.classList.add('active');
-                markQuestionBtn.innerHTML = '🚩 Marked';
-            } else {
-                markQuestionBtn.classList.remove('active');
-                markQuestionBtn.innerHTML = '🚩 Mark';
-            }
+            loadQuestion(currentQuestionIndex); // Reload to update the button's appearance
         });
 
         filterMarkedBtn.addEventListener('click', () => {
@@ -396,22 +390,27 @@ document.addEventListener('DOMContentLoaded', () => {
         document.head.appendChild(script);
     }
     
-    // --- FAQ Accordion Logic (For help.html) ---
+    // =========================================================================
+    // 4. HELP PAGE LOGIC (help.html) - *** FIXED AND FUNCTIONAL ***
+    // =========================================================================
     const faqQuestions = document.querySelectorAll('.faq-question');
-    faqQuestions.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const answer = btn.nextElementSibling;
-            const icon = btn.querySelector('.faq-icon');
-            btn.classList.toggle('active');
-            if (btn.classList.contains('active')) {
-                answer.style.maxHeight = answer.scrollHeight + 'px';
-                icon.textContent = '−';
-            } else {
-                answer.style.maxHeight = '0px';
-                icon.textContent = '+';
-            }
+    if (faqQuestions.length > 0) {
+        faqQuestions.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const answer = btn.nextElementSibling;
+                const icon = btn.querySelector('.faq-icon');
+                const isActive = btn.classList.toggle('active');
+
+                if (isActive) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    icon.textContent = '−';
+                } else {
+                    answer.style.maxHeight = '0px';
+                    icon.textContent = '+';
+                }
+            });
         });
-    });
+    }
 });
 
 // Placed globally for the onclick attribute in contact.html
