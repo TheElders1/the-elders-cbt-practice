@@ -72,7 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (courseGroup.style.display !== 'none' && !courseSelect.value) {
                 showFormFeedback('course', 'Please select a course.');
                 isValid = false;
-            } else { showFormFeedback('course', '', 'success'); }
+            } else if (courseSelect.value) { 
+                showFormFeedback('course', '✓ Course selected', 'success'); 
+            }
             
             return isValid;
         };
@@ -100,6 +102,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // *** NEW: Event listener for course selection feedback ***
+        courseSelect.addEventListener('change', function() {
+            if (this.value) {
+                showFormFeedback('course', '✓ Course selected', 'success');
+            }
+        });
+
         userDetailsForm.addEventListener('submit', function(event) {
             event.preventDefault();
             if (!validateForm()) return;
@@ -123,14 +132,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // 3. QUIZ PAGE LOGIC (quiz.html) - WITH RANDOMIZATION & MARK FOR REVIEW
+    // 3. QUIZ PAGE LOGIC (quiz.html)
     // =========================================================================
     const quizHost = document.getElementById('quiz-host');
     if (quizHost) {
         // --- DOM Elements ---
         const loadingQuizEl = document.getElementById('loading-quiz');
         const segmentSelectionEl = document.getElementById('segment-selection-quiz');
-        const startRandomQuizBtn = document.getElementById('start-random-quiz-btn');
+        const startSegment1Btn = document.getElementById('start-segment-1-btn');
+        const startSegment2Btn = document.getElementById('start-segment-2-btn');
         const quizContainer = document.getElementById('quiz-container');
         const resultsContainer = document.getElementById('results-container');
         const questionNumberEl = document.getElementById('question-number');
@@ -161,9 +171,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let markedQuestions = [];
         let score = 0;
         let timerInterval = null;
+        let currentSegmentNumber = 0;
         let currentQuestionIndex = 0;
         let isReviewFiltered = false;
         const QUIZ_LENGTH = 50;
+        const SEGMENT_POOL_SIZE = 100;
         const TIME_LIMIT_SECONDS = 25 * 60;
 
         // --- Core Quiz Functions ---
@@ -179,14 +191,22 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        const startRandomQuiz = () => {
-            if (fullCourseQuestions.length < QUIZ_LENGTH) {
-                alert(`Warning: This course only has ${fullCourseQuestions.length} questions. Using all available questions.`);
-                currentQuizQuestions = [...fullCourseQuestions];
-            } else {
-                const shuffled = [...fullCourseQuestions];
-                shuffleArray(shuffled);
-                currentQuizQuestions = shuffled.slice(0, QUIZ_LENGTH);
+        const startQuizForSegment = (segmentNumber) => {
+            currentSegmentNumber = segmentNumber;
+            const startIndex = (segmentNumber - 1) * SEGMENT_POOL_SIZE;
+            const endIndex = startIndex + SEGMENT_POOL_SIZE;
+
+            if (fullCourseQuestions.length < startIndex + 1) {
+                alert(`Error: Not enough questions in the course file for Segment ${segmentNumber}.`);
+                return;
+            }
+
+            const segmentPool = [...fullCourseQuestions].slice(startIndex, endIndex);
+            shuffleArray(segmentPool);
+            currentQuizQuestions = segmentPool.slice(0, QUIZ_LENGTH);
+            
+            if (currentQuizQuestions.length < QUIZ_LENGTH) {
+                alert(`Warning: Segment ${segmentNumber} only has ${currentQuizQuestions.length} questions available.`);
             }
 
             userAnswers = new Array(currentQuizQuestions.length).fill(null);
@@ -202,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateQuizProgress();
             showScreen(quizContainer);
         };
-
+        
         const loadQuestion = (index) => {
             if (!currentQuizQuestions[index]) return;
             const question = currentQuizQuestions[index];
@@ -286,6 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             let resultsMessage = `✅ Quiz Result: ${userName} ✅\n\n`;
             resultsMessage += `Dept: ${department}\nCourse: ${courseCode}\n`;
+            resultsMessage += `Segment: ${currentSegmentNumber}\n`;
             resultsMessage += `Score: ${score} out of ${currentQuizQuestions.length}`;
             sendNotification(resultsMessage);
 
@@ -360,7 +381,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        startRandomQuizBtn.addEventListener('click', startRandomQuiz);
+        startSegment1Btn.addEventListener('click', () => startQuizForSegment(1));
+        startSegment2Btn.addEventListener('click', () => startQuizForSegment(2));
         nextBtn.addEventListener('click', () => { if (currentQuestionIndex < currentQuizQuestions.length - 1) { currentQuestionIndex++; loadQuestion(currentQuestionIndex); } });
         prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; loadQuestion(currentQuestionIndex); } });
         submitBtn.addEventListener('click', submitQuiz);
@@ -388,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // =========================================================================
-    // 4. HELP PAGE LOGIC (help.html) - FIXED
+    // 4. HELP PAGE LOGIC (help.html)
     // =========================================================================
     const faqQuestions = document.querySelectorAll('.faq-question');
     if (faqQuestions.length > 0) {
