@@ -59,8 +59,7 @@
             
             <div id="quiz-info">
                 <span id="question-header">Question <span id="question-number">1</span> of <span id="total-questions">50</span></span>
-                <!-- NEW "Mark for Review" Button -->
-                <button id="mark-question-btn" class="nav-btn mark-btn">🚩 Mark</button>
+                <!-- The "Mark" button has been moved from here -->
                 <span id="timer">Time Left: 25:00</span>
             </div>
             
@@ -72,9 +71,15 @@
             
             <div id="navigation-area">
                 <button id="prev-btn" class="quiz-nav-btn">← Previous</button>
-                <div class="question-counter">
-                    <span id="answered-count">0</span> / <span id="total-count">50</span> answered
+                
+                <!-- NEW: Center group for counter and mark button -->
+                <div class="nav-center-group">
+                    <div class="question-counter">
+                        <span id="answered-count">0</span> / <span id="total-count">50</span> answered
+                    </div>
+                    <button id="mark-question-btn" class="nav-btn mark-btn">🚩 Mark</button>
                 </div>
+                
                 <button id="next-btn" class="quiz-nav-btn">Next →</button>
                 <button id="submit-btn" class="submit-btn" style="display: none;">Submit Quiz</button>
             </div>
@@ -99,7 +104,6 @@
             <div class="results-actions">
                 <button id="restart-btn" class="segment-btn">Choose Another Segment</button>
                 <button id="review-btn" class="nav-btn">Review Answers</button>
-                <!-- NEW Filter Button -->
                 <button id="filter-marked-btn" class="nav-btn" style="display: none;">Show Marked Only</button>
             </div>
             
