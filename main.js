@@ -123,13 +123,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // 3. QUIZ PAGE LOGIC (quiz.html) - WITH "MARK FOR REVIEW"
+    // 3. QUIZ PAGE LOGIC (quiz.html) - WITH RANDOMIZATION & MARK FOR REVIEW
     // =========================================================================
     const quizHost = document.getElementById('quiz-host');
     if (quizHost) {
         // --- DOM Elements ---
         const loadingQuizEl = document.getElementById('loading-quiz');
         const segmentSelectionEl = document.getElementById('segment-selection-quiz');
+        const startRandomQuizBtn = document.getElementById('start-random-quiz-btn');
         const quizContainer = document.getElementById('quiz-container');
         const resultsContainer = document.getElementById('results-container');
         const questionNumberEl = document.getElementById('question-number');
@@ -155,14 +156,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // --- State Variables ---
         let fullCourseQuestions = [];
-        let currentSegmentQuestions = [];
+        let currentQuizQuestions = [];
         let userAnswers = [];
         let markedQuestions = [];
         let score = 0;
         let timerInterval = null;
-        let currentSegmentNumber = 0;
         let currentQuestionIndex = 0;
         let isReviewFiltered = false;
+        const QUIZ_LENGTH = 50;
         const TIME_LIMIT_SECONDS = 25 * 60;
 
         // --- Core Quiz Functions ---
@@ -178,25 +179,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        const startQuizForSegment = (segmentNumber) => {
-            currentSegmentNumber = segmentNumber;
-            const segmentSize = 50;
-            const startIndex = (segmentNumber - 1) * segmentSize;
-            
-            if (fullCourseQuestions.length < startIndex + 1) {
-                alert(`Error: Course data is incomplete for Segment ${segmentNumber}.`);
-                return;
+        const startRandomQuiz = () => {
+            if (fullCourseQuestions.length < QUIZ_LENGTH) {
+                alert(`Warning: This course only has ${fullCourseQuestions.length} questions. Using all available questions.`);
+                currentQuizQuestions = [...fullCourseQuestions];
+            } else {
+                const shuffled = [...fullCourseQuestions];
+                shuffleArray(shuffled);
+                currentQuizQuestions = shuffled.slice(0, QUIZ_LENGTH);
             }
 
-            currentSegmentQuestions = [...fullCourseQuestions].slice(startIndex, startIndex + segmentSize);
-            shuffleArray(currentSegmentQuestions);
-            userAnswers = new Array(currentSegmentQuestions.length).fill(null);
-            markedQuestions = new Array(currentSegmentQuestions.length).fill(false);
+            userAnswers = new Array(currentQuizQuestions.length).fill(null);
+            markedQuestions = new Array(currentQuizQuestions.length).fill(false);
             score = 0;
             currentQuestionIndex = 0;
             
-            totalQuestionsEl.textContent = currentSegmentQuestions.length;
-            totalCountEl.textContent = currentSegmentQuestions.length;
+            totalQuestionsEl.textContent = currentQuizQuestions.length;
+            totalCountEl.textContent = currentQuizQuestions.length;
 
             loadQuestion(0);
             startTimer();
@@ -205,8 +204,8 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const loadQuestion = (index) => {
-            if (!currentSegmentQuestions[index]) return;
-            const question = currentSegmentQuestions[index];
+            if (!currentQuizQuestions[index]) return;
+            const question = currentQuizQuestions[index];
             questionNumberEl.textContent = index + 1;
             questionTextEl.innerHTML = question.question;
             optionsContainerEl.innerHTML = '';
@@ -238,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const updateNavigationButtons = () => {
             prevBtn.disabled = currentQuestionIndex === 0;
-            const isLast = currentQuestionIndex === currentSegmentQuestions.length - 1;
+            const isLast = currentQuestionIndex === currentQuizQuestions.length - 1;
             nextBtn.style.display = isLast ? 'none' : 'inline-flex';
             submitBtn.style.display = isLast ? 'inline-flex' : 'none';
         };
@@ -246,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const updateQuizProgress = () => {
             const answeredCount = userAnswers.filter(answer => answer !== null).length;
             answeredCountEl.textContent = answeredCount;
-            const percentage = Math.round((answeredCount / currentSegmentQuestions.length) * 100);
+            const percentage = Math.round((answeredCount / currentQuizQuestions.length) * 100);
             quizProgressFill.style.width = `${percentage}%`;
             progressPercentageEl.textContent = `${percentage}%`;
         };
@@ -274,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(timerInterval);
             score = 0;
             userAnswers.forEach((answer, index) => {
-                if (answer === currentSegmentQuestions[index].answer) { score++; }
+                if (answer === currentQuizQuestions[index].answer) { score++; }
             });
             
             submitBtn.disabled = true;
@@ -287,8 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             let resultsMessage = `✅ Quiz Result: ${userName} ✅\n\n`;
             resultsMessage += `Dept: ${department}\nCourse: ${courseCode}\n`;
-            resultsMessage += `Segment: ${currentSegmentNumber}\n`;
-            resultsMessage += `Score: ${score} out of ${currentSegmentQuestions.length}`;
+            resultsMessage += `Score: ${score} out of ${currentQuizQuestions.length}`;
             sendNotification(resultsMessage);
 
             displayResultsOnScreen();
@@ -296,8 +294,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const displayResultsOnScreen = () => {
             detailedResultsEl.style.display = 'none';
-            scoreTextEl.textContent = `Your Score: ${score} / ${currentSegmentQuestions.length}`;
-            const percentage = Math.round((score / currentSegmentQuestions.length) * 100);
+            scoreTextEl.textContent = `Your Score: ${score} / ${currentQuizQuestions.length}`;
+            const percentage = Math.round((score / currentQuizQuestions.length) * 100);
             scorePercentageEl.textContent = `${percentage}%`;
 
             if (percentage >= 80) feedbackTextEl.textContent = "Excellent work!";
@@ -310,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const toggleDetailedResults = () => {
             if (detailedResultsEl.style.display === 'none') {
                 detailedResultsEl.innerHTML = '<h3>Answer Review</h3>';
-                currentSegmentQuestions.forEach((q, i) => {
+                currentQuizQuestions.forEach((q, i) => {
                     const userAnswer = userAnswers[i] || 'Not Answered';
                     const isCorrect = userAnswer === q.answer;
                     const isMarked = markedQuestions[i];
@@ -345,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // --- Event Listeners ---
         markQuestionBtn.addEventListener('click', () => {
             markedQuestions[currentQuestionIndex] = !markedQuestions[currentQuestionIndex];
-            loadQuestion(currentQuestionIndex); // Reload to update the button's appearance
+            loadQuestion(currentQuestionIndex);
         });
 
         filterMarkedBtn.addEventListener('click', () => {
@@ -362,11 +360,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        nextBtn.addEventListener('click', () => { if (currentQuestionIndex < currentSegmentQuestions.length - 1) { currentQuestionIndex++; loadQuestion(currentQuestionIndex); } });
+        startRandomQuizBtn.addEventListener('click', startRandomQuiz);
+        nextBtn.addEventListener('click', () => { if (currentQuestionIndex < currentQuizQuestions.length - 1) { currentQuestionIndex++; loadQuestion(currentQuestionIndex); } });
         prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; loadQuestion(currentQuestionIndex); } });
         submitBtn.addEventListener('click', submitQuiz);
-        document.getElementById('start-segment-1')?.addEventListener('click', () => startQuizForSegment(1));
-        document.getElementById('start-segment-2')?.addEventListener('click', () => startQuizForSegment(2));
         restartBtn.addEventListener('click', () => showScreen(segmentSelectionEl));
         reviewBtn.addEventListener('click', toggleDetailedResults);
 
@@ -391,7 +388,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // =========================================================================
-    // 4. HELP PAGE LOGIC (help.html) - *** FIXED AND FUNCTIONAL ***
+    // 4. HELP PAGE LOGIC (help.html) - FIXED
     // =========================================================================
     const faqQuestions = document.querySelectorAll('.faq-question');
     if (faqQuestions.length > 0) {
