@@ -9,19 +9,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Open Graph / Facebook / LinkedIn / Link Preview Meta Tags -->
+    <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://the-elders-cbt-practice.netlify.app/" />
     <meta property="og:title" content="The Elders CBT Practice - Prepare for Success" />
-    <meta property="og:description" content="Master your CBT assessments with our practice quizzes across various departments and courses." />
+    <meta property="og:description" content="Master your CBT assessments with our practice quizzes." />
     <meta property="og:image" content="https://the-elders-cbt-practice.netlify.app/ELD.png" />
-
-    <!-- Twitter Card -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://the-elders-cbt-practice.netlify.app/" />
-    <meta property="twitter:title" content="The Elders CBT Practice - Prepare for Success" />
-    <meta property="twitter:description" content="Master your CBT assessments with our practice quizzes across various departments and courses." />
-    <meta property="twitter:image" content="https://the-elders-cbt-practice.netlify.app/ELD.png" />
 </head>
 <body>
     <header>
@@ -37,8 +31,7 @@
 
     <main id="quiz-host">
         
-        <div id="loading-quiz" style="text-align: center; padding: 50px; font-size: 1.2em;">
-            <div class="loading-spinner"></div>
+        <div id="loading-quiz" style="text-align: center; padding: 50px;">
             <p>Preparing your course...</p>
         </div>
 
@@ -58,7 +51,7 @@
 
         <div id="quiz-container" style="display: none;">
             <div class="quiz-progress-container">
-                <div id="progress-percentage" style="text-align: right; font-size: 0.9em; font-weight: 600; color: var(--primary-color);">0%</div>
+                <div id="progress-percentage">0%</div>
                 <div class="quiz-progress-bar">
                     <div class="quiz-progress-fill" id="quiz-progress-fill"></div>
                 </div>
@@ -66,6 +59,8 @@
             
             <div id="quiz-info">
                 <span id="question-header">Question <span id="question-number">1</span> of <span id="total-questions">50</span></span>
+                <!-- NEW "Mark for Review" Button -->
+                <button id="mark-question-btn" class="nav-btn mark-btn">🚩 Mark</button>
                 <span id="timer">Time Left: 25:00</span>
             </div>
             
@@ -87,7 +82,6 @@
 
         <section id="results-container" style="display: none;">
             <div class="results-header">
-                <div class="results-icon">🎉</div>
                 <h2>Quiz Complete!</h2>
                 <p class="results-subtitle">Great job on completing your practice session.</p>
             </div>
@@ -103,14 +97,10 @@
             </div>
             
             <div class="results-actions">
-                <button id="restart-btn" class="segment-btn">
-                    <span class="btn-text">Choose Another Segment</span>
-                    <span class="btn-icon">🔄</span>
-                </button>
-                <button id="review-btn" class="nav-btn">
-                    <span class="btn-text">Review Answers</span>
-                    <span class="btn-icon">🔽</span>
-                </button>
+                <button id="restart-btn" class="segment-btn">Choose Another Segment</button>
+                <button id="review-btn" class="nav-btn">Review Answers</button>
+                <!-- NEW Filter Button -->
+                <button id="filter-marked-btn" class="nav-btn" style="display: none;">Show Marked Only</button>
             </div>
             
             <div id="detailed-results" style="display: none;"></div>
