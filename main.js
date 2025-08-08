@@ -22,18 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('theme', newTheme);
             applyTheme();
         });
-        applyTheme(); // Apply theme on initial load
+        applyTheme();
     }
 
     // --- Secure Notification Helper ---
-    // This function sends data to our Netlify function without blocking the UI.
     async function sendNotification(message) {
-        if (!navigator.onLine) {
-            console.log("Offline: Skipping notification.");
-            return;
-        }
+        if (!navigator.onLine) { return; }
         try {
-            // "Fire-and-forget" call. We don't wait for the response.
             fetch('/.netlify/functions/notify', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -75,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else { showFormFeedback('department', '', 'success'); }
 
             if (courseGroup.style.display !== 'none' && !courseSelect.value) {
-                showFormfeedback('course', 'Please select a course.');
+                showFormFeedback('course', 'Please select a course.');
                 isValid = false;
             } else { showFormFeedback('course', '', 'success'); }
             
@@ -128,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // 3. QUIZ PAGE LOGIC (quiz.html)
+    // 3. QUIZ PAGE LOGIC (quiz.html) - WITH "MARK FOR REVIEW"
     // =========================================================================
     const quizHost = document.getElementById('quiz-host');
     if (quizHost) {
@@ -144,10 +139,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
         const submitBtn = document.getElementById('submit-btn');
+        const markQuestionBtn = document.getElementById('mark-question-btn');
         const scoreTextEl = document.getElementById('score-text');
         const feedbackTextEl = document.getElementById('feedback-text');
         const restartBtn = document.getElementById('restart-btn');
         const reviewBtn = document.getElementById('review-btn');
+        const filterMarkedBtn = document.getElementById('filter-marked-btn');
         const timerEl = document.getElementById('timer');
         const detailedResultsEl = document.getElementById('detailed-results');
         const quizProgressFill = document.getElementById('quiz-progress-fill');
@@ -155,16 +152,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalCountEl = document.getElementById('total-count');
         const scorePercentageEl = document.getElementById('score-percentage');
         const progressPercentageEl = document.getElementById('progress-percentage');
-
+        
         // --- State Variables ---
         let fullCourseQuestions = [];
         let currentSegmentQuestions = [];
         let userAnswers = [];
+        let markedQuestions = [];
         let score = 0;
         let timerInterval = null;
         let currentSegmentNumber = 0;
         let currentQuestionIndex = 0;
-        const TIME_LIMIT_SECONDS = 25 * 60; // 25 minutes
+        let isReviewFiltered = false;
+        const TIME_LIMIT_SECONDS = 25 * 60;
 
         // --- Core Quiz Functions ---
         const showScreen = (screen) => {
@@ -192,6 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentSegmentQuestions = [...fullCourseQuestions].slice(startIndex, startIndex + segmentSize);
             shuffleArray(currentSegmentQuestions);
             userAnswers = new Array(currentSegmentQuestions.length).fill(null);
+            markedQuestions = new Array(currentSegmentQuestions.length).fill(false); // Reset marked questions
             score = 0;
             currentQuestionIndex = 0;
             
@@ -211,11 +211,10 @@ document.addEventListener('DOMContentLoaded', () => {
             questionTextEl.innerHTML = question.question;
             optionsContainerEl.innerHTML = '';
 
-            question.options.forEach((optionText, i) => {
-                const optionId = `q${index}_o${i}`;
+            question.options.forEach((optionText) => {
                 const optionDiv = document.createElement('div');
                 optionDiv.className = 'option';
-                optionDiv.innerHTML = `<input type="radio" id="${optionId}" name="q_options" value="${optionText}"><label for="${optionId}">${optionText}</label>`;
+                optionDiv.innerHTML = `<input type="radio" name="q_options" value="${optionText}"><label>${optionText}</label>`;
                 if (userAnswers[index] === optionText) {
                     optionDiv.querySelector('input').checked = true;
                 }
@@ -227,8 +226,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 optionsContainerEl.appendChild(optionDiv);
             });
             updateNavigationButtons();
-        };
 
+            if (markedQuestions[index]) {
+                markQuestionBtn.classList.add('active');
+                markQuestionBtn.innerHTML = '🚩 Marked';
+            } else {
+                markQuestionBtn.classList.remove('active');
+                markQuestionBtn.innerHTML = '🚩 Mark';
+            }
+        };
+        
         const updateNavigationButtons = () => {
             prevBtn.disabled = currentQuestionIndex === 0;
             const isLast = currentQuestionIndex === currentSegmentQuestions.length - 1;
@@ -306,34 +313,63 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentSegmentQuestions.forEach((q, i) => {
                     const userAnswer = userAnswers[i] || 'Not Answered';
                     const isCorrect = userAnswer === q.answer;
-                    detailedResultsEl.innerHTML += `
-                        <div class="result-item ${isCorrect ? 'correct' : 'incorrect'}">
-                            <p><b>Q${i + 1}:</b> ${q.question}</p>
-                            <p>Your Answer: ${userAnswer}</p>
-                            ${!isCorrect ? `<p class="correct-answer">Correct Answer: ${q.answer}</p>` : ''}
-                        </div>`;
+                    const isMarked = markedQuestions[i];
+
+                    const resultItem = document.createElement('div');
+                    resultItem.className = `result-item ${isCorrect ? 'correct' : 'incorrect'}`;
+                    if (isMarked) {
+                        resultItem.classList.add('marked-review');
+                    }
+
+                    resultItem.innerHTML = `
+                        <p><b>Q${i + 1}:</b> ${q.question} ${isMarked ? '🚩' : ''}</p>
+                        <p>Your Answer: ${userAnswer}</p>
+                        ${!isCorrect ? `<p class="correct-answer">Correct Answer: ${q.answer}</p>` : ''}
+                    `;
+                    detailedResultsEl.appendChild(resultItem);
                 });
                 detailedResultsEl.style.display = 'block';
-                reviewBtn.innerHTML = '<span class="btn-text">Hide Review</span><span class="btn-icon">🔼</span>';
+                reviewBtn.textContent = 'Hide Review';
+                if (markedQuestions.includes(true)) {
+                    filterMarkedBtn.style.display = 'inline-flex';
+                }
             } else {
                 detailedResultsEl.style.display = 'none';
-                reviewBtn.innerHTML = '<span class="btn-text">Review Answers</span><span class="btn-icon">🔽</span>';
+                reviewBtn.textContent = 'Review Answers';
+                filterMarkedBtn.style.display = 'none';
+                isReviewFiltered = false;
+                filterMarkedBtn.textContent = 'Show Marked Only';
             }
         };
 
         // --- Event Listeners ---
-        nextBtn.addEventListener('click', () => { 
-            if (currentQuestionIndex < currentSegmentQuestions.length - 1) {
-                currentQuestionIndex++;
-                loadQuestion(currentQuestionIndex);
+        markQuestionBtn.addEventListener('click', () => {
+            markedQuestions[currentQuestionIndex] = !markedQuestions[currentQuestionIndex];
+            if (markedQuestions[currentQuestionIndex]) {
+                markQuestionBtn.classList.add('active');
+                markQuestionBtn.innerHTML = '🚩 Marked';
+            } else {
+                markQuestionBtn.classList.remove('active');
+                markQuestionBtn.innerHTML = '🚩 Mark';
             }
         });
-        prevBtn.addEventListener('click', () => { 
-            if (currentQuestionIndex > 0) {
-                currentQuestionIndex--;
-                loadQuestion(currentQuestionIndex);
+
+        filterMarkedBtn.addEventListener('click', () => {
+            isReviewFiltered = !isReviewFiltered;
+            const allResultItems = detailedResultsEl.querySelectorAll('.result-item');
+            if (isReviewFiltered) {
+                allResultItems.forEach(item => {
+                    item.style.display = item.classList.contains('marked-review') ? 'block' : 'none';
+                });
+                filterMarkedBtn.textContent = 'Show All';
+            } else {
+                allResultItems.forEach(item => item.style.display = 'block');
+                filterMarkedBtn.textContent = 'Show Marked Only';
             }
         });
+
+        nextBtn.addEventListener('click', () => { if (currentQuestionIndex < currentSegmentQuestions.length - 1) { currentQuestionIndex++; loadQuestion(currentQuestionIndex); } });
+        prevBtn.addEventListener('click', () => { if (currentQuestionIndex > 0) { currentQuestionIndex--; loadQuestion(currentQuestionIndex); } });
         submitBtn.addEventListener('click', submitQuiz);
         document.getElementById('start-segment-1')?.addEventListener('click', () => startQuizForSegment(1));
         document.getElementById('start-segment-2')?.addEventListener('click', () => startQuizForSegment(2));
@@ -344,30 +380,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const userName = params.get('name');
         const courseCode = params.get('course');
-        const department = params.get('department');
-
-        if (!userName || !courseCode || !department) {
-            alert("Error: Missing required data. Redirecting to homepage.");
-            window.location.href = 'index.html';
-            return;
-        }
-
+        if (!userName || !courseCode) { window.location.href = 'index.html'; return; }
         document.getElementById('user-info-display').textContent = `User: ${userName} | Course: ${courseCode}`;
-        
         const script = document.createElement('script');
         script.src = `courses/${courseCode}.js`;
-        
         script.onload = () => {
             if (window.quizData?.questions?.length > 0) {
                 fullCourseQuestions = window.quizData.questions;
                 showScreen(segmentSelectionEl);
             } else {
-                loadingQuizEl.innerHTML = `<p style="color:var(--danger-color);">Error: Could not load valid quiz data for ${courseCode}.</p>`;
+                loadingQuizEl.innerHTML = `<p style="color:var(--danger-color);">Error: Could not load quiz data for ${courseCode}.</p>`;
             }
         };
-        script.onerror = () => {
-             loadingQuizEl.innerHTML = `<p style="color:var(--danger-color);">Error: The course file 'courses/${courseCode}.js' could not be found.</p>`;
-        };
+        script.onerror = () => { loadingQuizEl.innerHTML = `<p style="color:var(--danger-color);">Error: Course file 'courses/${courseCode}.js' not found.</p>`; };
         document.head.appendChild(script);
     }
     
@@ -387,13 +412,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    // --- Copy to Clipboard (For contact.html) ---
-    // Note: This logic is simple and relies on an onclick attribute in contact.html
-    // A more robust solution would use event delegation if more elements needed this.
 });
 
-// We define this function in the global scope so the onclick attribute can find it.
+// Placed globally for the onclick attribute in contact.html
 function copyToClipboard(text, btn) {
     navigator.clipboard.writeText(text).then(() => {
         const originalText = btn.textContent;
