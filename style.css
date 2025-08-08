@@ -126,8 +126,8 @@ input[type="text"], select { width: 100%; padding: 12px 15px; font-size: 1em; co
 .quiz-progress-bar { width: 100%; height: 8px; background: var(--container-border); border-radius: 4px; overflow: hidden; }
 .quiz-progress-fill { height: 100%; background: var(--gradient-primary); width: 0%; transition: width 0.3s ease; }
 #progress-percentage { text-align: right; font-size: 0.9em; font-weight: 600; color: var(--primary-color); }
-#quiz-info { display: flex; justify-content: space-between; align-items: center; color: var(--text-secondary); font-weight: 500; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--container-border); }
-#timer { font-weight: 700; color: var(--primary-color); }
+#quiz-info { display: flex; justify-content: space-between; align-items: center; color: var(--text-secondary); font-weight: 500; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--container-border); gap: 15px; }
+#timer { font-weight: 700; color: var(--primary-color); flex-shrink: 0; }
 body.dark-mode #timer { color: var(--accent-blue); }
 #question-area { margin: 30px 0; }
 #question-text { font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 700; line-height: 1.5; text-align: center; }
@@ -150,7 +150,7 @@ body.dark-mode #timer { color: var(--accent-blue); }
 .submit-btn:disabled, .quiz-nav-btn:disabled { background-color: var(--container-border); color: var(--text-secondary); cursor: not-allowed; box-shadow: none; transform: none; }
 
 /* "Mark for Review" Button */
-.mark-btn { padding: 8px 15px; border: 2px solid var(--container-border); background-color: transparent; color: var(--text-secondary); border-radius: var(--border-radius-small); cursor: pointer; }
+.mark-btn { padding: 8px 15px; border: 2px solid var(--container-border); background-color: transparent; color: var(--text-secondary); border-radius: var(--border-radius-small); cursor: pointer; white-space: nowrap; }
 .mark-btn:hover { border-color: var(--mark-color); color: var(--mark-color); }
 .mark-btn.active { background-color: var(--mark-color); border-color: var(--mark-color); color: var(--pure-white); }
 
