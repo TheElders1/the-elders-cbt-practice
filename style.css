@@ -15,13 +15,14 @@
     --primary-color: #510F64;
     --primary-hover: #3C0B4A;
     --gradient-primary: linear-gradient(135deg, #510F64 0%, #3C0B4A 100%);
-    --accent-blue: #00bfff; /* For selected quiz options */
+    --accent-blue: #00bfff;
+    --mark-color: #ff9800; /* Orange for marking */
 
     /* Light Mode Palette */
     --page-bg: #f4f4f9;
     --container-bg: #ffffff;
     --container-border: #e0e0e0;
-    --glass-bg: rgba(255, 255, 255, 0.6); /* For glass effect */
+    --glass-bg: rgba(255, 255, 255, 0.6);
     --text-primary: #1a1a1a;
     --text-secondary: #555555;
     --text-on-primary-bg: #ffffff;
@@ -44,7 +45,7 @@ body.dark-mode {
     --page-bg: #121212;
     --container-bg: #1e1e1e;
     --container-border: #3a3a3a;
-    --glass-bg: rgba(30, 30, 30, 0.75); /* Darker glass effect */
+    --glass-bg: rgba(30, 30, 30, 0.75);
     --text-primary: #f1f1f1;
     --text-secondary: #a0a0a0;
     --container-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
@@ -101,30 +102,9 @@ input[type="text"], select { width: 100%; padding: 12px 15px; font-size: 1em; co
 .form-feedback.success { color: var(--success-color); }
 .form-feedback.error { color: var(--danger-color); }
 .form-actions { margin-top: 30px; }
-
-/* --- Restored Quick Stats Section --- */
-.quick-stats {
-    margin-top: 30px;
-    padding: 20px;
-    background: var(--gradient-secondary, var(--page-bg));
-    border-radius: var(--border-radius);
-    border: 1px solid var(--container-border);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    text-align: center;
-}
-.stat-number {
-    font-size: 2em;
-    font-weight: 700;
-    color: var(--primary-color);
-}
-.stat-label {
-    font-size: 0.9em;
-    color: var(--text-secondary);
-    margin-top: 5px;
-}
-
+.quick-stats { margin-top: 30px; padding: 20px; background: var(--gradient-secondary, var(--page-bg)); border-radius: var(--border-radius); border: 1px solid var(--container-border); display: flex; justify-content: space-around; align-items: center; text-align: center; }
+.stat-number { font-size: 2em; font-weight: 700; color: var(--primary-color); }
+.stat-label { font-size: 0.9em; color: var(--text-secondary); margin-top: 5px; }
 
 /* ==========================================================================
    6. Buttons & Links
@@ -140,15 +120,8 @@ input[type="text"], select { width: 100%; padding: 12px 15px; font-size: 1em; co
 /* ==========================================================================
    7. ADVANCED QUIZ INTERFACE DESIGN
    ========================================================================== */
-#quiz-host {
-    background: none; border: none; box-shadow: none; padding: 0;
-}
-#quiz-container {
-    background: var(--glass-bg); border: 1px solid var(--container-border);
-    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    box-shadow: var(--container-shadow); border-radius: var(--border-radius);
-    padding: clamp(20px, 4vw, 40px);
-}
+#quiz-host { background: none; border: none; box-shadow: none; padding: 0; }
+#quiz-container { background: var(--glass-bg); border: 1px solid var(--container-border); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: var(--container-shadow); border-radius: var(--border-radius); padding: clamp(20px, 4vw, 40px); }
 .quiz-progress-container { margin-bottom: 20px; }
 .quiz-progress-bar { width: 100%; height: 8px; background: var(--container-border); border-radius: 4px; overflow: hidden; }
 .quiz-progress-fill { height: 100%; background: var(--gradient-primary); width: 0%; transition: width 0.3s ease; }
@@ -176,6 +149,11 @@ body.dark-mode #timer { color: var(--accent-blue); }
 .submit-btn { background-color: var(--success-color); color: var(--pure-white); box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3); }
 .submit-btn:disabled, .quiz-nav-btn:disabled { background-color: var(--container-border); color: var(--text-secondary); cursor: not-allowed; box-shadow: none; transform: none; }
 
+/* "Mark for Review" Button */
+.mark-btn { padding: 8px 15px; border: 2px solid var(--container-border); background-color: transparent; color: var(--text-secondary); border-radius: var(--border-radius-small); cursor: pointer; }
+.mark-btn:hover { border-color: var(--mark-color); color: var(--mark-color); }
+.mark-btn.active { background-color: var(--mark-color); border-color: var(--mark-color); color: var(--pure-white); }
+
 /* ==========================================================================
    8. Results, Footer & Other Components
    ========================================================================== */
@@ -185,10 +163,12 @@ body.dark-mode #timer { color: var(--accent-blue); }
 .score-circle { width: 100px; height: 100px; border-radius: 50%; background: var(--gradient-primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 1.8em; font-weight: 700; flex-shrink: 0; }
 #score-text { font-size: 1.2em; font-weight: 600; }
 #feedback-text { font-size: 1.1em; color: var(--text-secondary); font-style: italic; }
-.results-actions { display: flex; flex-direction: column; gap: 15px; margin: 20px 0; }
+.results-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+.results-actions .segment-btn { grid-column: 1 / -1; }
 #detailed-results { margin-top: 30px; border-top: 1px solid var(--container-border); padding-top: 20px; }
 .result-item { margin-bottom: 15px; padding: 10px; border-left: 4px solid var(--danger-color); background-color: rgba(220, 53, 69, 0.1); }
 .result-item.correct { border-left-color: var(--success-color); background-color: rgba(40, 167, 69, 0.1); }
+.result-item.marked-review { border-left-color: var(--mark-color); background-color: rgba(255, 152, 0, 0.1); }
 .result-item p { margin: 5px 0; }
 .correct-answer { font-weight: bold; }
 footer { text-align: center; margin-top: auto; padding: 20px; font-size: 0.9em; background: var(--gradient-primary); color: var(--text-on-primary-bg); opacity: 0.95; border-radius: var(--border-radius); }
@@ -252,15 +232,6 @@ footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underlin
     #next-btn, .submit-btn { order: 3; }
     footer .footer-links { flex-direction: column; gap: 10px; text-align: center; }
     .score-display { flex-direction: column; text-align: center; }
-    .quick-stats {
-        flex-direction: column;
-        align-items: flex-start; /* Aligns items to the left when stacked */
-        gap: 20px;
-    }
-    .stat-item {
-        display: flex; /* Make stat items flex to align number and label */
-        align-items: center;
-        gap: 15px;
-        width: 100%;
-    }
+    .quick-stats { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .stat-item { display: flex; align-items: center; gap: 15px; width: 100%; }
 }
