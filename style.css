@@ -190,20 +190,42 @@ body.dark-mode #timer { color: var(--accent-blue); }
    9. Footer & Advanced Static Pages
    ========================================================================== */
 footer { text-align: center; margin-top: auto; padding: 20px; font-size: 0.9em; background: var(--gradient-primary); color: var(--text-on-primary-bg); opacity: 0.95; border-radius: var(--border-radius); }
-
-/* --- CORRECTED FOOTER LINKS --- */
-.footer-links {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 25px; /* Adds space between links */
-    flex-wrap: wrap; /* Allows links to wrap on smaller screens if needed */
-}
+.footer-links { margin-top: 10px; display: flex; justify-content: center; align-items: center; gap: 25px; flex-wrap: wrap; }
 footer a { color: var(--text-on-primary-bg); opacity: 0.8; text-decoration: none; transition: var(--transition); }
 footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underline; }
 
-/* ... (All advanced static page styles are correct) ... */
+.page-header, .page-section { text-align: center; margin-bottom: 40px; }
+.page-section.text-center { max-width: 700px; margin-left: auto; margin-right: auto; }
+.page-header h2, .page-section h2 { font-size: 2em; color: var(--primary-color); margin-bottom: 10px; }
+.page-header p, .section-subtitle { font-size: 1.1em; color: var(--text-secondary); }
+.advanced-card { background-color: var(--page-bg); border: 1px solid var(--container-border); border-radius: var(--border-radius); padding: 25px; text-align: center; transition: var(--transition); }
+.advanced-card:hover { transform: translateY(-5px); box-shadow: var(--container-shadow); }
+.card-icon { font-size: 2.5em; margin-bottom: 15px; line-height: 1; }
+.advanced-card h3 { font-size: 1.3em; margin-bottom: 10px; color: var(--text-primary); }
+.advanced-card p { color: var(--text-secondary); line-height: 1.7; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+.card-description { margin-bottom: 20px; min-height: 60px; }
+.card-details { text-align: left; color: var(--text-secondary); }
+.card-details p { margin-bottom: 10px; }
+.copy-container { display: flex; justify-content: space-between; align-items: center; }
+.copy-btn { padding: 5px 12px; border: 1px solid var(--container-border); background-color: var(--container-bg); color: var(--text-primary); border-radius: var(--border-radius-small); cursor: pointer; font-weight: 600; }
+.copy-btn.copied { background-color: var(--success-color); color: var(--pure-white); border-color: var(--success-color); }
+.card-actions { display: flex; flex-direction: column; gap: 15px; }
+.action-btn { padding: 12px; border-radius: var(--border-radius-small); text-decoration: none; font-weight: 600; color: var(--pure-white); transition: var(--transition); }
+.whatsapp-btn { background-color: #25D366; }
+.phone-btn { background-color: #34B7F1; }
+.action-btn:hover { filter: brightness(110%); }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin-top: 20px; }
+.faq-container { max-width: 750px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--container-border); }
+.faq-question { width: 100%; background: none; border: none; padding: 20px; text-align: left; font-size: 1.1em; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--text-primary); }
+.faq-question:hover { background-color: rgba(128, 128, 128, 0.05); }
+.faq-icon { font-size: 1.5em; font-weight: 300; color: var(--primary-color); transition: transform 0.2s ease; }
+.faq-question.active .faq-icon { transform: rotate(45deg); }
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding: 0 20px; }
+.faq-answer p { padding-bottom: 20px; color: var(--text-secondary); line-height: 1.8; }
+.faq-answer a { color: var(--primary-color); font-weight: 600; text-decoration: none; }
+.faq-answer a:hover { text-decoration: underline; }
 
 /* ==========================================================================
    10. Responsive Adjustments
