@@ -327,25 +327,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const toggleDetailedResults = () => {
             if (detailedResultsEl.style.display === 'none') {
-                detailedResultsEl.innerHTML = '<h3>Answer Review</h3>';
+                detailedResultsEl.innerHTML = ''; // Clear previous results
                 currentQuizQuestions.forEach((q, i) => {
                     const userAnswer = userAnswers[i] || 'Not Answered';
                     const isCorrect = userAnswer === q.answer;
                     const isMarked = markedQuestions[i];
 
-                    const resultItem = document.createElement('div');
-                    resultItem.className = `result-item ${isCorrect ? 'correct' : 'incorrect'}`;
-                    if (isMarked) {
-                        resultItem.classList.add('marked-review');
-                    }
-
-                    resultItem.innerHTML = `
-                        <p><b>Q${i + 1}:</b> ${q.question} ${isMarked ? '🚩' : ''}</p>
-                        <p>Your Answer: ${userAnswer}</p>
-                        ${!isCorrect ? `<p class="correct-answer">Correct Answer: ${q.answer}</p>` : ''}
+                    const statusIcon = isCorrect ? '✓' : '✗';
+                    const statusText = isCorrect ? 'Correct' : 'Incorrect';
+                    const statusClass = isCorrect ? 'correct-status' : 'incorrect-status';
+                    const markedClass = isMarked ? 'marked-review' : '';
+                    
+                    const reviewCardHTML = `
+                        <div class="review-card ${markedClass}">
+                            <div class="review-card-header">
+                                <span class="review-question-number">Question ${i + 1}</span>
+                                ${isMarked ? '<span class="review-marked-icon">🚩 Marked</span>' : ''}
+                                <span class="review-status ${statusClass}">${statusIcon} ${statusText}</span>
+                            </div>
+                            <div class="review-card-body">
+                                <p class="review-question-text">${q.question}</p>
+                                <p class="review-answer user-answer ${isCorrect ? 'correct-answer' : 'incorrect-answer'}">
+                                    <strong>Your Answer:</strong> ${userAnswer}
+                                </p>
+                                ${!isCorrect ? `
+                                <p class="review-answer correct-answer-reveal">
+                                    <strong>Correct Answer:</strong> ${q.answer}
+                                </p>` : ''}
+                            </div>
+                        </div>
                     `;
-                    detailedResultsEl.appendChild(resultItem);
+                    detailedResultsEl.innerHTML += reviewCardHTML;
                 });
+
                 detailedResultsEl.style.display = 'block';
                 reviewBtn.textContent = 'Hide Review';
                 if (markedQuestions.includes(true)) {
@@ -368,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         filterMarkedBtn.addEventListener('click', () => {
             isReviewFiltered = !isReviewFiltered;
-            const allResultItems = detailedResultsEl.querySelectorAll('.result-item');
+            const allResultItems = detailedResultsEl.querySelectorAll('.review-card');
             if (isReviewFiltered) {
                 allResultItems.forEach(item => {
                     item.style.display = item.classList.contains('marked-review') ? 'block' : 'none';
@@ -394,17 +408,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const courseCode = params.get('course');
         if (!userName || !courseCode) { window.location.href = 'index.html'; return; }
         document.getElementById('user-info-display').textContent = `User: ${userName} | Course: ${courseCode}`;
+        
         const script = document.createElement('script');
         script.src = `courses/${courseCode}.js`;
         
         const showCourseNotAvailableError = () => {
             loadingQuizEl.innerHTML = `
                 <div class="error-message-container">
-                    <p>This course has not been uploaded yet.</p>
-                    <p>Please try other courses.</p>
-                    <a href="index.html" class="back-link-btn">← Go Back</a>
+                    <div class="error-icon">!</div>
+                    <h3 class="error-title">Course Not Available</h3>
+                    <p class="error-subtitle">This course has not been uploaded yet. Please try another one.</p>
+                    <a href="index.html" class="back-link-btn">← Go Back to Course Selection</a>
                 </div>
             `;
+            loadingQuizEl.style.display = 'block'; 
         };
 
         script.onload = () => {
