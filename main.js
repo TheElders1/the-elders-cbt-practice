@@ -102,7 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // *** NEW: Event listener for course selection feedback ***
         courseSelect.addEventListener('change', function() {
             if (this.value) {
                 showFormFeedback('course', '✓ Course selected', 'success');
@@ -397,15 +396,28 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('user-info-display').textContent = `User: ${userName} | Course: ${courseCode}`;
         const script = document.createElement('script');
         script.src = `courses/${courseCode}.js`;
+        
+        const showCourseNotAvailableError = () => {
+            loadingQuizEl.innerHTML = `
+                <div class="error-message-container">
+                    <p>This course has not been uploaded yet.</p>
+                    <p>Please try other courses.</p>
+                    <a href="index.html" class="back-link-btn">← Go Back</a>
+                </div>
+            `;
+        };
+
         script.onload = () => {
             if (window.quizData?.questions?.length > 0) {
                 fullCourseQuestions = window.quizData.questions;
                 showScreen(segmentSelectionEl);
             } else {
-                loadingQuizEl.innerHTML = `<p style="color:var(--danger-color);">Error: Could not load quiz data for ${courseCode}.</p>`;
+                showCourseNotAvailableError();
             }
         };
-        script.onerror = () => { loadingQuizEl.innerHTML = `<p style="color:var(--danger-color);">Error: Course file 'courses/${courseCode}.js' not found.</p>`; };
+        script.onerror = () => {
+             showCourseNotAvailableError();
+        };
         document.head.appendChild(script);
     }
     
