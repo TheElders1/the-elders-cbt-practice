@@ -45,10 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     perfectScores: 0,
                     averageScore: 0
                 };
+                console.log('Created new user:', this.userData.users[userId]);
             } else {
                 // Update last visit
                 this.userData.users[userId].lastVisit = new Date().toISOString();
                 this.updateStudyStreak(userId);
+                console.log('Updated existing user:', this.userData.users[userId]);
             }
             this.userData.currentUser = userId;
             this.saveUserData();
@@ -294,10 +296,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================================
     const userDetailsForm = document.getElementById('user-details-form');
     if (userDetailsForm) {
+        console.log('Setup page loaded');
+        
         // Check for returning user and show welcome message
         const currentUser = userDataManager.getCurrentUser();
+        console.log('Current user:', currentUser);
+        
         if (currentUser) {
+            console.log('Showing welcome back message for:', currentUser.name);
             showWelcomeBackMessage(currentUser);
+        } else {
+            console.log('No current user found');
         }
 
         const nameInput = document.getElementById('name-input');
@@ -386,7 +395,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Create or update user data
             userDataManager.createOrGetUser(name);
             
-            window.location.href = `quiz.html?name=${encodedName}&course=${encodedCourse}&department=${encodedDepartment}`;
+            // Small delay to ensure data is saved before redirect
+            setTimeout(() => {
+                window.location.href = `quiz.html?name=${encodedName}&course=${encodedCourse}&department=${encodedDepartment}`;
+            }, 100);
         });
 
         function showWelcomeBackMessage(user) {
@@ -417,8 +429,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             
-            const main = document.querySelector('main');
-            main.insertBefore(welcomeDiv, main.firstChild);
+            // Insert after the progress container but before the main content
+            const progressContainer = document.querySelector('.progress-container');
+            const mainContent = document.querySelector('main');
+            
+            if (progressContainer && mainContent) {
+                // Insert between progress container and main content
+                progressContainer.parentNode.insertBefore(welcomeDiv, mainContent);
+            } else {
+                // Fallback: insert at the beginning of main
+                const main = document.querySelector('main');
+                if (main) {
+                    main.insertBefore(welcomeDiv, main.firstChild);
+                }
+            }
         }
     }
 
