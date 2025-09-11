@@ -305,6 +305,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentUser) {
             // User already exists and is logged in - skip login page
             console.log('User already logged in:', currentUser.name);
+            // Add loading indicator before redirect
+            document.body.innerHTML = `
+                <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; gap: 20px;">
+                    <div style="font-size: 2em;">⏳</div>
+                    <p>Redirecting to your dashboard...</p>
+                </div>
+            `;
             window.location.href = 'home.html';
             return;
         }
@@ -312,6 +319,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const nameInput = document.getElementById('name-input');
         const departmentSelect = document.getElementById('department-select');
         
+        // Add real-time validation feedback
+        nameInput.addEventListener('input', function() {
+            if (this.value.trim().length >= 6) {
+                showFormFeedback('name', '✓ Looks good!', 'success');
+            } else if (this.value.trim().length > 0) {
+                showFormFeedback('name', `${6 - this.value.trim().length} more characters needed`, 'error');
+            } else {
+                showFormFeedback('name', '', '');
+            }
+        });
+
         const showFormFeedback = (fieldId, message, type = 'error') => {
             const feedbackEl = document.getElementById(`${fieldId}-feedback`);
             if (feedbackEl) {

@@ -40,6 +40,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Setup event listeners
         setupEventListeners();
+        
+        // Add welcome animation
+        animateWelcome();
+    }
+
+    function animateWelcome() {
+        const welcomeEl = document.getElementById('user-welcome');
+        if (welcomeEl) {
+            welcomeEl.style.opacity = '0';
+            welcomeEl.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                welcomeEl.style.transition = 'all 0.5s ease';
+                welcomeEl.style.opacity = '1';
+                welcomeEl.style.transform = 'translateY(0)';
+            }, 100);
+        }
     }
 
     function populateCourseSelection(department) {
@@ -251,6 +267,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const selectedCourse = courseSelect.value;
             
             if (selectedCourse) {
+                // Add loading state
+                this.disabled = true;
+                this.innerHTML = '<span class="btn-text">Starting Quiz...</span><span class="btn-icon">⏳</span>';
+                
                 const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
                 const currentUser = userData.users[userData.currentUser];
                 
@@ -258,12 +278,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 const encodedCourse = encodeURIComponent(selectedCourse);
                 const encodedDepartment = encodeURIComponent(currentUser.department);
                 
-                window.location.href = `quiz.html?name=${encodedName}&course=${encodedCourse}&department=${encodedDepartment}`;
+                // Small delay for better UX
+                setTimeout(() => {
+                    window.location.href = `quiz.html?name=${encodedName}&course=${encodedCourse}&department=${encodedDepartment}`;
+                }, 500);
             }
         });
 
         // Practice weak areas
         document.getElementById('practice-weak-btn').addEventListener('click', function() {
+            this.disabled = true;
+            this.innerHTML = '<span class="btn-text">Finding Weak Areas...</span><span class="btn-icon">🔍</span>';
+            
             const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
             const currentUser = userData.users[userData.currentUser];
             
@@ -284,9 +310,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 const encodedCourse = encodeURIComponent(targetCourse);
                 const encodedDepartment = encodeURIComponent(currentUser.department);
                 
-                window.location.href = `quiz.html?name=${encodedName}&course=${encodedCourse}&department=${encodedDepartment}`;
+                setTimeout(() => {
+                    window.location.href = `quiz.html?name=${encodedName}&course=${encodedCourse}&department=${encodedDepartment}`;
+                }, 800);
             } else {
-                alert('No weak areas identified yet. Take a few quizzes first!');
+                // Reset button state
+                this.disabled = false;
+                this.innerHTML = '<span class="btn-text">Practice Weak Areas</span><span class="btn-icon">🎯</span>';
+                
+                // Show friendly message
+                const messageEl = document.createElement('div');
+                messageEl.className = 'friendly-message';
+                messageEl.innerHTML = `
+                    <div class="message-content">
+                        <div class="message-icon">🎯</div>
+                        <h4>Great News!</h4>
+                        <p>No weak areas identified yet. Take a few quizzes first to get personalized recommendations!</p>
+                        <button onclick="this.parentElement.parentElement.remove()" class="message-close">Got it!</button>
+                    </div>
+                `;
+                document.body.appendChild(messageEl);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    if (messageEl.parentElement) {
+                        messageEl.remove();
+                    }
+                }, 5000);
             }
         });
 
