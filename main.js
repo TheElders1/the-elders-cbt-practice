@@ -771,7 +771,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="error-icon">!</div>
                     <h3 class="error-title">Course Not Available</h3>
                     <p class="error-subtitle">This course has not been uploaded yet. Please try another one.</p>
-                    <a href="index.html" class="back-link-btn">← Go Back to Course Selection</a>
+                    <a href="home.html" class="back-link-btn">← Go Back to Course Selection</a>
                 </div>
             `;
             loadingQuizEl.style.display = 'block'; 
