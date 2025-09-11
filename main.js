@@ -299,11 +299,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginForm) {
         console.log('Login page loaded');
         
-        // Check if user is already logged in
+        // 🔒 PERSISTENT LOGIN CHECK - Auto-redirect if already logged in
         const currentUser = userDataManager.getCurrentUser();
         
         if (currentUser) {
-            // Redirect to home if already logged in
+            // User already exists and is logged in - skip login page
+            console.log('User already logged in:', currentUser.name);
             window.location.href = 'home.html';
             return;
         }

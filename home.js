@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentUser = userData.currentUser ? userData.users[userData.currentUser] : null;
 
     if (!currentUser) {
-        // Redirect to login if no user data
+        // 🔒 NO USER DATA - Redirect back to login
+        console.log('No user data found, redirecting to login');
         window.location.href = 'index.html';
         return;
     }
