@@ -164,14 +164,31 @@
                         </tbody>
                     </table>
                 </div>
+                <div id="performance-warning" class="performance-warning" style="display: none;"></div>
                 <div class="table-pagination">
                     <div class="pagination-info">
                         <span id="table-info">Showing 0 of 0 users</span>
+                        <div class="pagination-controls-left">
+                            <label for="users-per-page">Show:</label>
+                            <select id="users-per-page" class="admin-select-small">
+                                <option value="10">10 per page</option>
+                                <option value="25" selected>25 per page</option>
+                                <option value="50">50 per page</option>
+                                <option value="100">100 per page</option>
+                                <option value="250">250 per page</option>
+                                <option value="500">500 per page</option>
+                                <option value="1000">1000 per page</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="pagination-controls">
                         <button id="prev-page" class="nav-btn" disabled>← Previous</button>
                         <span id="page-info">Page 1 of 1</span>
                         <button id="next-page" class="nav-btn" disabled>Next →</button>
+                        <div class="jump-to-page">
+                            <label for="jump-to-page">Jump to:</label>
+                            <input type="number" id="jump-to-page" class="page-jump-input" placeholder="Page #" min="1">
+                        </div>
                     </div>
                 </div>
             </section>
@@ -444,7 +461,7 @@
         let currentUsers = [];
         let filteredUsers = [];
         let currentPage = 1;
-        const usersPerPage = 10;
+        let usersPerPage = 25; // Default to 25 users per page
         let currentSort = { field: 'name', direction: 'asc' };
 
         function setupUserAnalyticsListeners() {
@@ -469,6 +486,28 @@
             // Pagination
             document.getElementById('prev-page').addEventListener('click', () => changePage(-1));
             document.getElementById('next-page').addEventListener('click', () => changePage(1));
+            
+            // Users per page selector
+            document.getElementById('users-per-page').addEventListener('change', function() {
+                usersPerPage = parseInt(this.value);
+                currentPage = 1;
+                renderUserTable();
+                updatePagination();
+            });
+            
+            // Jump to page
+            document.getElementById('jump-to-page').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const pageNum = parseInt(this.value);
+                    const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+                    if (pageNum >= 1 && pageNum <= totalPages) {
+                        currentPage = pageNum;
+                        renderUserTable();
+                        updatePagination();
+                    }
+                    this.value = '';
+                }
+            });
             
             // Sortable columns
             document.querySelectorAll('.sortable').forEach(header => {
@@ -636,6 +675,28 @@
                 
                 tbody.appendChild(row);
             });
+            
+            // Add loading indicator for large datasets
+            if (filteredUsers.length > 100) {
+                showLoadingIndicator(false);
+            }
+        }
+        
+        function showLoadingIndicator(show) {
+            const tbody = document.getElementById('users-table-body');
+            if (show) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="12" class="loading-message">
+                            <div class="loading-state">
+                                <div class="loading-spinner"></div>
+                                <h4>Loading User Data...</h4>
+                                <p>Processing large dataset, please wait...</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
         }
 
         function changePage(direction) {
@@ -662,6 +723,18 @@
             
             document.getElementById('prev-page').disabled = currentPage <= 1;
             document.getElementById('next-page').disabled = currentPage >= totalPages;
+            
+            // Update users per page selector
+            document.getElementById('users-per-page').value = usersPerPage;
+            
+            // Show performance warning for large datasets
+            const performanceWarning = document.getElementById('performance-warning');
+            if (filteredUsers.length > 500) {
+                performanceWarning.style.display = 'block';
+                performanceWarning.textContent = `⚠️ Large dataset (${filteredUsers.length} users) - Consider using filters for better performance`;
+            } else {
+                performanceWarning.style.display = 'none';
+            }
         }
 
         function exportUsersCSV() {

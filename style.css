@@ -633,6 +633,9 @@ footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underlin
 }
 
 .pagination-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
     color: var(--text-secondary);
     font-size: 0.9em;
 }
@@ -2051,11 +2054,108 @@ body.admin-page {
     .table-filters {
         flex-direction: column;
         gap: 10px;
+.pagination-controls-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.admin-select-small {
+    padding: 4px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 12px;
+    min-width: 120px;
+}
+
     }
+    display: flex;
+    align-items: center;
+    gap: 15px;
     
     .admin-search {
         min-width: auto;
         width: 100%;
+.jump-to-page {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.page-jump-input {
+    width: 60px;
+    padding: 4px 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 12px;
+    text-align: center;
+}
+
+.performance-warning {
+    background: #fff3cd;
+    color: #856404;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin: 10px 0;
+    font-size: 14px;
+    border: 1px solid #ffeaa7;
+}
+
+.dark-mode .performance-warning {
+    background: #3d3d00;
+    color: #ffeb3b;
+    border-color: #5d5d00;
+}
+
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 40px 20px;
+}
+
+.loading-state .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+    }
+    
+    .table-pagination {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+    
+    .pagination-info {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    
+    .pagination-controls {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    
+    .jump-to-page {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
     }
     
     .analytics-table {
