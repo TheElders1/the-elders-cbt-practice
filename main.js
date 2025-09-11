@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.userData.users[userId] = {
                     id: userId,
                     name: name,
+                    department: null, // Will be set during login
                     joinDate: new Date().toISOString(),
                     lastVisit: new Date().toISOString(),
                     totalXP: 0,
@@ -292,27 +293,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // 2. SETUP PAGE LOGIC (index.html)
+    // 2. LOGIN PAGE LOGIC (index.html)
     // =========================================================================
-    const userDetailsForm = document.getElementById('user-details-form');
-    if (userDetailsForm) {
-        console.log('Setup page loaded');
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        console.log('Login page loaded');
         
-        // Check for returning user and show welcome message
+        // Check if user is already logged in
         const currentUser = userDataManager.getCurrentUser();
-        console.log('Current user:', currentUser);
         
         if (currentUser) {
-            console.log('Showing welcome back message for:', currentUser.name);
-            showWelcomeBackMessage(currentUser);
-        } else {
-            console.log('No current user found');
+            // Redirect to home if already logged in
+            window.location.href = 'home.html';
+            return;
         }
 
         const nameInput = document.getElementById('name-input');
         const departmentSelect = document.getElementById('department-select');
-        const courseGroup = document.getElementById('course-selection-group');
-        const courseSelect = document.getElementById('course-select');
         
         const showFormFeedback = (fieldId, message, type = 'error') => {
             const feedbackEl = document.getElementById(`${fieldId}-feedback`);
@@ -333,117 +330,38 @@ document.addEventListener('DOMContentLoaded', () => {
                 showFormFeedback('department', 'Please select a department.');
                 isValid = false;
             } else { showFormFeedback('department', '', 'success'); }
-
-            if (courseGroup.style.display !== 'none' && !courseSelect.value) {
-                showFormFeedback('course', 'Please select a course.');
-                isValid = false;
-            } else if (courseSelect.value) { 
-                showFormFeedback('course', '✓ Course selected', 'success'); 
-            }
             
             return isValid;
         };
         
-        const coursesByDepartment = {
-            "Computer Science": ["MTH121", "GST121", "COS121", "PHY121", "CSC121", "CSC122"],
-            "Cyber Security": ["MTH121", "GST121", "COS121", "PHY121", "CYB121", "CYB122"],
-            "Data Science": ["MTH121", "GST121", "COS121", "PHY121", "DTS121", "DTS122"],
-            "Information Technology": ["MTH121", "GST121", "COS121", "PHY121", "IFT121", "IFT122"],
-            "Software Engineering": ["MTH121", "GST121", "COS121", "PHY121", "SEN121", "SEN122"]
-        };
-
         departmentSelect.addEventListener('change', function() {
-            const selectedDepartment = this.value;
-            courseSelect.innerHTML = '';
             showFormFeedback('department', '✓ Department selected', 'success');
-            
-            if (selectedDepartment && coursesByDepartment[selectedDepartment]) {
-                courseSelect.innerHTML = `<option value="" disabled selected>-- Please choose a course --</option>`;
-                const uniqueCourses = [...new Set(coursesByDepartment[selectedDepartment])];
-                uniqueCourses.forEach(course => courseSelect.innerHTML += `<option value="${course}">${course}</option>`);
-                courseGroup.style.display = 'block';
-            } else {
-                courseGroup.style.display = 'none';
-            }
         });
 
-        courseSelect.addEventListener('change', function() {
-            if (this.value) {
-                showFormFeedback('course', '✓ Course selected', 'success');
-            }
-        });
-
-        userDetailsForm.addEventListener('submit', function(event) {
+        loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
             if (!validateForm()) return;
             
             const name = nameInput.value.trim();
             const department = departmentSelect.value;
-            const course = courseSelect.value;
             
             const submitButton = this.querySelector('button[type="submit"]');
             submitButton.disabled = true; 
-            submitButton.innerHTML = '<span class="btn-text">Loading...</span><span class="btn-icon">⏳</span>';
+            submitButton.innerHTML = '<span class="btn-text">Logging in...</span><span class="btn-icon">⏳</span>';
 
-            const notificationMessage = `🔔 New Quiz Taker 🔔\n\nName: ${name}\nDept: ${department}\nCourse: ${course}`;
+            const notificationMessage = `🔔 User Login 🔔\n\nName: ${name}\nDept: ${department}`;
             sendNotification(notificationMessage);
 
-            const encodedName = encodeURIComponent(name);
-            const encodedCourse = encodeURIComponent(course);
-            const encodedDepartment = encodeURIComponent(department);
-            
             // Create or update user data
-            userDataManager.createOrGetUser(name);
+            const user = userDataManager.createOrGetUser(name);
+            user.department = department; // Store department with user
+            userDataManager.saveUserData();
             
             // Small delay to ensure data is saved before redirect
             setTimeout(() => {
-                window.location.href = `quiz.html?name=${encodedName}&course=${encodedCourse}&department=${encodedDepartment}`;
+                window.location.href = 'home.html';
             }, 100);
         });
-
-        function showWelcomeBackMessage(user) {
-            const welcomeDiv = document.createElement('div');
-            welcomeDiv.className = 'welcome-back-message';
-            welcomeDiv.innerHTML = `
-                <div class="welcome-content">
-                    <h3>👋 Welcome back, ${user.name}!</h3>
-                    <div class="user-stats">
-                        <div class="stat-item">
-                            <span class="stat-number">${user.level}</span>
-                            <span class="stat-label">Level</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">${user.totalXP}</span>
-                            <span class="stat-label">XP</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">${user.studyStreak}</span>
-                            <span class="stat-label">Day Streak</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">${user.averageScore}%</span>
-                            <span class="stat-label">Avg Score</span>
-                        </div>
-                    </div>
-                    <button class="view-dashboard-btn" onclick="showUserDashboard()">📊 View Dashboard</button>
-                </div>
-            `;
-            
-            // Insert after the progress container but before the main content
-            const progressContainer = document.querySelector('.progress-container');
-            const mainContent = document.querySelector('main');
-            
-            if (progressContainer && mainContent) {
-                // Insert between progress container and main content
-                progressContainer.parentNode.insertBefore(welcomeDiv, mainContent);
-            } else {
-                // Fallback: insert at the beginning of main
-                const main = document.querySelector('main');
-                if (main) {
-                    main.insertBefore(welcomeDiv, main.firstChild);
-                }
-            }
-        }
     }
 
     // =========================================================================
@@ -896,5 +814,5 @@ function copyToClipboard(text, btn) {
 
 // Global function to show user dashboard
 function showUserDashboard() {
-    window.location.href = 'dashboard.html';
+    window.location.href = 'home.html';
 }

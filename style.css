@@ -86,10 +86,10 @@ header p { font-size: clamp(0.9rem, 2vw, 1.1rem); color: var(--text-on-primary-b
 .step-label { font-size: 0.9em; font-weight: 500; color: var(--text-primary); }
 
 /* ==========================================================================
-   5. Main Containers, Forms & Setup Page
+   5. Main Containers, Forms & Login Page
    ========================================================================== */
 main { background-color: var(--container-bg); padding: clamp(15px, 4vw, 30px); border-radius: var(--border-radius); border: 1px solid var(--container-border); max-width: 800px; margin: 0 auto 20px auto; box-shadow: var(--container-shadow); }
-#quiz-setup { max-width: 600px; }
+#login-setup { max-width: 600px; }
 .setup-header, .segment-header, .results-header { text-align: center; margin-bottom: 25px; }
 .setup-header h2, .segment-header h2, .results-header h2 { color: var(--primary-color); font-weight: 700; margin-bottom: 10px; }
 .setup-subtitle, .segment-subtitle, .results-subtitle { color: var(--text-secondary); font-size: 1.1em; }
@@ -105,6 +105,135 @@ input[type="text"], select { width: 100%; padding: 12px 15px; font-size: 1em; co
 .quick-stats { margin-top: 30px; padding: 20px; background: var(--gradient-secondary, var(--page-bg)); border-radius: var(--border-radius); border: 1px solid var(--container-border); display: flex; justify-content: space-around; align-items: center; text-align: center; }
 .stat-number { font-size: 2em; font-weight: 700; color: var(--primary-color); }
 .stat-label { font-size: 0.9em; color: var(--text-secondary); margin-top: 5px; }
+
+/* ==========================================================================
+   5.5. Home Dashboard Styles
+   ========================================================================== */
+#home-dashboard {
+    max-width: 1200px;
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quick-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.action-card {
+    background: var(--page-bg);
+    border: 1px solid var(--container-border);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.action-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--element-shadow);
+}
+
+.action-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+    line-height: 1;
+}
+
+.action-card h3 {
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+
+.action-card p {
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.course-selection-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.course-selection-inline select {
+    padding: 10px;
+    border: 1px solid var(--container-border);
+    border-radius: var(--border-radius-small);
+    background: var(--container-bg);
+    color: var(--text-primary);
+}
+
+.performance-overview {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 25px;
+    align-items: start;
+}
+
+.stats-summary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.achievements-preview, .activity-preview {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.achievement-preview, .activity-preview {
+    background: var(--page-bg);
+    border: 1px solid var(--container-border);
+    border-radius: var(--border-radius-small);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.achievement-preview .achievement-icon,
+.activity-preview .activity-icon {
+    font-size: 2em;
+    line-height: 1;
+}
+
+.achievement-preview .achievement-content h4,
+.activity-preview .activity-content h4 {
+    margin: 0 0 5px 0;
+    color: var(--text-primary);
+}
+
+.achievement-preview .achievement-content p,
+.activity-preview .activity-content p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+}
+
+.activity-preview .activity-time {
+    font-size: 0.8em;
+    color: var(--text-secondary);
+}
+
+.activity-preview .activity-score {
+    font-size: 1.2em;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: var(--border-radius-small);
+}
 
 /* ==========================================================================
    6. Buttons & Links
@@ -666,6 +795,10 @@ footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underlin
     .stats-grid { grid-template-columns: 1fr; }
     .course-progress-stats { flex-direction: column; gap: 10px; }
     .activity-card { flex-direction: column; text-align: center; }
+    .performance-overview { grid-template-columns: 1fr; }
+    .stats-summary { grid-template-columns: 1fr; }
+    .quick-actions-grid { grid-template-columns: 1fr; }
+    .header-actions { flex-direction: column; gap: 10px; }
 }
 
 /* ==========================================================================
