@@ -1033,37 +1033,3 @@
     </script>
 </body>
 </html>
-            if (usernameInput === 'TheElders1Dev' && passwordInput === 'samdanbas1234') {
-                // If correct, hide login and show dashboard
-                document.getElementById('login-container').style.display = 'none';
-                document.getElementById('admin-dashboard').style.display = 'block';
-                document.title = 'No Way Matter'; // Change the page title as requested
-            } else {
-                // If incorrect, show an error message
-                errorMessage.textContent = 'Invalid username or password.';
-            }
-        });
-        
-        // Basic theme toggle for the dashboard view
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        if(themeToggleBtn) {
-             const applyTheme = () => {
-                const currentTheme = localStorage.getItem('theme');
-                if (currentTheme === 'dark') {
-                    document.body.classList.add('dark-mode');
-                    themeToggleBtn.innerHTML = '☀️';
-                } else {
-                    document.body.classList.remove('dark-mode');
-                    themeToggleBtn.innerHTML = '🌙';
-                }
-            };
-            themeToggleBtn.addEventListener('click', () => {
-                let newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
-                localStorage.setItem('theme', newTheme);
-                applyTheme();
-            });
-            applyTheme();
-        }
-    </script>
-</body>
-</html> 
