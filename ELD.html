@@ -115,6 +115,66 @@
                 </div>
             </section>
 
+            <!-- User Analytics Table -->
+            <section class="admin-section">
+                <h2>👥 Complete User Analytics</h2>
+                <div class="table-controls">
+                    <div class="table-actions">
+                        <button id="export-users-csv" class="nav-btn success-btn">📥 Export Users CSV</button>
+                        <button id="refresh-users" class="nav-btn">🔄 Refresh Data</button>
+                    </div>
+                    <div class="table-filters">
+                        <select id="department-filter" class="admin-select">
+                            <option value="all">All Departments</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Cyber Security">Cyber Security</option>
+                            <option value="Data Science">Data Science</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Software Engineering">Software Engineering</option>
+                        </select>
+                        <select id="performance-filter" class="admin-select">
+                            <option value="all">All Performance Levels</option>
+                            <option value="excellent">Excellent (80%+)</option>
+                            <option value="good">Good (60-79%)</option>
+                            <option value="needs-improvement">Needs Improvement (<60%)</option>
+                        </select>
+                        <input type="text" id="search-users" class="admin-search" placeholder="🔍 Search users...">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="users-analytics-table" class="analytics-table">
+                        <thead>
+                            <tr>
+                                <th class="sortable" data-sort="name">👤 Name <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="department">🏫 Department <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="totalQuizzes">📝 Total Quizzes <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="averageScore">📊 Avg Score <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="perfectScores">🏆 Perfect Scores <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="studyStreak">🔥 Streak <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="level">⭐ Level <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="totalXP">💎 Total XP <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="joinDate">📅 Join Date <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="lastVisit">🕒 Last Visit <span class="sort-arrow">↕️</span></th>
+                                <th>📈 Performance</th>
+                                <th>🎯 Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <!-- User data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-pagination">
+                    <div class="pagination-info">
+                        <span id="table-info">Showing 0 of 0 users</span>
+                    </div>
+                    <div class="pagination-controls">
+                        <button id="prev-page" class="nav-btn" disabled>← Previous</button>
+                        <span id="page-info">Page 1 of 1</span>
+                        <button id="next-page" class="nav-btn" disabled>Next →</button>
+                    </div>
+                </div>
+            </section>
             <!-- System Management -->
             <section class="admin-section">
                 <h2>⚙️ System Management</h2>
@@ -165,6 +225,7 @@
         function initializeAdminDashboard() {
             // Load real-time analytics from localStorage
             loadAnalytics();
+            loadUserAnalytics();
             
             // Set up auto-refresh every 30 seconds
             setInterval(loadAnalytics, 30000);
@@ -325,6 +386,9 @@
             // Export data button
             document.getElementById('export-data').addEventListener('click', exportData);
             
+            // User analytics table listeners
+            setupUserAnalyticsListeners();
+            
             // Admin logout
             document.getElementById('admin-logout').addEventListener('click', () => {
                 if (confirm('Are you sure you want to logout?')) {
@@ -375,6 +439,358 @@
             } catch (error) {
                 showNotification('Export failed: ' + error.message, 'error');
             }
+        }
+        // User Analytics Table Functionality
+        let currentUsers = [];
+        let filteredUsers = [];
+        let currentPage = 1;
+        const usersPerPage = 10;
+        let currentSort = { field: 'name', direction: 'asc' };
+
+        function setupUserAnalyticsListeners() {
+            // Export users CSV
+            document.getElementById('export-users-csv').addEventListener('click', exportUsersCSV);
+            
+            // Refresh users data
+            document.getElementById('refresh-users').addEventListener('click', () => {
+                loadUserAnalytics();
+                showNotification('User data refreshed!', 'success');
+            });
+            
+            // Department filter
+            document.getElementById('department-filter').addEventListener('change', filterUsers);
+            
+            // Performance filter
+            document.getElementById('performance-filter').addEventListener('change', filterUsers);
+            
+            // Search users
+            document.getElementById('search-users').addEventListener('input', filterUsers);
+            
+            // Pagination
+            document.getElementById('prev-page').addEventListener('click', () => changePage(-1));
+            document.getElementById('next-page').addEventListener('click', () => changePage(1));
+            
+            // Sortable columns
+            document.querySelectorAll('.sortable').forEach(header => {
+                header.addEventListener('click', () => sortUsers(header.dataset.sort));
+            });
+        }
+
+        function loadUserAnalytics() {
+            try {
+                const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+                const users = userData.users || {};
+                
+                currentUsers = Object.values(users).map(user => ({
+                    ...user,
+                    joinDate: new Date(user.joinDate),
+                    lastVisit: new Date(user.lastVisit),
+                    performanceLevel: getPerformanceLevel(user.averageScore || 0)
+                }));
+                
+                filteredUsers = [...currentUsers];
+                currentPage = 1;
+                renderUserTable();
+                updatePagination();
+                
+            } catch (error) {
+                console.error('Error loading user analytics:', error);
+                showNotification('Error loading user data', 'error');
+            }
+        }
+
+        function getPerformanceLevel(score) {
+            if (score >= 80) return 'excellent';
+            if (score >= 60) return 'good';
+            return 'needs-improvement';
+        }
+
+        function getPerformanceBadge(score) {
+            if (score >= 80) return '<span class="performance-badge excellent">🌟 Excellent</span>';
+            if (score >= 60) return '<span class="performance-badge good">👍 Good</span>';
+            return '<span class="performance-badge poor">📈 Needs Improvement</span>';
+        }
+
+        function filterUsers() {
+            const deptFilter = document.getElementById('department-filter').value;
+            const perfFilter = document.getElementById('performance-filter').value;
+            const searchTerm = document.getElementById('search-users').value.toLowerCase();
+            
+            filteredUsers = currentUsers.filter(user => {
+                const matchesDept = deptFilter === 'all' || user.department === deptFilter;
+                const matchesPerf = perfFilter === 'all' || user.performanceLevel === perfFilter;
+                const matchesSearch = searchTerm === '' || 
+                    user.name.toLowerCase().includes(searchTerm) ||
+                    (user.department || '').toLowerCase().includes(searchTerm);
+                
+                return matchesDept && matchesPerf && matchesSearch;
+            });
+            
+            currentPage = 1;
+            renderUserTable();
+            updatePagination();
+        }
+
+        function sortUsers(field) {
+            if (currentSort.field === field) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.field = field;
+                currentSort.direction = 'asc';
+            }
+            
+            filteredUsers.sort((a, b) => {
+                let aVal = a[field];
+                let bVal = b[field];
+                
+                // Handle different data types
+                if (field === 'joinDate' || field === 'lastVisit') {
+                    aVal = new Date(aVal).getTime();
+                    bVal = new Date(bVal).getTime();
+                } else if (typeof aVal === 'string') {
+                    aVal = aVal.toLowerCase();
+                    bVal = bVal.toLowerCase();
+                }
+                
+                if (currentSort.direction === 'asc') {
+                    return aVal > bVal ? 1 : -1;
+                } else {
+                    return aVal < bVal ? 1 : -1;
+                }
+            });
+            
+            // Update sort arrows
+            document.querySelectorAll('.sort-arrow').forEach(arrow => {
+                arrow.textContent = '↕️';
+            });
+            
+            const currentHeader = document.querySelector(`[data-sort="${field}"] .sort-arrow`);
+            if (currentHeader) {
+                currentHeader.textContent = currentSort.direction === 'asc' ? '↑' : '↓';
+            }
+            
+            renderUserTable();
+        }
+
+        function renderUserTable() {
+            const tbody = document.getElementById('users-table-body');
+            const startIndex = (currentPage - 1) * usersPerPage;
+            const endIndex = startIndex + usersPerPage;
+            const pageUsers = filteredUsers.slice(startIndex, endIndex);
+            
+            tbody.innerHTML = '';
+            
+            if (pageUsers.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="12" class="no-users-message">
+                            <div class="empty-state">
+                                <div class="empty-icon">👥</div>
+                                <h4>No Users Found</h4>
+                                <p>No users match your current filters.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            pageUsers.forEach(user => {
+                const row = document.createElement('tr');
+                row.className = 'user-row';
+                
+                const joinDate = user.joinDate.toLocaleDateString();
+                const lastVisit = getTimeAgo(user.lastVisit);
+                const isActiveToday = user.lastVisit.toDateString() === new Date().toDateString();
+                
+                row.innerHTML = `
+                    <td class="user-name">
+                        <div class="user-info">
+                            <strong>${user.name}</strong>
+                            ${isActiveToday ? '<span class="active-indicator">🟢 Online Today</span>' : ''}
+                        </div>
+                    </td>
+                    <td><span class="department-tag">${user.department || 'N/A'}</span></td>
+                    <td class="text-center"><strong>${user.totalQuizzesTaken || 0}</strong></td>
+                    <td class="text-center">
+                        <span class="score-display ${user.averageScore >= 80 ? 'excellent' : user.averageScore >= 60 ? 'good' : 'poor'}">
+                            ${user.averageScore || 0}%
+                        </span>
+                    </td>
+                    <td class="text-center"><span class="perfect-score">${user.perfectScores || 0} 🏆</span></td>
+                    <td class="text-center">
+                        <span class="streak-display">${user.studyStreak || 0} ${user.studyStreak > 0 ? '🔥' : ''}</span>
+                    </td>
+                    <td class="text-center"><span class="level-badge">⭐ ${user.level || 1}</span></td>
+                    <td class="text-center"><strong>${user.totalXP || 0}</strong></td>
+                    <td class="text-center">${joinDate}</td>
+                    <td class="text-center">${lastVisit}</td>
+                    <td class="text-center">${getPerformanceBadge(user.averageScore || 0)}</td>
+                    <td class="text-center">
+                        <div class="action-buttons">
+                            <button class="action-btn-small view-btn" onclick="viewUserDetails('${user.id}')">👁️ View</button>
+                            <button class="action-btn-small export-btn" onclick="exportUserData('${user.id}')">📥 Export</button>
+                        </div>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        function changePage(direction) {
+            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            const newPage = currentPage + direction;
+            
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderUserTable();
+                updatePagination();
+            }
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            const startIndex = (currentPage - 1) * usersPerPage;
+            const endIndex = Math.min(startIndex + usersPerPage, filteredUsers.length);
+            
+            document.getElementById('table-info').textContent = 
+                `Showing ${startIndex + 1}-${endIndex} of ${filteredUsers.length} users`;
+            
+            document.getElementById('page-info').textContent = 
+                `Page ${currentPage} of ${totalPages || 1}`;
+            
+            document.getElementById('prev-page').disabled = currentPage <= 1;
+            document.getElementById('next-page').disabled = currentPage >= totalPages;
+        }
+
+        function exportUsersCSV() {
+            try {
+                let csvContent = 'Name,Department,Total Quizzes,Average Score,Perfect Scores,Study Streak,Level,Total XP,Join Date,Last Visit,Performance Level\n';
+                
+                filteredUsers.forEach(user => {
+                    const joinDate = user.joinDate.toLocaleDateString();
+                    const lastVisit = user.lastVisit.toLocaleDateString();
+                    
+                    csvContent += `"${user.name}","${user.department || 'N/A'}",${user.totalQuizzesTaken || 0},${user.averageScore || 0},${user.perfectScores || 0},${user.studyStreak || 0},${user.level || 1},${user.totalXP || 0},"${joinDate}","${lastVisit}","${user.performanceLevel}"\n`;
+                });
+                
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `elders-cbt-users-${new Date().toISOString().split('T')[0]}.csv`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+                
+                showNotification('Users data exported successfully!', 'success');
+            } catch (error) {
+                showNotification('Export failed: ' + error.message, 'error');
+            }
+        }
+
+        function viewUserDetails(userId) {
+            const user = currentUsers.find(u => u.id === userId);
+            if (!user) return;
+            
+            const modal = document.createElement('div');
+            modal.className = 'user-modal-overlay';
+            modal.innerHTML = `
+                <div class="user-modal">
+                    <div class="modal-header">
+                        <h3>👤 ${user.name} - Detailed Analytics</h3>
+                        <button class="modal-close" onclick="this.parentElement.parentElement.parentElement.remove()">✕</button>
+                    </div>
+                    <div class="modal-content">
+                        <div class="user-stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Department</span>
+                                <span class="stat-value">${user.department || 'N/A'}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Quizzes</span>
+                                <span class="stat-value">${user.totalQuizzesTaken || 0}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Average Score</span>
+                                <span class="stat-value">${user.averageScore || 0}%</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Perfect Scores</span>
+                                <span class="stat-value">${user.perfectScores || 0}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Study Streak</span>
+                                <span class="stat-value">${user.studyStreak || 0} days</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Level</span>
+                                <span class="stat-value">⭐ ${user.level || 1}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total XP</span>
+                                <span class="stat-value">${user.totalXP || 0}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Achievements</span>
+                                <span class="stat-value">${user.achievements ? user.achievements.length : 0}</span>
+                            </div>
+                        </div>
+                        <div class="recent-quizzes">
+                            <h4>📊 Recent Quiz History</h4>
+                            <div class="quiz-history-list">
+                                ${user.quizHistory && user.quizHistory.length > 0 ? 
+                                    user.quizHistory.slice(-5).map(quiz => `
+                                        <div class="quiz-item">
+                                            <span class="quiz-course">${quiz.courseCode}</span>
+                                            <span class="quiz-score ${quiz.percentage >= 80 ? 'excellent' : quiz.percentage >= 60 ? 'good' : 'poor'}">${quiz.percentage}%</span>
+                                            <span class="quiz-date">${new Date(quiz.date).toLocaleDateString()}</span>
+                                        </div>
+                                    `).join('') : 
+                                    '<p class="no-data">No quiz history available</p>'
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        function exportUserData(userId) {
+            const user = currentUsers.find(u => u.id === userId);
+            if (!user) return;
+            
+            const userData = {
+                userInfo: {
+                    name: user.name,
+                    department: user.department,
+                    joinDate: user.joinDate,
+                    lastVisit: user.lastVisit
+                },
+                statistics: {
+                    totalQuizzes: user.totalQuizzesTaken || 0,
+                    averageScore: user.averageScore || 0,
+                    perfectScores: user.perfectScores || 0,
+                    studyStreak: user.studyStreak || 0,
+                    level: user.level || 1,
+                    totalXP: user.totalXP || 0
+                },
+                quizHistory: user.quizHistory || [],
+                achievements: user.achievements || [],
+                weakAreas: user.weakAreas || {}
+            };
+            
+            const blob = new Blob([JSON.stringify(userData, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${user.name.replace(/\s+/g, '_')}_data_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            showNotification(`${user.name}'s data exported successfully!`, 'success');
         }
 
         function showNotification(message, type = 'info') {
