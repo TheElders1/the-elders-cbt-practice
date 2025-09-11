@@ -759,7 +759,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const userName = params.get('name');
         const courseCode = params.get('course');
-        if (!userName || !courseCode) { window.location.href = 'index.html'; return; }
+        if (!userName || !courseCode) { window.location.href = 'home.html'; return; }
         document.getElementById('user-info-display').textContent = `User: ${userName} | Course: ${courseCode}`;
         
         const script = document.createElement('script');
