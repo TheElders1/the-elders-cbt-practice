@@ -767,6 +767,57 @@ footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underlin
     .stats-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
     .achievements-grid { grid-template-columns: 1fr; }
     .dashboard-actions { flex-direction: column; }
+    
+    /* Home Dashboard Mobile Improvements */
+    .quick-actions-grid { 
+        grid-template-columns: 1fr; 
+        gap: 15px; 
+    }
+    
+    .performance-overview { 
+        grid-template-columns: 1fr; 
+        gap: 20px; 
+    }
+    
+    .stats-summary { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 10px; 
+    }
+    
+    .header-actions { 
+        flex-direction: row; 
+        gap: 8px; 
+        justify-content: center; 
+    }
+    
+    .header-actions .nav-btn { 
+        padding: 8px 12px; 
+        font-size: 0.9em; 
+    }
+    
+    .course-selection-inline { 
+        gap: 12px; 
+    }
+    
+    .chart-container { 
+        height: 250px; 
+        padding: 15px; 
+    }
+    
+    .achievements-preview, .activity-preview { 
+        gap: 12px; 
+    }
+    
+    .achievement-preview, .activity-preview { 
+        padding: 12px; 
+        flex-direction: column; 
+        text-align: center; 
+    }
+    
+    .activity-preview .activity-score { 
+        font-size: 1.1em; 
+        padding: 6px 10px; 
+    }
 }
 
 @media (max-width: 600px) {
@@ -799,8 +850,142 @@ footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underlin
     .stats-summary { grid-template-columns: 1fr; }
     .quick-actions-grid { grid-template-columns: 1fr; }
     .header-actions { flex-direction: column; gap: 10px; }
+    
+    /* Extra Small Mobile Improvements */
+    main { padding: 15px; }
+    
+    .dashboard-section { 
+        padding: 20px; 
+        margin-bottom: 20px; 
+    }
+    
+    .dashboard-section h2 { 
+        font-size: 1.3em; 
+        margin-bottom: 15px; 
+    }
+    
+    .action-card { 
+        padding: 20px; 
+    }
+    
+    .action-card h3 { 
+        font-size: 1.2em; 
+    }
+    
+    .action-icon { 
+        font-size: 2.5em; 
+        margin-bottom: 12px; 
+    }
+    
+    .stat-card { 
+        padding: 15px; 
+        gap: 12px; 
+    }
+    
+    .stat-icon { 
+        font-size: 2em; 
+    }
+    
+    .stat-content .stat-number { 
+        font-size: 1.8em; 
+    }
+    
+    .chart-container { 
+        height: 200px; 
+        padding: 10px; 
+    }
+    
+    .achievement-preview .achievement-icon,
+    .activity-preview .activity-icon { 
+        font-size: 1.8em; 
+    }
+    
+    .achievement-preview .achievement-content h4,
+    .activity-preview .activity-content h4 { 
+        font-size: 1em; 
+    }
+    
+    .achievement-preview .achievement-content p,
+    .activity-preview .activity-content p { 
+        font-size: 0.85em; 
+    }
+    
+    /* Login Page Mobile */
+    .setup-header h2 { 
+        font-size: 1.8em; 
+    }
+    
+    .setup-subtitle { 
+        font-size: 1em; 
+    }
+    
+    .quick-stats { 
+        padding: 15px; 
+        gap: 15px; 
+    }
+    
+    .stat-number { 
+        font-size: 1.8em; 
+    }
+    
+    .stat-label { 
+        font-size: 0.8em; 
+    }
 }
 
+/* ==========================================================================
+   13. Large Screen Optimizations
+   ========================================================================== */
+@media (min-width: 1200px) {
+    main, #home-dashboard { 
+        max-width: 1400px; 
+    }
+    
+    .quick-actions-grid { 
+        grid-template-columns: repeat(3, 1fr); 
+    }
+    
+    .stats-summary { 
+        grid-template-columns: repeat(4, 1fr); 
+    }
+    
+    .achievements-preview, .activity-preview { 
+        display: grid; 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 15px; 
+    }
+    
+    .chart-container { 
+        height: 350px; 
+    }
+}
+
+/* ==========================================================================
+   14. Touch and Accessibility Improvements
+   ========================================================================== */
+@media (hover: none) and (pointer: coarse) {
+    /* Touch device optimizations */
+    .segment-btn, .nav-btn, .action-btn { 
+        min-height: 44px; 
+        padding: 12px 20px; 
+    }
+    
+    .option { 
+        min-height: 50px; 
+        padding: 15px; 
+    }
+    
+    .faq-question { 
+        min-height: 50px; 
+        padding: 15px 20px; 
+    }
+    
+    .stat-card:hover, 
+    .action-card:hover, 
+    .achievement-card:hover { 
+        transform: none; 
+    }
+}
 /* ==========================================================================
    13. (ELD.html) STYLES
    ========================================================================== */
