@@ -44,20 +44,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function populateCourseSelection(department) {
         const coursesByDepartment = {
-            "Computer Science": ["MTH121", "GST121", "COS121", "PHY121", "CSC121", "CSC122"],
-            "Cyber Security": ["MTH121", "GST121", "COS121", "PHY121", "CYB121", "CYB122"],
-            "Data Science": ["MTH121", "GST121", "COS121", "PHY121", "DTS121", "DTS122"],
-            "Information Technology": ["MTH121", "GST121", "COS121", "PHY121", "IFT121", "IFT122"],
-            "Software Engineering": ["MTH121", "GST121", "COS121", "PHY121", "SEN121", "SEN122"]
+            "Computer Science": [
+                { code: "MTH121", name: "Mathematics I" },
+                { code: "GST121", name: "General Studies" },
+                { code: "COS121", name: "Problem Solving" },
+                { code: "PHY121", name: "Electricity & Magnetism" },
+                { code: "CSC121", name: "Web Development with Django" },
+                { code: "CSC122", name: "Advanced Programming" }
+            ],
+            "Cyber Security": [
+                { code: "MTH121", name: "Mathematics I" },
+                { code: "GST121", name: "General Studies" },
+                { code: "COS121", name: "Problem Solving" },
+                { code: "PHY121", name: "Electricity & Magnetism" },
+                { code: "CYB121", name: "Ethical Issues In Cyber Security" },
+                { code: "CYB122", name: "Critical Thinking" }
+            ],
+            "Data Science": [
+                { code: "MTH121", name: "Mathematics I" },
+                { code: "GST121", name: "General Studies" },
+                { code: "COS121", name: "Problem Solving" },
+                { code: "PHY121", name: "Electricity & Magnetism" },
+                { code: "DTS121", name: "Web Development with Django" },
+                { code: "DTS122", name: "Data Analysis" }
+            ],
+            "Information Technology": [
+                { code: "MTH121", name: "Mathematics I" },
+                { code: "GST121", name: "General Studies" },
+                { code: "COS121", name: "Problem Solving" },
+                { code: "PHY121", name: "Electricity & Magnetism" },
+                { code: "IFT121", name: "Ethical Issues in Cyber Security" },
+                { code: "IFT122", name: "Critical Thinking" }
+            ],
+            "Software Engineering": [
+                { code: "MTH121", name: "Mathematics I" },
+                { code: "GST121", name: "General Studies" },
+                { code: "COS121", name: "Problem Solving" },
+                { code: "PHY121", name: "Electricity & Magnetism" },
+                { code: "SEN121", name: "Web Development with Django" },
+                { code: "SEN122", name: "Software Architecture" }
+            ]
         };
 
         const courseSelect = document.getElementById('quick-course-select');
         const courses = coursesByDepartment[department] || [];
         
+        // Clear existing options
         courseSelect.innerHTML = '<option value="" disabled selected>-- Select Course --</option>';
+        
+        // Add department-specific courses
         courses.forEach(course => {
-            courseSelect.innerHTML += `<option value="${course}">${course}</option>`;
+            courseSelect.innerHTML += `<option value="${course.code}">${course.code} - ${course.name}</option>`;
         });
+        
+        // Add visual indicator of department
+        const departmentIndicator = document.createElement('div');
+        departmentIndicator.className = 'department-indicator';
+        departmentIndicator.innerHTML = `📚 Showing courses for: <strong>${department}</strong>`;
+        
+        // Insert department indicator before course selection
+        const courseCard = courseSelect.closest('.action-card');
+        const existingIndicator = courseCard.querySelector('.department-indicator');
+        if (existingIndicator) {
+            existingIndicator.remove();
+        }
+        courseCard.insertBefore(departmentIndicator, courseCard.querySelector('.course-selection-inline'));
     }
 
     function createPerformanceChart(recentQuizzes) {

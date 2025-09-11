@@ -235,6 +235,32 @@ input[type="text"], select { width: 100%; padding: 12px 15px; font-size: 1em; co
     border-radius: var(--border-radius-small);
 }
 
+/* Department Indicator */
+.department-indicator {
+    background: var(--gradient-primary);
+    color: var(--text-on-primary-bg);
+    padding: 10px 15px;
+    border-radius: var(--border-radius-small);
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.department-indicator strong {
+    font-weight: 700;
+}
+
+/* Enhanced Course Selection */
+.course-selection-inline select {
+    font-size: 0.95em;
+    padding: 12px 15px;
+}
+
+.course-selection-inline select option {
+    padding: 8px;
+}
+
 /* ==========================================================================
    6. Buttons & Links
    ========================================================================== */
