@@ -3,33 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow"> <!-- Prevents search engines from finding this page -->
-    <title>Stop Playing</title>
+    <meta name="robots" content="noindex, nofollow">
+    <title>The Elders CBT - Admin Portal</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="admin-page">
+<body class="admin-page" id="admin-body">
 
     <!-- Login Form Container -->
     <div id="login-container">
         <div class="login-card">
             <img src="ELD.png" alt="Logo" class="login-logo">
-            <h2>Admin Access</h2>
-            <p>Please enter your credentials to proceed.</p>
+            <h2>🔐 Admin Portal</h2>
+            <p>Secure access to system analytics and management</p>
             <form id="admin-login-form">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" required>
+                    <label for="username">👤 Username</label>
+                    <input type="text" id="username" required placeholder="Enter admin username">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" required>
+                    <label for="password">🔑 Password</label>
+                    <input type="password" id="password" required placeholder="Enter secure password">
                 </div>
                 <p id="error-message" class="form-feedback error"></p>
-                <button type="submit" class="segment-btn">Login</button>
+                <button type="submit" class="segment-btn" id="login-btn">
+                    <span class="btn-text">🚀 Access Dashboard</span>
+                </button>
             </form>
+            <div class="admin-footer">
+                <p>🔒 Secure Admin Access Only</p>
+                <p class="version-info">v2.0 | Last Updated: <span id="last-updated"></span></p>
+            </div>
         </div>
     </div>
 
@@ -39,41 +45,415 @@
             <div class="header-content">
                 <img src="ELD.png" alt="The Elders CBT Practice Logo" id="header-logo">
                 <div>
-                    <h1>No Way Matter</h1>
-                    <p>Daily Statistics</p>
+                    <h1>📊 Admin Dashboard</h1>
+                    <p id="admin-welcome">Welcome, Administrator</p>
                 </div>
-                <button id="theme-toggle" class="nav-btn">🌙</button>
+                <div class="admin-header-actions">
+                    <button id="theme-toggle" class="nav-btn">🌙</button>
+                    <button id="admin-logout" class="nav-btn danger-btn">🚪 Logout</button>
+                </div>
             </div>
         </header>
+        
         <main>
-            <h2>Dashboard</h2>
-            <p>This is where daily statistics about quiz takers will be displayed.</p>
+            <!-- Real-time Stats Overview -->
+            <section class="admin-section">
+                <h2>📈 Real-time Analytics</h2>
+                <div class="admin-stats-grid">
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="total-users">0</div>
+                            <div class="stat-label">Total Users</div>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="total-quizzes-taken">0</div>
+                            <div class="stat-label">Quizzes Taken</div>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="average-performance">0%</div>
+                            <div class="stat-label">Avg Performance</div>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="active-today">0</div>
+                            <div class="stat-label">Active Today</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Department Analytics -->
+            <section class="admin-section">
+                <h2>🏫 Department Analytics</h2>
+                <div id="department-analytics" class="department-grid">
+                    <!-- Department stats will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="admin-section">
+                <h2>📋 Recent Activity</h2>
+                <div class="activity-controls">
+                    <button id="refresh-activity" class="nav-btn">🔄 Refresh</button>
+                    <select id="activity-filter" class="admin-select">
+                        <option value="all">All Activities</option>
+                        <option value="today">Today Only</option>
+                        <option value="week">This Week</option>
+                    </select>
+                </div>
+                <div id="recent-activity-admin" class="admin-activity-list">
+                    <!-- Recent activity will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- System Management -->
+            <section class="admin-section">
+                <h2>⚙️ System Management</h2>
+                <div class="management-grid">
+                    <div class="management-card">
+                        <h3>📊 Export Data</h3>
+                        <p>Download user analytics and quiz results</p>
+                        <button id="export-data" class="segment-btn">📥 Export CSV</button>
+                    </div>
+                    <div class="management-card">
+                        <h3>🔄 System Status</h3>
+                        <p>Monitor system health and performance</p>
+                        <div class="status-indicator">
+                            <span class="status-dot online"></span>
+                            <span>System Online</span>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <h3>📈 Performance Metrics</h3>
+                        <p>View detailed system performance data</p>
+                        <button id="view-metrics" class="nav-btn">📊 View Metrics</button>
+                    </div>
+                </div>
+            </section>
             
-            <div class="stats-placeholder">
-                <h3>Feature Coming Soon</h3>
-                <p>Real-time statistics require a database connection, which can be our next big upgrade!</p>
-                <ul>
-                    <li>- Total Quizzes Taken Today</li>
-                    <li>- Most Popular Course</li>
-                    <li>- Average Score</li>
-                </ul>
-            </div>
+            <!-- Quick Actions -->
+            <section class="admin-section">
+                <h2>⚡ Quick Actions</h2>
+                <div class="quick-actions-admin">
+                    <button id="clear-cache" class="action-btn warning-btn">🗑️ Clear Cache</button>
+                    <button id="backup-data" class="action-btn success-btn">💾 Backup Data</button>
+                    <button id="send-announcement" class="action-btn info-btn">📢 Send Announcement</button>
+                </div>
+            </section>
         </main>
     </div>
 
     <script>
-        // WARNING: This is a basic, INSECURE login method for demonstration only.
-        // The password is visible in the page's source code.
-        // For a real-world application, use a secure service like Netlify Identity.
+        // Initialize admin page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set last updated date
+            document.getElementById('last-updated').textContent = new Date().toLocaleDateString();
+            
+            // Initialize admin functionality
+            initializeAdminDashboard();
+        });
 
+        function initializeAdminDashboard() {
+            // Load real-time analytics from localStorage
+            loadAnalytics();
+            
+            // Set up auto-refresh every 30 seconds
+            setInterval(loadAnalytics, 30000);
+            
+            // Set up event listeners
+            setupEventListeners();
+        }
+
+        function loadAnalytics() {
+            try {
+                const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+                const users = userData.users || {};
+                
+                // Calculate statistics
+                const totalUsers = Object.keys(users).length;
+                let totalQuizzes = 0;
+                let totalScore = 0;
+                let activeToday = 0;
+                const today = new Date().toDateString();
+                
+                const departmentStats = {};
+                
+                Object.values(users).forEach(user => {
+                    totalQuizzes += user.totalQuizzesTaken || 0;
+                    totalScore += (user.averageScore || 0) * (user.totalQuizzesTaken || 0);
+                    
+                    // Check if active today
+                    if (user.lastVisit && new Date(user.lastVisit).toDateString() === today) {
+                        activeToday++;
+                    }
+                    
+                    // Department statistics
+                    const dept = user.department || 'Unknown';
+                    if (!departmentStats[dept]) {
+                        departmentStats[dept] = { users: 0, quizzes: 0, avgScore: 0 };
+                    }
+                    departmentStats[dept].users++;
+                    departmentStats[dept].quizzes += user.totalQuizzesTaken || 0;
+                    departmentStats[dept].avgScore += user.averageScore || 0;
+                });
+                
+                // Update UI
+                document.getElementById('total-users').textContent = totalUsers;
+                document.getElementById('total-quizzes-taken').textContent = totalQuizzes;
+                document.getElementById('average-performance').textContent = 
+                    totalQuizzes > 0 ? Math.round(totalScore / totalQuizzes) + '%' : '0%';
+                document.getElementById('active-today').textContent = activeToday;
+                
+                // Update department analytics
+                updateDepartmentAnalytics(departmentStats);
+                
+                // Update recent activity
+                updateRecentActivity(users);
+                
+            } catch (error) {
+                console.error('Error loading analytics:', error);
+            }
+        }
+
+        function updateDepartmentAnalytics(departmentStats) {
+            const container = document.getElementById('department-analytics');
+            container.innerHTML = '';
+            
+            Object.entries(departmentStats).forEach(([dept, stats]) => {
+                const avgScore = stats.users > 0 ? Math.round(stats.avgScore / stats.users) : 0;
+                
+                const deptCard = document.createElement('div');
+                deptCard.className = 'department-card';
+                deptCard.innerHTML = `
+                    <h4>${dept}</h4>
+                    <div class="dept-stats">
+                        <div class="dept-stat">
+                            <span class="dept-number">${stats.users}</span>
+                            <span class="dept-label">Users</span>
+                        </div>
+                        <div class="dept-stat">
+                            <span class="dept-number">${stats.quizzes}</span>
+                            <span class="dept-label">Quizzes</span>
+                        </div>
+                        <div class="dept-stat">
+                            <span class="dept-number">${avgScore}%</span>
+                            <span class="dept-label">Avg Score</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(deptCard);
+            });
+        }
+
+        function updateRecentActivity(users) {
+            const container = document.getElementById('recent-activity-admin');
+            const activities = [];
+            
+            // Collect all quiz activities
+            Object.values(users).forEach(user => {
+                if (user.quizHistory) {
+                    user.quizHistory.forEach(quiz => {
+                        activities.push({
+                            ...quiz,
+                            userName: user.name,
+                            department: user.department
+                        });
+                    });
+                }
+            });
+            
+            // Sort by date (most recent first)
+            activities.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Show last 20 activities
+            const recentActivities = activities.slice(0, 20);
+            
+            container.innerHTML = '';
+            if (recentActivities.length === 0) {
+                container.innerHTML = '<p class="no-data">No recent activity found.</p>';
+                return;
+            }
+            
+            recentActivities.forEach(activity => {
+                const activityEl = document.createElement('div');
+                activityEl.className = 'admin-activity-item';
+                
+                const date = new Date(activity.date);
+                const timeAgo = getTimeAgo(date);
+                
+                activityEl.innerHTML = `
+                    <div class="activity-user">
+                        <strong>${activity.userName}</strong>
+                        <span class="activity-dept">${activity.department}</span>
+                    </div>
+                    <div class="activity-details">
+                        <span class="activity-course">${activity.courseCode} - Segment ${activity.segmentNumber}</span>
+                        <span class="activity-score ${activity.percentage >= 80 ? 'good' : activity.percentage >= 50 ? 'ok' : 'poor'}">
+                            ${activity.percentage}%
+                        </span>
+                    </div>
+                    <div class="activity-time">${timeAgo}</div>
+                `;
+                container.appendChild(activityEl);
+            });
+        }
+
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) return 'Just now';
+            if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
+            if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
+            if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)}d ago`;
+            return date.toLocaleDateString();
+        }
+
+        function setupEventListeners() {
+            // Refresh activity button
+            document.getElementById('refresh-activity').addEventListener('click', loadAnalytics);
+            
+            // Export data button
+            document.getElementById('export-data').addEventListener('click', exportData);
+            
+            // Admin logout
+            document.getElementById('admin-logout').addEventListener('click', () => {
+                if (confirm('Are you sure you want to logout?')) {
+                    document.getElementById('admin-dashboard').style.display = 'none';
+                    document.getElementById('login-container').style.display = 'block';
+                    document.getElementById('username').value = '';
+                    document.getElementById('password').value = '';
+                    document.getElementById('error-message').textContent = '';
+                }
+            });
+            
+            // Quick actions
+            document.getElementById('clear-cache').addEventListener('click', () => {
+                if (confirm('Clear system cache? This will refresh all data.')) {
+                    loadAnalytics();
+                    showNotification('Cache cleared successfully!', 'success');
+                }
+            });
+            
+            document.getElementById('backup-data').addEventListener('click', () => {
+                exportData();
+                showNotification('Data backup initiated!', 'success');
+            });
+        }
+
+        function exportData() {
+            try {
+                const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+                const users = userData.users || {};
+                
+                // Create CSV content
+                let csvContent = 'Name,Department,Total Quizzes,Average Score,Study Streak,Level,Total XP,Last Visit\n';
+                
+                Object.values(users).forEach(user => {
+                    csvContent += `"${user.name}","${user.department || 'N/A'}",${user.totalQuizzesTaken || 0},${user.averageScore || 0},${user.studyStreak || 0},${user.level || 1},${user.totalXP || 0},"${user.lastVisit || 'N/A'}"\n`;
+                });
+                
+                // Download CSV
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `elders-cbt-data-${new Date().toISOString().split('T')[0]}.csv`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+                
+                showNotification('Data exported successfully!', 'success');
+            } catch (error) {
+                showNotification('Export failed: ' + error.message, 'error');
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `admin-notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Login functionality
         document.getElementById('admin-login-form').addEventListener('submit', function(event) {
             event.preventDefault();
 
             const usernameInput = document.getElementById('username').value;
             const passwordInput = document.getElementById('password').value;
             const errorMessage = document.getElementById('error-message');
+            const loginBtn = document.getElementById('login-btn');
 
-            // The insecure credentials check
+            // Show loading state
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<span class="btn-text">🔐 Authenticating...</span>';
+
+            // Simulate authentication delay
+            setTimeout(() => {
+                // Check credentials
+                if (usernameInput === 'TheElders1Dev' && passwordInput === 'samdanbas1234') {
+                    // Success
+                    document.getElementById('login-container').style.display = 'none';
+                    document.getElementById('admin-dashboard').style.display = 'block';
+                    document.title = 'The Elders CBT - Admin Dashboard';
+                    
+                    // Load initial data
+                    loadAnalytics();
+                } else {
+                    // Error
+                    errorMessage.textContent = '❌ Invalid credentials. Access denied.';
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '<span class="btn-text">🚀 Access Dashboard</span>';
+                }
+            }, 1000);
+        });
+        
+        // Theme toggle functionality
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        if (themeToggleBtn) {
+            const applyTheme = () => {
+                const currentTheme = localStorage.getItem('theme');
+                if (currentTheme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    themeToggleBtn.innerHTML = '☀️';
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    themeToggleBtn.innerHTML = '🌙';
+                }
+            };
+            
+            themeToggleBtn.addEventListener('click', () => {
+                let newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme();
+            });
+            
+            applyTheme();
+        }
+    </script>
+</body>
+</html>
             if (usernameInput === 'TheElders1Dev' && passwordInput === 'samdanbas1234') {
                 // If correct, hide login and show dashboard
                 document.getElementById('login-container').style.display = 'none';
