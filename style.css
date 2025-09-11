@@ -424,6 +424,20 @@ footer a:hover { color: var(--pure-white); opacity: 1; text-decoration: underlin
 }
 
 .table-filters {
+.nav-btn.info-btn {
+    background: #3b82f6;
+    color: white;
+}
+
+.nav-btn.info-btn:hover {
+    background: #2563eb;
+}
+
+.nav-btn.info-btn.active {
+    background: #1d4ed8;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+}
+
     display: flex;
     gap: 15px;
     align-items: center;
@@ -1680,7 +1694,7 @@ body.admin-page {
 
 .admin-stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 20px;
 }
 
@@ -1872,6 +1886,21 @@ body.admin-page {
 .management-card:hover {
     transform: translateY(-3px);
     box-shadow: var(--element-shadow);
+}
+
+.online-users-card {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: none;
+}
+
+.online-users-card .stat-icon {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
 .management-card h3 {
