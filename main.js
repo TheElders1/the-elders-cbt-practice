@@ -292,6 +292,72 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- Enhanced User Activity Tracking ---
+    async function trackUserActivity(action, page = window.location.pathname) {
+        const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+        const currentUser = userData.currentUser ? userData.users[userData.currentUser] : null;
+        
+        if (!currentUser) return;
+        
+        try {
+            await fetch('/.netlify/functions/notify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    type: 'user_activity',
+                    userData: {
+                        id: currentUser.id,
+                        name: currentUser.name,
+                        department: currentUser.department,
+                        action: action,
+                        page: page,
+                        level: currentUser.level,
+                        totalQuizzes: currentUser.totalQuizzesTaken,
+                        averageScore: currentUser.averageScore
+                    }
+                })
+            });
+        } catch (error) {
+            console.error("Failed to track user activity:", error);
+        }
+    }
+
+    // --- Heartbeat System for Online Status ---
+    function startHeartbeat() {
+        const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+        const currentUser = userData.currentUser ? userData.users[userData.currentUser] : null;
+        
+        if (!currentUser) return;
+        
+        // Send heartbeat every 2 minutes
+        setInterval(() => {
+            trackUserActivity('online', window.location.pathname);
+        }, 2 * 60 * 1000);
+        
+        // Initial heartbeat
+        trackUserActivity('page_load', window.location.pathname);
+    }
+
+    // --- Page Visibility API for Better Tracking ---
+    document.addEventListener('visibilitychange', () => {
+        const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+        const currentUser = userData.currentUser ? userData.users[userData.currentUser] : null;
+        
+        if (currentUser) {
+            if (document.hidden) {
+                trackUserActivity('page_hidden');
+            } else {
+                trackUserActivity('page_visible');
+            }
+        }
+    });
+
+    // --- Start tracking for logged-in users ---
+    const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+    if (userData.currentUser) {
+        startHeartbeat();
+    }
+
     // =========================================================================
     // 2. LOGIN PAGE LOGIC (index.html)
     // =========================================================================
@@ -375,6 +441,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const user = userDataManager.createOrGetUser(name);
             user.department = department; // Store department with user
             userDataManager.saveUserData();
+            
+            // Track login activity
+            setTimeout(() => {
+                trackUserActivity('login', 'index.html');
+            }, 500);
             
             // Small delay to ensure data is saved before redirect
             setTimeout(() => {
@@ -621,6 +692,9 @@ document.addEventListener('DOMContentLoaded', () => {
             sendNotification(resultsMessage);
 
             displayResultsOnScreen(result);
+            
+            // Track quiz completion
+            trackUserActivity(`quiz_completed_${courseCode}_segment_${currentSegmentNumber}`, 'quiz.html');
         };
 
         const displayResultsOnScreen = (gameResult = null) => {
