@@ -1224,5 +1224,4 @@ window.quizData = {
     { "question": "How do electromagnetic fields relate to relativity?", "options": ["They are unrelated", "They are unified in spacetime", "They contradict relativity", "They only work at low speeds"], "answer": "They are unified in spacetime", "explanation": "Einstein's special relativity unified electric and magnetic fields as different aspects of the electromagnetic field tensor in spacetime." }
 
 ]
-
 };
