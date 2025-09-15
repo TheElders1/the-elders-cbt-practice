@@ -1,4 +1,4 @@
 window.quizData = {
-  "title": "MTH 121 - Mathematics I",
+  "title": "MTH 121 - Elementry Mathematics II",
   "questions": []
 };
