@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function populateCourseSelection(department) {
         const coursesByDepartment = {
             "Computer Science": [
-                { code: "MTH121", name: "Mathematics I" },
+                { code: "MTH121", name: "Elementary Mathematics II" },
                 { code: "GST121", name: "General Studies" },
                 { code: "COS121", name: "Problem Solving" },
                 { code: "PHY121", name: "Electricity & Magnetism" },
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { code: "CSC122", name: "Advanced Programming" }
             ],
             "Cyber Security": [
-                { code: "MTH121", name: "Mathematics I" },
+                { code: "MTH121", name: "Elementary Mathematics II" },
                 { code: "GST121", name: "General Studies" },
                 { code: "COS121", name: "Problem Solving" },
                 { code: "PHY121", name: "Electricity & Magnetism" },
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { code: "CYB122", name: "Critical Thinking" }
             ],
             "Data Science": [
-                { code: "MTH121", name: "Mathematics I" },
+                { code: "MTH121", name: "Elementary Mathematics II" },
                 { code: "GST121", name: "General Studies" },
                 { code: "COS121", name: "Problem Solving" },
                 { code: "PHY121", name: "Electricity & Magnetism" },
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { code: "DTS122", name: "Data Analysis" }
             ],
             "Information Technology": [
-                { code: "MTH121", name: "Mathematics I" },
+                { code: "MTH121", name: "Elementary Mathematics II" },
                 { code: "GST121", name: "General Studies" },
                 { code: "COS121", name: "Problem Solving" },
                 { code: "PHY121", name: "Electricity & Magnetism" },
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { code: "IFT122", name: "Critical Thinking" }
             ],
             "Software Engineering": [
-                { code: "MTH121", name: "Mathematics I" },
+                { code: "MTH121", name: "Elementary Mathematics II" },
                 { code: "GST121", name: "General Studies" },
                 { code: "COS121", name: "Problem Solving" },
                 { code: "PHY121", name: "Electricity & Magnetism" },
