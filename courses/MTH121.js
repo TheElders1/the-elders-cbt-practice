@@ -1,7 +1,4 @@
 window.quizData = {
-  "title": "MTH 121 - Elementry Mathematics II",
-  "questions": [
-{
   "title": "MTH 121 - Elementary Mathematics II",
   "questions": [
     {
@@ -1974,6 +1971,4 @@ window.quizData = {
       "explanation": "Find critical points: f'(x) = -2(x-2) = 0 => x=2. Now check the critical point and endpoints. f(0)=1-4=-3. f(2)=1-0=1. f(5)=1-9=-8. The largest value is 1."
     }
   ]
-}
-]
 };
