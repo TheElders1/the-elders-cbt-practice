@@ -1,4 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Import database service
+    let dbService = null;
+    
+    // Initialize database service if Supabase is available
+    const initializeDatabase = async () => {
+        try {
+            const { DatabaseService } = await import('./lib/supabase.js');
+            dbService = new DatabaseService();
+            console.log('Database service initialized');
+        } catch (error) {
+            console.log('Database not available, using localStorage fallback');
+        }
+    };
+    
+    // Initialize database
+    initializeDatabase();
 
     // =========================================================================
     // 0. USER DATA MANAGEMENT & PERFORMANCE TRACKING
@@ -7,6 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
     class UserDataManager {
         constructor() {
             this.userData = this.loadUserData();
+            this.dbService = null;
+        }
+        
+        setDatabaseService(service) {
+            this.dbService = service;
         }
 
         loadUserData() {
@@ -24,13 +45,52 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('eldersUserData', JSON.stringify(this.userData));
         }
 
-        createOrGetUser(name) {
+        async createOrGetUser(name, department = null) {
             const userId = name.toLowerCase().replace(/\s+/g, '_');
+            const email = `${userId}@theelders.local`; // Generate email for database
+            
+            // Try database first if available
+            if (this.dbService) {
+                try {
+                    let user = await this.dbService.getUser(email);
+                    if (!user) {
+                        user = await this.dbService.createUser({
+                            name: name,
+                            email: email,
+                            department: department,
+                            totalXP: 0,
+                            level: 1,
+                            studyStreak: 0,
+                            longestStreak: 0,
+                            totalQuizzesTaken: 0,
+                            perfectScores: 0,
+                            averageScore: 0
+                        });
+                    } else {
+                        // Update last visit and streak
+                        await this.dbService.updateUser(email, {
+                            last_visit: new Date().toISOString()
+                        });
+                        await this.updateStudyStreakDB(user.id, email);
+                    }
+                    
+                    // Sync with localStorage
+                    this.syncUserFromDB(user, userId);
+                    this.userData.currentUser = userId;
+                    this.saveUserData();
+                    return this.userData.users[userId];
+                } catch (error) {
+                    console.error('Database error, falling back to localStorage:', error);
+                }
+            }
+            
+            // Fallback to localStorage
             if (!this.userData.users[userId]) {
                 this.userData.users[userId] = {
                     id: userId,
                     name: name,
-                    department: null, // Will be set during login
+                    department: department,
+                    email: email,
                     joinDate: new Date().toISOString(),
                     lastVisit: new Date().toISOString(),
                     totalXP: 0,
@@ -56,6 +116,65 @@ document.addEventListener('DOMContentLoaded', () => {
             this.userData.currentUser = userId;
             this.saveUserData();
             return this.userData.users[userId];
+        }
+        
+        syncUserFromDB(dbUser, localUserId) {
+            this.userData.users[localUserId] = {
+                id: localUserId,
+                name: dbUser.name,
+                department: dbUser.department,
+                email: dbUser.email,
+                joinDate: dbUser.join_date || dbUser.created_at,
+                lastVisit: dbUser.last_visit,
+                totalXP: dbUser.total_xp,
+                level: dbUser.level,
+                studyStreak: dbUser.study_streak,
+                longestStreak: dbUser.longest_streak,
+                lastStudyDate: dbUser.last_study_date,
+                totalQuizzesTaken: dbUser.total_quizzes_taken,
+                perfectScores: dbUser.perfect_scores,
+                averageScore: dbUser.average_score,
+                achievements: [], // Will be loaded separately
+                quizHistory: [], // Will be loaded separately
+                weakAreas: {},
+                courseProgress: {}
+            };
+        }
+        
+        async updateStudyStreakDB(userId, email) {
+            const user = this.userData.users[this.userData.currentUser];
+            if (!user) return;
+            
+            const today = new Date().toDateString();
+            const lastStudy = user.lastStudyDate ? new Date(user.lastStudyDate).toDateString() : null;
+            
+            if (lastStudy === today) return;
+            
+            const yesterday = new Date();
+            yesterday.setDate(yesterday.getDate() - 1);
+            const yesterdayStr = yesterday.toDateString();
+            
+            let newStreak = 1;
+            if (lastStudy === yesterdayStr) {
+                newStreak = user.studyStreak + 1;
+            }
+            
+            const longestStreak = Math.max(user.longestStreak, newStreak);
+            
+            try {
+                await this.dbService.updateStudyStreak(email, {
+                    studyStreak: newStreak,
+                    longestStreak: longestStreak,
+                    lastStudyDate: new Date().toISOString()
+                });
+                
+                // Update local data
+                user.studyStreak = newStreak;
+                user.longestStreak = longestStreak;
+                user.lastStudyDate = new Date().toISOString();
+            } catch (error) {
+                console.error('Error updating study streak in database:', error);
+            }
         }
 
         getCurrentUser() {
@@ -91,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
             user.lastStudyDate = new Date().toISOString();
         }
 
-        recordQuizResult(courseCode, segmentNumber, score, totalQuestions, timeSpent, markedQuestions, wrongAnswers) {
+        async recordQuizResult(courseCode, segmentNumber, score, totalQuestions, timeSpent, markedQuestions, wrongAnswers) {
             const user = this.getCurrentUser();
             if (!user) return;
 
@@ -108,6 +227,57 @@ document.addEventListener('DOMContentLoaded', () => {
                 wrongAnswers
             };
 
+            // Save to database if available
+            if (this.dbService && user.email) {
+                try {
+                    const dbUser = await this.dbService.getUser(user.email);
+                    if (dbUser) {
+                        await this.dbService.saveQuizResult(dbUser.id, {
+                            courseCode,
+                            segmentNumber,
+                            score,
+                            totalQuestions,
+                            percentage: quizResult.percentage,
+                            timeSpent,
+                            markedQuestions: markedQuestions.length
+                        });
+                        
+                        // Update user stats in database
+                        const xpGained = this.calculateXP(score, totalQuestions, timeSpent);
+                        const newTotalXP = user.totalXP + xpGained;
+                        const newLevel = Math.floor(newTotalXP / 1000) + 1;
+                        const newPerfectScores = score === totalQuestions ? user.perfectScores + 1 : user.perfectScores;
+                        
+                        await this.dbService.updateUser(user.email, {
+                            total_xp: newTotalXP,
+                            level: newLevel,
+                            total_quizzes_taken: user.totalQuizzesTaken + 1,
+                            perfect_scores: newPerfectScores,
+                            average_score: Math.round(((user.averageScore * user.totalQuizzesTaken) + quizResult.percentage) / (user.totalQuizzesTaken + 1))
+                        });
+                        
+                        // Save weak areas to database
+                        for (const wrongAnswer of wrongAnswers) {
+                            await this.dbService.updateWeakArea(dbUser.id, courseCode, {
+                                questionHash: this.hashQuestion(wrongAnswer.question),
+                                question: wrongAnswer.question,
+                                correctAnswer: wrongAnswer.correctAnswer,
+                                wrongCount: 1
+                            });
+                        }
+                        
+                        // Check and unlock achievements
+                        const newAchievements = this.checkAchievements(user, quizResult);
+                        for (const achievementId of newAchievements) {
+                            await this.dbService.unlockAchievement(dbUser.id, achievementId);
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error saving to database:', error);
+                }
+            }
+            
+            // Continue with localStorage logic
             user.quizHistory.push(quizResult);
             user.totalQuizzesTaken += 1;
             
@@ -140,6 +310,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
             this.saveUserData();
             return { xpGained, newAchievements: this.getNewAchievements(user) };
+        }
+        
+        async loadUserDataFromDB(email) {
+            if (!this.dbService) return null;
+            
+            try {
+                const user = await this.dbService.getUser(email);
+                if (!user) return null;
+                
+                // Load quiz results
+                const quizResults = await this.dbService.getUserQuizResults(user.id);
+                
+                // Load achievements
+                const achievements = await this.dbService.getUserAchievements(user.id);
+                
+                // Load weak areas
+                const weakAreas = await this.dbService.getUserWeakAreas(user.id);
+                
+                // Load course progress
+                const courseProgress = await this.dbService.getUserCourseProgress(user.id);
+                
+                return {
+                    user,
+                    quizResults,
+                    achievements: achievements.map(a => a.achievement_id),
+                    weakAreas,
+                    courseProgress
+                };
+            } catch (error) {
+                console.error('Error loading user data from database:', error);
+                return null;
+            }
         }
 
         calculateXP(score, totalQuestions, timeSpent) {
@@ -195,11 +397,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'level_10', name: 'Level 10 Master', description: 'Reach Level 10', condition: () => user.level >= 10 }
             ];
 
+            const newAchievements = [];
             achievements.forEach(achievement => {
                 if (!user.achievements.includes(achievement.id) && achievement.condition()) {
                     user.achievements.push(achievement.id);
+                    newAchievements.push(achievement.id);
                 }
             });
+            
+            return newAchievements;
         }
 
         getNewAchievements(user) {
@@ -252,6 +458,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize User Data Manager
     const userDataManager = new UserDataManager();
+    
+    // Set database service when available
+    setTimeout(() => {
+        if (dbService) {
+            userDataManager.setDatabaseService(dbService);
+        }
+    }, 1000);
 
     // =========================================================================
     // 1. UNIVERSAL LOGIC (Runs on every page)
@@ -375,7 +588,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sendNotification(notificationMessage);
 
             // Create or update user data
-            const user = userDataManager.createOrGetUser(name);
+            const user = await userDataManager.createOrGetUser(name, department);
             user.department = department; // Store department with user
             userDataManager.saveUserData();
             
@@ -609,7 +822,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const department = params.get('department');
             
             // Record quiz result in user data
-            const result = userDataManager.recordQuizResult(
+            const result = await userDataManager.recordQuizResult(
                 courseCode, 
                 currentSegmentNumber, 
                 score, 
