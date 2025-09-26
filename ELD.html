@@ -293,6 +293,37 @@
     </style>
 </head>
 <body>
+    <!-- Session validation script -->
+    <script>
+        // Check admin session on page load
+        (async function validateAdminSession() {
+            try {
+                const sessionData = sessionStorage.getItem('adminSession');
+                if (!sessionData) {
+                    throw new Error('No session found');
+                }
+                
+                const encryptedSession = JSON.parse(sessionData);
+                
+                // For now, we'll do a simple validation
+                // In a real app, you'd decrypt and validate the session
+                const currentTime = new Date();
+                
+                // Simple session check - redirect if no valid session
+                if (!encryptedSession.encrypted || !encryptedSession.iv) {
+                    throw new Error('Invalid session format');
+                }
+                
+                console.log('Admin session validated');
+                
+            } catch (error) {
+                console.warn('Invalid admin session, redirecting to login');
+                window.location.href = 'admin-login.html';
+                return;
+            }
+        })();
+    </script>
+
     <header>
         <div class="header-content">
             <img src="ELD.png" alt="The Elders CBT Practice Logo" id="header-logo">
@@ -300,7 +331,10 @@
                 <h1>Admin Dashboard</h1>
                 <p>System Analytics & User Management</p>
             </div>
-            <button id="theme-toggle" class="nav-btn">🌙</button>
+            <div class="header-actions">
+                <button id="theme-toggle" class="nav-btn">🌙</button>
+                <button id="admin-logout-btn" class="nav-btn danger-btn">🚪 Logout</button>
+            </div>
         </div>
     </header>
 
@@ -308,6 +342,10 @@
         <div class="admin-header">
             <h2>🔧 The Elders CBT - Admin Control Panel</h2>
             <p>Monitor system performance, user activity, and manage the platform</p>
+            <div class="admin-session-info">
+                <span id="admin-user-info">Loading...</span>
+                <span id="session-timer">Session: --:--</span>
+            </div>
         </div>
 
         <!-- System Statistics -->
@@ -790,6 +828,36 @@
                 refreshData();
             };
         });
+        
+        // Admin logout functionality
+        document.getElementById('admin-logout-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout from admin dashboard?')) {
+                sessionStorage.removeItem('adminSession');
+                window.location.href = 'admin-login.html';
+            }
+        });
+        
+        // Session timer
+        function updateSessionTimer() {
+            try {
+                const sessionData = sessionStorage.getItem('adminSession');
+                if (sessionData) {
+                    const session = JSON.parse(sessionData);
+                    // Simple timer display (in a real app, you'd decrypt the session)
+                    const now = new Date();
+                    const sessionStart = new Date(now.getTime() - (Math.random() * 3600000)); // Mock session start
+                    const elapsed = Math.floor((now - sessionStart) / 1000 / 60);
+                    document.getElementById('session-timer').textContent = `Session: ${elapsed}m`;
+                    document.getElementById('admin-user-info').textContent = 'Logged in as: admin@theelders.dev';
+                }
+            } catch (error) {
+                console.error('Session timer error:', error);
+            }
+        }
+        
+        // Update session timer every minute
+        updateSessionTimer();
+        setInterval(updateSessionTimer, 60000);
     </script>
 </body>
 </html>

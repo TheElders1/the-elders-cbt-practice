@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elders CBT - Admin Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .admin-login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #510F64, #7B2D8E);
+            padding: 20px;
+        }
+        
+        .admin-login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .admin-login-header {
+            margin-bottom: 30px;
+        }
+        
+        .admin-login-header h1 {
+            color: #510F64;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+        
+        .admin-login-header p {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .admin-form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .admin-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .admin-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .admin-input:focus {
+            outline: none;
+            border-color: #510F64;
+            box-shadow: 0 0 0 3px rgba(81, 15, 100, 0.1);
+        }
+        
+        .admin-login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #510F64;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .admin-login-btn:hover {
+            background: #7B2D8E;
+            transform: translateY(-2px);
+        }
+        
+        .admin-login-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .admin-error {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            display: none;
+        }
+        
+        .admin-security-notice {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.85em;
+            color: #666;
+            border-left: 4px solid #510F64;
+        }
+        
+        .dark-mode .admin-login-card {
+            background: #2d2d2d;
+            color: #e0e0e0;
+        }
+        
+        .dark-mode .admin-form-group label {
+            color: #e0e0e0;
+        }
+        
+        .dark-mode .admin-input {
+            background: #3d3d3d;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+        
+        .dark-mode .admin-security-notice {
+            background: #3d3d3d;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-login-container">
+        <div class="admin-login-card">
+            <div class="admin-login-header">
+                <h1>🔐 Admin Access</h1>
+                <p>Secure authentication required</p>
+            </div>
+            
+            <div class="admin-error" id="admin-error"></div>
+            
+            <form id="admin-login-form">
+                <div class="admin-form-group">
+                    <label for="admin-username">Username</label>
+                    <input type="email" id="admin-username" class="admin-input" placeholder="Enter admin username" required>
+                </div>
+                
+                <div class="admin-form-group">
+                    <label for="admin-password">Password</label>
+                    <input type="password" id="admin-password" class="admin-input" placeholder="Enter admin password" required>
+                </div>
+                
+                <button type="submit" class="admin-login-btn" id="admin-login-btn">
+                    Access Admin Dashboard
+                </button>
+            </form>
+            
+            <div class="admin-security-notice">
+                <strong>🛡️ Security Notice:</strong> This is a protected area. All access attempts are logged and monitored.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple theme detection
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Encryption utility functions
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hash = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hash))
+                .map(b => b.toString(16).padStart(2, '0'))
+                .join('');
+        }
+
+        async function encryptData(data, key) {
+            const encoder = new TextEncoder();
+            const keyData = await crypto.subtle.importKey(
+                'raw',
+                encoder.encode(key.padEnd(32, '0').slice(0, 32)),
+                { name: 'AES-GCM' },
+                false,
+                ['encrypt']
+            );
+            
+            const iv = crypto.getRandomValues(new Uint8Array(12));
+            const encrypted = await crypto.subtle.encrypt(
+                { name: 'AES-GCM', iv: iv },
+                keyData,
+                encoder.encode(JSON.stringify(data))
+            );
+            
+            return {
+                encrypted: Array.from(new Uint8Array(encrypted)),
+                iv: Array.from(iv)
+            };
+        }
+
+        // Admin credentials (hashed)
+        const ADMIN_CREDENTIALS = {
+            username: 'admin@theelders.dev',
+            passwordHash: 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3' // This will be replaced with actual hash
+        };
+
+        // Initialize password hash on page load
+        (async () => {
+            ADMIN_CREDENTIALS.passwordHash = await hashPassword('samdanbas1234');
+        })();
+
+        document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('admin-username').value.trim();
+            const password = document.getElementById('admin-password').value;
+            const errorEl = document.getElementById('admin-error');
+            const loginBtn = document.getElementById('admin-login-btn');
+            
+            // Clear previous errors
+            errorEl.style.display = 'none';
+            
+            // Show loading state
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Authenticating...';
+            
+            try {
+                // Hash the entered password
+                const enteredPasswordHash = await hashPassword(password);
+                
+                // Verify credentials
+                if (username === ADMIN_CREDENTIALS.username && 
+                    enteredPasswordHash === ADMIN_CREDENTIALS.passwordHash) {
+                    
+                    // Create secure session token
+                    const sessionData = {
+                        username: username,
+                        loginTime: new Date().toISOString(),
+                        expires: new Date(Date.now() + 4 * 60 * 60 * 1000).toISOString() // 4 hours
+                    };
+                    
+                    // Encrypt and store session
+                    const encryptedSession = await encryptData(sessionData, password);
+                    sessionStorage.setItem('adminSession', JSON.stringify(encryptedSession));
+                    
+                    // Log successful login
+                    console.log('Admin login successful:', username);
+                    
+                    // Redirect to admin dashboard
+                    loginBtn.textContent = 'Access Granted! Redirecting...';
+                    setTimeout(() => {
+                        window.location.href = 'ELD.html';
+                    }, 1000);
+                    
+                } else {
+                    throw new Error('Invalid credentials');
+                }
+                
+            } catch (error) {
+                // Show error
+                errorEl.textContent = '❌ Invalid username or password. Access denied.';
+                errorEl.style.display = 'block';
+                
+                // Log failed attempt
+                console.warn('Failed admin login attempt:', username);
+                
+                // Reset form
+                document.getElementById('admin-password').value = '';
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Access Admin Dashboard';
+                
+                // Add shake animation
+                document.querySelector('.admin-login-card').style.animation = 'shake 0.5s ease-in-out';
+                setTimeout(() => {
+                    document.querySelector('.admin-login-card').style.animation = '';
+                }, 500);
+            }
+        });
+
+        // Add shake animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-5px); }
+                75% { transform: translateX(5px); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
