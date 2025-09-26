@@ -2015,6 +2015,28 @@ body.admin-page {
     background-color: #17a2b8;
 }
 
+.admin-session-info {
+    margin-top: 15px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.admin-session-info span {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 5px 12px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
 /* Mobile Responsive for Admin */
 @media (max-width: 768px) {
     body.admin-page {
@@ -2215,6 +2237,16 @@ body.admin-page {
     .action-buttons {
         flex-direction: column;
         gap: 3px;
+    }
+    
+    .admin-session-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .header-actions {
+        flex-direction: column;
+        gap: 5px;
     }
 }
 
