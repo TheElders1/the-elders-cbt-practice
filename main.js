@@ -898,3 +898,4 @@ function copyToClipboard(text, btn) {
 // Global function to show user dashboard
 function showUserDashboard() {
     window.location.href = 'home.html';
+}

@@ -368,3 +368,5 @@ document.addEventListener('DOMContentLoaded', () => {
         if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)} days ago`;
         return date.toLocaleDateString();
     }
+}
+)
