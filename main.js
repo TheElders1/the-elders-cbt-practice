@@ -307,12 +307,14 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('User already logged in:', currentUser.name);
             // Add loading indicator before redirect
             document.body.innerHTML = `
-                <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; gap: 20px;">
+                <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; gap: 20px; font-family: Inter, sans-serif;">
                     <div style="font-size: 2em;">⏳</div>
                     <p>Redirecting to your dashboard...</p>
                 </div>
             `;
-            window.location.href = 'home.html';
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 1000);
             return;
         }
 
@@ -335,6 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (feedbackEl) {
                 feedbackEl.textContent = message;
                 feedbackEl.className = `form-feedback ${type}`;
+                feedbackEl.style.display = message ? 'block' : 'none';
             }
         };
 
@@ -384,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Small delay to ensure data is saved before redirect
             setTimeout(() => {
                 window.location.href = 'home.html';
-            }, 100);
+            }, 800);
         });
     }
 
@@ -598,7 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="btn-text">Submitting...</span>';
+            submitBtn.innerHTML = '<span class="btn-text">Submitting...</span><span class="btn-icon">⏳</span>';
 
             const params = new URLSearchParams(window.location.search);
             const userName = params.get('name');
@@ -625,7 +628,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             sendNotification(resultsMessage);
 
-            displayResultsOnScreen(result);
+            // Add a small delay for better UX
+            setTimeout(() => {
+                displayResultsOnScreen(result);
+            }, 500);
             
         };
 
@@ -650,7 +656,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         ''
                     }
                 `;
-                resultsContainer.insertBefore(xpDisplay, resultsContainer.querySelector('.results-actions'));
+                const resultsActions = resultsContainer.querySelector('.results-actions');
+                if (resultsActions) {
+                    resultsContainer.insertBefore(xpDisplay, resultsActions);
+                }
             }
             
             showScreen(resultsContainer);
@@ -774,7 +783,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const showCourseNotAvailableError = () => {
             loadingQuizEl.innerHTML = `
                 <div class="error-message-container">
-                    <div class="error-icon">!</div>
+                    <div class="error-icon">⚠️</div>
                     <h3 class="error-title">Course Not Available</h3>
                     <p class="error-subtitle">This course has not been uploaded yet. Please try another one.</p>
                     <a href="home.html" class="back-link-btn">← Go Back to Course Selection</a>
@@ -818,6 +827,55 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // =========================================================================
+    // 5. GLOBAL ERROR HANDLING & PERFORMANCE MONITORING
+    // =========================================================================
+    
+    // Track user activity for analytics
+    function trackUserActivity(action, page) {
+        try {
+            const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+            if (userData.currentUser) {
+                const user = userData.users[userData.currentUser];
+                if (!user.activityLog) user.activityLog = [];
+                
+                user.activityLog.push({
+                    action,
+                    page,
+                    timestamp: new Date().toISOString(),
+                    userAgent: navigator.userAgent.substring(0, 100) // Truncate for storage
+                });
+                
+                // Keep only last 50 activities to prevent storage bloat
+                if (user.activityLog.length > 50) {
+                    user.activityLog = user.activityLog.slice(-50);
+                }
+                
+                localStorage.setItem('eldersUserData', JSON.stringify(userData));
+            }
+        } catch (error) {
+            console.error('Error tracking activity:', error);
+        }
+    }
+    
+    // Global error handler
+    window.addEventListener('error', (event) => {
+        console.error('Global error:', event.error);
+        trackUserActivity('error', window.location.pathname);
+    });
+    
+    // Performance monitoring
+    if ('performance' in window) {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                if (perfData) {
+                    trackUserActivity('page_load', window.location.pathname);
+                }
+            }, 0);
+        });
+    }
 });
 
 // =========================================================================
@@ -840,4 +898,3 @@ function copyToClipboard(text, btn) {
 // Global function to show user dashboard
 function showUserDashboard() {
     window.location.href = 'home.html';
-}
