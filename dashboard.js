@@ -161,13 +161,16 @@ document.addEventListener('DOMContentLoaded', () => {
         topWeakQuestions.forEach(weakQuestion => {
             const weakAreaEl = document.createElement('div');
             weakAreaEl.className = 'weak-area-card';
+            const truncatedQuestion = weakQuestion.question.length > 100 ? 
+                weakQuestion.question.substring(0, 100) + '...' : 
+                weakQuestion.question;
             weakAreaEl.innerHTML = `
                 <div class="weak-area-header">
                     <span class="course-badge">${weakQuestion.courseCode}</span>
                     <span class="wrong-count">❌ ${weakQuestion.wrongCount} time${weakQuestion.wrongCount > 1 ? 's' : ''}</span>
                 </div>
                 <div class="weak-area-content">
-                    <p class="weak-question">${weakQuestion.question}</p>
+                    <p class="weak-question" title="${weakQuestion.question}">${truncatedQuestion}</p>
                     <p class="correct-answer"><strong>Correct Answer:</strong> ${weakQuestion.correctAnswer}</p>
                 </div>
             `;
@@ -232,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
         recentQuizzes.reverse().forEach(quiz => {
             const date = new Date(quiz.date);
             const timeAgo = getTimeAgo(date);
+            const timeSpentMinutes = Math.round(quiz.timeSpent / 60);
             
             const activityEl = document.createElement('div');
             activityEl.className = 'activity-card';
@@ -239,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="activity-icon">${quiz.percentage === 100 ? '🏆' : quiz.percentage >= 80 ? '🎯' : '📝'}</div>
                 <div class="activity-content">
                     <h4>${quiz.courseCode} - Segment ${quiz.segmentNumber}</h4>
-                    <p>Scored ${quiz.score}/${quiz.totalQuestions} (${quiz.percentage}%)</p>
+                    <p>Scored ${quiz.score}/${quiz.totalQuestions} (${quiz.percentage}%) • ${timeSpentMinutes} min</p>
                     <span class="activity-time">${timeAgo}</span>
                 </div>
                 <div class="activity-score ${quiz.percentage >= 80 ? 'good-score' : quiz.percentage >= 50 ? 'ok-score' : 'poor-score'}">
@@ -284,11 +288,119 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupResetDataButton() {
         document.getElementById('reset-data-btn').addEventListener('click', () => {
-            if (confirm('⚠️ Are you sure you want to reset all your data? This action cannot be undone!')) {
-                if (confirm('🚨 This will permanently delete all your progress, achievements, and quiz history. Are you absolutely sure?')) {
-                    localStorage.removeItem('eldersUserData');
-                    alert('✅ All data has been reset successfully!');
-                    window.location.href = 'index.html';
+            const modal = document.createElement('div');
+            modal.className = 'reset-modal';
+            modal.innerHTML = `
+                <div class="reset-modal-content">
+                    <h3>⚠️ Reset All Data</h3>
+                    <p>This will permanently delete:</p>
+                    <ul>
+                        <li>All quiz history and scores</li>
+                        <li>Achievements and progress</li>
+                        <li>Performance analytics</li>
+                        <li>User preferences</li>
+                    </ul>
+                    <p><strong>This action cannot be undone!</strong></p>
+                    <div class="reset-modal-actions">
+                        <button class="nav-btn danger-btn" onclick="confirmReset()">Yes, Reset Everything</button>
+                        <button class="segment-btn" onclick="closeResetModal()">Cancel</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            window.confirmReset = () => {
+                localStorage.removeItem('eldersUserData');
+                alert('✅ All data has been reset successfully!');
+                window.location.href = 'index.html';
+            };
+            
+            window.closeResetModal = () => {
+                modal.remove();
+                delete window.confirmReset;
+                delete window.closeResetModal;
+            };
+        });
+    }
+});
+
+// Add CSS for reset modal
+const resetModalCSS = `
+.reset-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.reset-modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    animation: slideInUp 0.3s ease;
+}
+
+.reset-modal-content h3 {
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+
+.reset-modal-content ul {
+    text-align: left;
+    margin: 15px 0;
+    padding-left: 20px;
+}
+
+.reset-modal-content li {
+    margin-bottom: 5px;
+}
+
+.reset-modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.dark-mode .reset-modal-content {
+    background: #2d2d2d;
+    color: #e0e0e0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+`;
+
+// Inject the CSS
+if (!document.getElementById('reset-modal-styles')) {
+    const style = document.createElement('style');
+    style.id = 'reset-modal-styles';
+    style.textContent = resetModalCSS;
+    document.head.appendChild(style);
+}
                 }
             }
         });

@@ -316,27 +316,10 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 // Reset button state
                 this.disabled = false;
-                this.innerHTML = '<span class="btn-text">Practice Weak Areas</span><span class="btn-icon">🎯</span>';
+                this.innerHTML = 'Practice Now';
                 
-                // Show friendly message
-                const messageEl = document.createElement('div');
-                messageEl.className = 'friendly-message';
-                messageEl.innerHTML = `
-                    <div class="message-content">
-                        <div class="message-icon">🎯</div>
-                        <h4>Great News!</h4>
-                        <p>No weak areas identified yet. Take a few quizzes first to get personalized recommendations!</p>
-                        <button onclick="this.parentElement.parentElement.remove()" class="message-close">Got it!</button>
-                    </div>
-                `;
-                document.body.appendChild(messageEl);
-                
-                // Auto remove after 5 seconds
-                setTimeout(() => {
-                    if (messageEl.parentElement) {
-                        messageEl.remove();
-                    }
-                }, 5000);
+                // Show toast notification instead of modal
+                showToast('🎯 Great News!', 'No weak areas identified yet. Take a few quizzes first to get personalized recommendations!', 'info');
             }
         });
 
@@ -351,6 +334,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function showToast(title, message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.innerHTML = `
+            <div class="toast-content">
+                <div class="toast-title">${title}</div>
+                <div class="toast-message">${message}</div>
+            </div>
+            <button class="toast-close" onclick="this.parentElement.remove()">×</button>
+        `;
+        
+        // Add to page
+        document.body.appendChild(toast);
+        
+        // Animate in
+        setTimeout(() => toast.classList.add('show'), 100);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 5000);
+    }
+
     function getTimeAgo(date) {
         const now = new Date();
         const diffInSeconds = Math.floor((now - date) / 1000);
@@ -361,4 +368,3 @@ document.addEventListener('DOMContentLoaded', () => {
         if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)} days ago`;
         return date.toLocaleDateString();
     }
-});
