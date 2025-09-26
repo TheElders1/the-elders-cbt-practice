@@ -14,7 +14,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     // Initialize database
-    initializeDatabase();
+    setTimeout(() => {
+        initializeDatabase();
+    }, 100);
 
     // =========================================================================
     // 0. USER DATA MANAGEMENT & PERFORMANCE TRACKING
@@ -81,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     return this.userData.users[userId];
                 } catch (error) {
                     console.error('Database error, falling back to localStorage:', error);
+                    // Continue to localStorage fallback below
                 }
             }
             
@@ -518,6 +521,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentUser) {
             // User already exists and is logged in - skip login page
             console.log('User already logged in:', currentUser.name);
+            
+            // Verify the user data is complete
+            if (!currentUser.name || currentUser.name.length < 6) {
+                console.log('Incomplete user data, requiring re-login');
+                localStorage.removeItem('eldersUserData');
+                return;
+            }
+            
             // Add loading indicator before redirect
             document.body.innerHTML = `
                 <div style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; gap: 20px; font-family: Inter, sans-serif;">
@@ -588,19 +599,26 @@ document.addEventListener('DOMContentLoaded', () => {
             sendNotification(notificationMessage);
 
             // Create or update user data
-            const user = await userDataManager.createOrGetUser(name, department);
-            user.department = department; // Store department with user
-            userDataManager.saveUserData();
+            userDataManager.createOrGetUser(name, department).then(user => {
+                user.department = department; // Store department with user
+                userDataManager.saveUserData();
             
-            // Track login activity
-            setTimeout(() => {
-                trackUserActivity('login', 'index.html');
-            }, 500);
+                // Track login activity
+                setTimeout(() => {
+                    trackUserActivity('login', 'index.html');
+                }, 500);
             
-            // Small delay to ensure data is saved before redirect
-            setTimeout(() => {
-                window.location.href = 'home.html';
-            }, 800);
+                // Small delay to ensure data is saved before redirect
+                setTimeout(() => {
+                    window.location.href = 'home.html';
+                }, 800);
+            }).catch(error => {
+                console.error('Login error:', error);
+                // Reset button state on error
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<span class="btn-text">Login to Dashboard</span><span class="btn-icon">🚀</span>';
+                alert('Login failed. Please try again.');
+            });
         });
     }
 

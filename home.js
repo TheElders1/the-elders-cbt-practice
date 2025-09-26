@@ -9,7 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!currentUser) {
         // 🔒 NO USER DATA - Redirect back to login
         console.log('No user data found, redirecting to login');
-        window.location.href = 'index.html';
+        // Add a small delay to ensure localStorage is properly checked
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 100);
         return;
     }
 
