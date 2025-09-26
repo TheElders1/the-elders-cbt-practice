@@ -401,8 +401,3 @@ if (!document.getElementById('reset-modal-styles')) {
     style.textContent = resetModalCSS;
     document.head.appendChild(style);
 }
-                }
-            }
-        });
-    }
-});
