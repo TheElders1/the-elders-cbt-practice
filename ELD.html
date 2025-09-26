@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>The Elders CBT - Admin Portal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="admin-page" id="admin-body">
+
+    <!-- Login Form Container -->
+    <div id="login-container">
+        <div class="login-card">
+            <img src="ELD.png" alt="Logo" class="login-logo">
+            <h2>🔐 Admin Portal</h2>
+            <p>Secure access to system analytics and management</p>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="username">👤 Username</label>
+                    <input type="text" id="username" required placeholder="Enter admin username">
+                </div>
+                <div class="form-group">
+                    <label for="password">🔑 Password</label>
+                    <input type="password" id="password" required placeholder="Enter secure password">
+                </div>
+                <p id="error-message" class="form-feedback error"></p>
+                <button type="submit" class="segment-btn" id="login-btn">
+                    <span class="btn-text">🚀 Access Dashboard</span>
+                </button>
+            </form>
+            <div class="admin-footer">
+                <p>🔒 Secure Admin Access Only</p>
+                <p class="version-info">v2.0 | Last Updated: <span id="last-updated"></span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard (Hidden by default) -->
+    <div id="admin-dashboard" style="display: none;">
+        <header>
+            <div class="header-content">
+                <img src="ELD.png" alt="The Elders CBT Practice Logo" id="header-logo">
+                <div>
+                    <h1>📊 Admin Dashboard</h1>
+                    <p id="admin-welcome">Welcome, Administrator</p>
+                </div>
+                <div class="admin-header-actions">
+                    <button id="theme-toggle" class="nav-btn">🌙</button>
+                    <button id="admin-logout" class="nav-btn danger-btn">🚪 Logout</button>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <!-- Real-time Stats Overview -->
+            <section class="admin-section">
+                <h2>📈 Real-time Analytics</h2>
+                <div class="admin-stats-grid">
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="total-users">0</div>
+                            <div class="stat-label">Total Users</div>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="total-quizzes-taken">0</div>
+                            <div class="stat-label">Quizzes Taken</div>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="average-performance">0%</div>
+                            <div class="stat-label">Avg Performance</div>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="active-today">0</div>
+                            <div class="stat-label">Active Today</div>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card online-users-card">
+                        <div class="stat-icon">🟢</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="online-users">0</div>
+                            <div class="stat-label">Online Now</div>
+                        </div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-content">
+                            <div class="stat-number" id="recent-activity">0</div>
+                            <div class="stat-label">Last Hour</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Department Analytics -->
+            <section class="admin-section">
+                <h2>🏫 Department Analytics</h2>
+                <div id="department-analytics" class="department-grid">
+                    <!-- Department stats will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="admin-section">
+                <h2>📋 Recent Activity</h2>
+                <div class="activity-controls">
+                    <button id="refresh-activity" class="nav-btn">🔄 Refresh</button>
+                    <select id="activity-filter" class="admin-select">
+                        <option value="all">All Activities</option>
+                        <option value="today">Today Only</option>
+                        <option value="week">This Week</option>
+                    </select>
+                </div>
+                <div id="recent-activity-admin" class="admin-activity-list">
+                    <!-- Recent activity will be populated by JavaScript -->
+                </div>
+            </section>
+
+            <!-- User Analytics Table -->
+            <section class="admin-section">
+                <h2>👥 Complete User Analytics</h2>
+                <div class="table-controls">
+                    <div class="table-actions">
+                        <button id="export-users-csv" class="nav-btn success-btn">📥 Export Users CSV</button>
+                        <button id="refresh-users" class="nav-btn">🔄 Refresh Data</button>
+                        <button id="show-online-only" class="nav-btn info-btn">🟢 Show Online Only</button>
+                    </div>
+                    <div class="table-filters">
+                        <select id="department-filter" class="admin-select">
+                            <option value="all">All Departments</option>
+                            <option value="Computer Science">Computer Science</option>
+                            <option value="Cyber Security">Cyber Security</option>
+                            <option value="Data Science">Data Science</option>
+                            <option value="Information Technology">Information Technology</option>
+                            <option value="Software Engineering">Software Engineering</option>
+                        </select>
+                        <select id="performance-filter" class="admin-select">
+                            <option value="all">All Performance Levels</option>
+                            <option value="excellent">Excellent (80%+)</option>
+                            <option value="good">Good (60-79%)</option>
+                            <option value="needs-improvement">Needs Improvement (<60%)</option>
+                        </select>
+                        <select id="online-status-filter" class="admin-select">
+                            <option value="all">All Users</option>
+                            <option value="online">Online Now</option>
+                            <option value="today">Active Today</option>
+                            <option value="week">Active This Week</option>
+                            <option value="offline">Offline</option>
+                        </select>
+                        <input type="text" id="search-users" class="admin-search" placeholder="🔍 Search users...">
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table id="users-analytics-table" class="analytics-table">
+                        <thead>
+                            <tr>
+                                <th class="sortable" data-sort="name">👤 Name <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="onlineStatus">🔴 Status <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="department">🏫 Department <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="totalQuizzesTaken">📝 Total Quizzes <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="averageScore">📊 Avg Score <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="perfectScores">🏆 Perfect Scores <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="studyStreak">🔥 Streak <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="level">⭐ Level <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="totalXP">💎 Total XP <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="joinDate">📅 Join Date <span class="sort-arrow">↕️</span></th>
+                                <th class="sortable" data-sort="lastVisit">🕒 Last Visit <span class="sort-arrow">↕️</span></th>
+                                <th>📈 Performance</th>
+                                <th>🎯 Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="users-table-body">
+                            <!-- User data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="performance-warning" class="performance-warning" style="display: none;"></div>
+                <div class="table-pagination">
+                    <div class="pagination-info">
+                        <span id="table-info">Showing 0 of 0 users</span>
+                        <div class="pagination-controls-left">
+                            <label for="users-per-page">Show:</label>
+                            <select id="users-per-page" class="admin-select-small">
+                                <option value="10">10 per page</option>
+                                <option value="25" selected>25 per page</option>
+                                <option value="50">50 per page</option>
+                                <option value="100">100 per page</option>
+                                <option value="250">250 per page</option>
+                                <option value="500">500 per page</option>
+                                <option value="1000">1000 per page</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="pagination-controls">
+                        <button id="prev-page" class="nav-btn" disabled>← Previous</button>
+                        <span id="page-info">Page 1 of 1</span>
+                        <button id="next-page" class="nav-btn" disabled>Next →</button>
+                        <div class="jump-to-page">
+                            <label for="jump-to-page-input">Jump to:</label>
+                            <input type="number" id="jump-to-page-input" class="page-jump-input" placeholder="Page #" min="1">
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- System Management -->
+            <section class="admin-section">
+                <h2>⚙️ System Management</h2>
+                <div class="management-grid">
+                    <div class="management-card">
+                        <h3>📊 Export Data</h3>
+                        <p>Download user analytics and quiz results</p>
+                        <button id="export-data" class="segment-btn">📥 Export CSV</button>
+                    </div>
+                    <div class="management-card">
+                        <h3>🔄 System Status</h3>
+                        <p>Monitor system health and performance</p>
+                        <div class="status-indicator">
+                            <span class="status-dot online"></span>
+                            <span>System Online</span>
+                        </div>
+                    </div>
+                    <div class="management-card">
+                        <h3>📈 Performance Metrics</h3>
+                        <p>View detailed system performance data</p>
+                        <button id="view-metrics" class="nav-btn">📊 View Metrics</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Quick Actions -->
+            <section class="admin-section">
+                <h2>⚡ Quick Actions</h2>
+                <div class="quick-actions-admin">
+                    <button id="clear-cache" class="action-btn warning-btn">🗑️ Clear Cache</button>
+                    <button id="backup-data" class="action-btn success-btn">💾 Backup Data</button>
+                    <button id="send-announcement" class="action-btn info-btn">📢 Send Announcement</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Initialize admin page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set last updated date
+            document.getElementById('last-updated').textContent = new Date().toLocaleDateString();
+            
+            // Initialize admin functionality
+            initializeAdminDashboard();
+        });
+
+        function initializeAdminDashboard() {
+            // Load real-time analytics from localStorage
+            loadAnalytics();
+            loadUserAnalytics();
+            
+            // Set up auto-refresh every 30 seconds
+            setInterval(loadAnalytics, 30000);
+            
+            // Set up event listeners
+            setupEventListeners();
+        }
+
+        function loadAnalytics() {
+            try {
+                const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+                const users = userData.users || {};
+                
+                // Calculate statistics
+                const totalUsers = Object.keys(users).length;
+                let totalQuizzes = 0;
+                let totalScore = 0;
+                let activeToday = 0;
+                let onlineNow = 0;
+                let recentActivity = 0;
+                const today = new Date().toDateString();
+                const now = new Date();
+                const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
+                const fiveMinutesAgo = new Date(now.getTime() - 5 * 60 * 1000);
+                
+                const departmentStats = {};
+                
+                Object.values(users).forEach(user => {
+                    totalQuizzes += user.totalQuizzesTaken || 0;
+                    totalScore += (user.averageScore || 0) * (user.totalQuizzesTaken || 0);
+                    
+                    const lastVisit = new Date(user.lastVisit);
+                    
+                    // Check if active today
+                    if (user.lastVisit && lastVisit.toDateString() === today) {
+                        activeToday++;
+                    }
+                    
+                    // Check if online now (last 5 minutes)
+                    if (user.lastVisit && lastVisit > fiveMinutesAgo) {
+                        onlineNow++;
+                    }
+                    
+                    // Check recent activity (last hour)
+                    if (user.lastVisit && lastVisit > oneHourAgo) {
+                        recentActivity++;
+                    }
+                    
+                    // Department statistics
+                    const dept = user.department || 'Unknown';
+                    if (!departmentStats[dept]) {
+                        departmentStats[dept] = { users: 0, quizzes: 0, avgScore: 0 };
+                    }
+                    departmentStats[dept].users++;
+                    departmentStats[dept].quizzes += user.totalQuizzesTaken || 0;
+                    departmentStats[dept].avgScore += user.averageScore || 0;
+                });
+                
+                // Update UI
+                document.getElementById('total-users').textContent = totalUsers;
+                document.getElementById('total-quizzes-taken').textContent = totalQuizzes;
+                document.getElementById('average-performance').textContent = 
+                    totalQuizzes > 0 ? Math.round(totalScore / totalQuizzes) + '%' : '0%';
+                document.getElementById('active-today').textContent = activeToday;
+                document.getElementById('online-users').textContent = onlineNow;
+                document.getElementById('recent-activity').textContent = recentActivity;
+                
+                // Update department analytics
+                updateDepartmentAnalytics(departmentStats);
+                
+                // Update recent activity
+                updateRecentActivity(users);
+                
+            } catch (error) {
+                console.error('Error loading analytics:', error);
+            }
+        }
+
+        function updateDepartmentAnalytics(departmentStats) {
+            const container = document.getElementById('department-analytics');
+            container.innerHTML = '';
+            
+            Object.entries(departmentStats).forEach(([dept, stats]) => {
+                const avgScore = stats.users > 0 ? Math.round(stats.avgScore / stats.users) : 0;
+                
+                const deptCard = document.createElement('div');
+                deptCard.className = 'department-card';
+                deptCard.innerHTML = `
+                    <h4>${dept}</h4>
+                    <div class="dept-stats">
+                        <div class="dept-stat">
+                            <span class="dept-number">${stats.users}</span>
+                            <span class="dept-label">Users</span>
+                        </div>
+                        <div class="dept-stat">
+                            <span class="dept-number">${stats.quizzes}</span>
+                            <span class="dept-label">Quizzes</span>
+                        </div>
+                        <div class="dept-stat">
+                            <span class="dept-number">${avgScore}%</span>
+                            <span class="dept-label">Avg Score</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(deptCard);
+            });
+        }
+
+        function updateRecentActivity(users) {
+            const container = document.getElementById('recent-activity-admin');
+            const activities = [];
+            
+            // Collect all quiz activities
+            Object.values(users).forEach(user => {
+                if (user.quizHistory) {
+                    user.quizHistory.forEach(quiz => {
+                        activities.push({
+                            ...quiz,
+                            userName: user.name,
+                            department: user.department
+                        });
+                    });
+                }
+            });
+            
+            // Sort by date (most recent first)
+            activities.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            // Show last 20 activities
+            const recentActivities = activities.slice(0, 20);
+            
+            container.innerHTML = '';
+            if (recentActivities.length === 0) {
+                container.innerHTML = '<p class="no-data">No recent activity found.</p>';
+                return;
+            }
+            
+            recentActivities.forEach(activity => {
+                const activityEl = document.createElement('div');
+                activityEl.className = 'admin-activity-item';
+                
+                const date = new Date(activity.date);
+                const timeAgo = getTimeAgo(date);
+                
+                activityEl.innerHTML = `
+                    <div class="activity-user">
+                        <strong>${activity.userName}</strong>
+                        <span class="activity-dept">${activity.department}</span>
+                    </div>
+                    <div class="activity-details">
+                        <span class="activity-course">${activity.courseCode} - Segment ${activity.segmentNumber}</span>
+                        <span class="activity-score ${activity.percentage >= 80 ? 'good' : activity.percentage >= 50 ? 'ok' : 'poor'}">
+                            ${activity.percentage}%
+                        </span>
+                    </div>
+                    <div class="activity-time">${timeAgo}</div>
+                `;
+                container.appendChild(activityEl);
+            });
+        }
+
+        function getTimeAgo(date) {
+            const now = new Date();
+            const diffInSeconds = Math.floor((now - date) / 1000);
+            
+            if (diffInSeconds < 60) return 'Just now';
+            if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
+            if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
+            if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)}d ago`;
+            return date.toLocaleDateString();
+        }
+
+        function setupEventListeners() {
+            // Refresh activity button
+            document.getElementById('refresh-activity').addEventListener('click', loadAnalytics);
+            
+            // Export data button
+            document.getElementById('export-data').addEventListener('click', exportData);
+            
+            // User analytics table listeners
+            setupUserAnalyticsListeners();
+            
+            // Admin logout
+            document.getElementById('admin-logout').addEventListener('click', () => {
+                if (confirm('Are you sure you want to logout?')) {
+                    document.getElementById('admin-dashboard').style.display = 'none';
+                    document.getElementById('login-container').style.display = 'block';
+                    document.getElementById('username').value = '';
+                    document.getElementById('password').value = '';
+                    document.getElementById('error-message').textContent = '';
+                }
+            });
+            
+            // Quick actions
+            document.getElementById('clear-cache').addEventListener('click', () => {
+                if (confirm('Clear system cache? This will refresh all data.')) {
+                    loadAnalytics();
+                    showNotification('Cache cleared successfully!', 'success');
+                }
+            });
+            
+            document.getElementById('backup-data').addEventListener('click', () => {
+                exportData();
+                showNotification('Data backup initiated!', 'success');
+            });
+        }
+
+        function exportData() {
+            try {
+                const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+                const users = userData.users || {};
+                
+                // Create CSV content
+                let csvContent = 'Name,Department,Total Quizzes,Average Score,Study Streak,Level,Total XP,Last Visit\n';
+                
+                Object.values(users).forEach(user => {
+                    csvContent += `"${user.name}","${user.department || 'N/A'}",${user.totalQuizzesTaken || 0},${user.averageScore || 0},${user.studyStreak || 0},${user.level || 1},${user.totalXP || 0},"${user.lastVisit || 'N/A'}"\n`;
+                });
+                
+                // Download CSV
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `elders-cbt-data-${new Date().toISOString().split('T')[0]}.csv`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+                
+                showNotification('Data exported successfully!', 'success');
+            } catch (error) {
+                showNotification('Export failed: ' + error.message, 'error');
+            }
+        }
+        // User Analytics Table Functionality
+        let currentUsers = [];
+        let filteredUsers = [];
+        let currentPage = 1;
+        let usersPerPage = 25; // Default to 25 users per page
+        let currentSort = { field: 'name', direction: 'asc' };
+
+        function setupUserAnalyticsListeners() {
+            // Export users CSV
+            document.getElementById('export-users-csv').addEventListener('click', exportUsersCSV);
+            
+            // Refresh users data
+            document.getElementById('refresh-users').addEventListener('click', () => {
+                loadUserAnalytics();
+                showNotification('User data refreshed!', 'success');
+            });
+            
+            // Department filter
+            document.getElementById('department-filter').addEventListener('change', filterUsers);
+            
+            // Performance filter
+            document.getElementById('performance-filter').addEventListener('change', filterUsers);
+            
+            // Online status filter
+            document.getElementById('online-status-filter').addEventListener('change', filterUsers);
+            
+            // Search users
+            document.getElementById('search-users').addEventListener('input', filterUsers);
+            
+            // Show online only button
+            document.getElementById('show-online-only').addEventListener('click', function() {
+                const onlineFilter = document.getElementById('online-status-filter');
+                if (onlineFilter.value === 'online') {
+                    onlineFilter.value = 'all';
+                    this.textContent = '🟢 Show Online Only';
+                    this.classList.remove('active');
+                } else {
+                    onlineFilter.value = 'online';
+                    this.textContent = '👥 Show All Users';
+                    this.classList.add('active');
+                }
+                filterUsers();
+            });
+            
+            // Pagination
+            document.getElementById('prev-page').addEventListener('click', () => changePage(-1));
+            document.getElementById('next-page').addEventListener('click', () => changePage(1));
+            
+            // Users per page selector
+            document.getElementById('users-per-page').addEventListener('change', function() {
+                usersPerPage = parseInt(this.value);
+                currentPage = 1;
+                renderUserTable();
+                updatePagination();
+            });
+            
+            // Jump to page
+            document.getElementById('jump-to-page-input').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const pageNum = parseInt(this.value);
+                    const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+                    if (pageNum >= 1 && pageNum <= totalPages) {
+                        currentPage = pageNum;
+                        renderUserTable();
+                        updatePagination();
+                    }
+                    this.value = '';
+                }
+            });
+            
+            // Sortable columns
+            document.querySelectorAll('.sortable').forEach(header => {
+                header.addEventListener('click', () => sortUsers(header.dataset.sort));
+            });
+        }
+
+        function loadUserAnalytics() {
+            try {
+                const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+                const users = userData.users || {};
+                const now = new Date();
+                const fiveMinutesAgo = new Date(now.getTime() - 5 * 60 * 1000);
+                const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+                
+                currentUsers = Object.values(users).map(user => ({
+                    ...user,
+                    joinDate: new Date(user.joinDate),
+                    lastVisit: new Date(user.lastVisit),
+                    performanceLevel: getPerformanceLevel(user.averageScore || 0),
+                    onlineStatus: getOnlineStatus(new Date(user.lastVisit), now, fiveMinutesAgo, oneWeekAgo)
+                }));
+                
+                filteredUsers = [...currentUsers];
+                currentPage = 1;
+                renderUserTable();
+                updatePagination();
+                
+            } catch (error) {
+                console.error('Error loading user analytics:', error);
+                showNotification('Error loading user data', 'error');
+            }
+        }
+
+        function getPerformanceLevel(score) {
+            if (score >= 80) return 'excellent';
+            if (score >= 60) return 'good';
+            return 'needs-improvement';
+        }
+
+        function getOnlineStatus(lastVisit, now, fiveMinutesAgo, oneWeekAgo) {
+            if (lastVisit > fiveMinutesAgo) return 'online';
+            if (lastVisit.toDateString() === now.toDateString()) return 'today';
+            if (lastVisit > oneWeekAgo) return 'week';
+            return 'offline';
+        }
+
+        function getOnlineStatusBadge(status, lastVisit) {
+            const timeAgo = getTimeAgo(lastVisit);
+            switch (status) {
+                case 'online':
+                    return '<span class="status-badge online">🟢 Online</span>';
+                case 'today':
+                    return '<span class="status-badge today">🟡 Today</span>';
+                case 'week':
+                    return `<span class="status-badge week">🟠 ${timeAgo}</span>`;
+                default:
+                    return `<span class="status-badge offline">🔴 ${timeAgo}</span>`;
+            }
+        }
+
+        function getPerformanceBadge(score) {
+            if (score >= 80) return '<span class="performance-badge excellent">🌟 Excellent</span>';
+            if (score >= 60) return '<span class="performance-badge good">👍 Good</span>';
+            return '<span class="performance-badge poor">📈 Needs Improvement</span>';
+        }
+
+        function filterUsers() {
+            const deptFilter = document.getElementById('department-filter').value;
+            const perfFilter = document.getElementById('performance-filter').value;
+            const onlineFilter = document.getElementById('online-status-filter').value;
+            const searchTerm = document.getElementById('search-users').value.toLowerCase();
+            
+            filteredUsers = currentUsers.filter(user => {
+                const matchesDept = deptFilter === 'all' || user.department === deptFilter;
+                const matchesPerf = perfFilter === 'all' || user.performanceLevel === perfFilter;
+                const matchesOnline = onlineFilter === 'all' || user.onlineStatus === onlineFilter;
+                const matchesSearch = searchTerm === '' || 
+                    user.name.toLowerCase().includes(searchTerm) ||
+                    (user.department || '').toLowerCase().includes(searchTerm);
+                
+                return matchesDept && matchesPerf && matchesOnline && matchesSearch;
+            });
+            
+            currentPage = 1;
+            renderUserTable();
+            updatePagination();
+        }
+
+        function sortUsers(field) {
+            if (currentSort.field === field) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.field = field;
+                currentSort.direction = 'asc';
+            }
+            
+            filteredUsers.sort((a, b) => {
+                let aVal = a[field];
+                let bVal = b[field];
+                
+                // Handle different data types
+                if (field === 'joinDate' || field === 'lastVisit') {
+                    aVal = new Date(aVal).getTime();
+                    bVal = new Date(bVal).getTime();
+                } else if (typeof aVal === 'string') {
+                    aVal = aVal.toLowerCase();
+                    bVal = bVal.toLowerCase();
+                }
+                
+                if (currentSort.direction === 'asc') {
+                    return aVal > bVal ? 1 : -1;
+                } else {
+                    return aVal < bVal ? 1 : -1;
+                }
+            });
+            
+            // Update sort arrows
+            document.querySelectorAll('.sort-arrow').forEach(arrow => {
+                arrow.textContent = '↕️';
+            });
+            
+            const currentHeader = document.querySelector(`[data-sort="${field}"] .sort-arrow`);
+            if (currentHeader) {
+                currentHeader.textContent = currentSort.direction === 'asc' ? '↑' : '↓';
+            }
+            
+            renderUserTable();
+        }
+
+        function renderUserTable() {
+            const tbody = document.getElementById('users-table-body');
+            const startIndex = (currentPage - 1) * usersPerPage;
+            const endIndex = startIndex + usersPerPage;
+            const pageUsers = filteredUsers.slice(startIndex, endIndex);
+            
+            tbody.innerHTML = '';
+            
+            if (pageUsers.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="13" class="no-users-message">
+                            <div class="empty-state">
+                                <div class="empty-icon">👥</div>
+                                <h4>No Users Found</h4>
+                                <p>No users match your current filters.</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            pageUsers.forEach(user => {
+                const row = document.createElement('tr');
+                row.className = 'user-row';
+                
+                const joinDate = user.joinDate.toLocaleDateString();
+                const lastVisit = getTimeAgo(user.lastVisit);
+                const isOnline = user.onlineStatus === 'online';
+                const isActiveToday = user.onlineStatus === 'today' || isOnline;
+                
+                row.innerHTML = `
+                    <td class="user-name">
+                        <div class="user-info">
+                            <strong>${user.name}</strong>
+                            ${isOnline ? '<span class="active-indicator online-now">🟢 Online Now</span>' : 
+                              isActiveToday ? '<span class="active-indicator active-today">🟡 Active Today</span>' : ''}
+                        </div>
+                    </td>
+                    <td class="text-center">${getOnlineStatusBadge(user.onlineStatus, user.lastVisit)}</td>
+                    <td><span class="department-tag">${user.department || 'N/A'}</span></td>
+                    <td class="text-center"><strong>${user.totalQuizzesTaken || 0}</strong></td>
+                    <td class="text-center">
+                        <span class="score-display ${user.averageScore >= 80 ? 'excellent' : user.averageScore >= 60 ? 'good' : 'poor'}">
+                            ${user.averageScore || 0}%
+                        </span>
+                    </td>
+                    <td class="text-center"><span class="perfect-score">${user.perfectScores || 0} 🏆</span></td>
+                    <td class="text-center">
+                        <span class="streak-display">${user.studyStreak || 0} ${user.studyStreak > 0 ? '🔥' : ''}</span>
+                    </td>
+                    <td class="text-center"><span class="level-badge">⭐ ${user.level || 1}</span></td>
+                    <td class="text-center"><strong>${user.totalXP || 0}</strong></td>
+                    <td class="text-center">${joinDate}</td>
+                    <td class="text-center">${lastVisit}</td>
+                    <td class="text-center">${getPerformanceBadge(user.averageScore || 0)}</td>
+                    <td class="text-center">
+                        <div class="action-buttons">
+                            <button class="action-btn-small view-btn" onclick="viewUserDetails('${user.id}')">👁️ View</button>
+                            <button class="action-btn-small export-btn" onclick="exportUserData('${user.id}')">📥 Export</button>
+                        </div>
+                    </td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            // Add loading indicator for large datasets
+            if (filteredUsers.length > 100) {
+                showLoadingIndicator(false);
+            }
+        }
+        
+        function showLoadingIndicator(show) {
+            const tbody = document.getElementById('users-table-body');
+            if (show) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="13" class="loading-message">
+                            <div class="loading-state">
+                                <div class="loading-spinner"></div>
+                                <h4>Loading User Data...</h4>
+                                <p>Processing large dataset, please wait...</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        function changePage(direction) {
+            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            const newPage = currentPage + direction;
+            
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                renderUserTable();
+                updatePagination();
+            }
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredUsers.length / usersPerPage);
+            const startIndex = (currentPage - 1) * usersPerPage;
+            const endIndex = Math.min(startIndex + usersPerPage, filteredUsers.length);
+            
+            document.getElementById('table-info').textContent = 
+                `Showing ${startIndex + 1}-${endIndex} of ${filteredUsers.length} users`;
+            
+            document.getElementById('page-info').textContent = 
+                `Page ${currentPage} of ${totalPages || 1}`;
+            
+            document.getElementById('prev-page').disabled = currentPage <= 1;
+            document.getElementById('next-page').disabled = currentPage >= totalPages;
+            
+            // Update users per page selector
+            document.getElementById('users-per-page').value = usersPerPage;
+            
+            // Show performance warning for large datasets
+            const performanceWarning = document.getElementById('performance-warning');
+            if (filteredUsers.length > 500) {
+                performanceWarning.style.display = 'block';
+                performanceWarning.textContent = `⚠️ Large dataset (${filteredUsers.length} users) - Consider using filters for better performance`;
+            } else {
+                performanceWarning.style.display = 'none';
+            }
+        }
+
+        function exportUsersCSV() {
+            try {
+                let csvContent = 'Name,Department,Total Quizzes,Average Score,Perfect Scores,Study Streak,Level,Total XP,Join Date,Last Visit,Performance Level\n';
+                
+                filteredUsers.forEach(user => {
+                    const joinDate = user.joinDate.toLocaleDateString();
+                    const lastVisit = user.lastVisit.toLocaleDateString();
+                    
+                    csvContent += `"${user.name}","${user.department || 'N/A'}",${user.totalQuizzesTaken || 0},${user.averageScore || 0},${user.perfectScores || 0},${user.studyStreak || 0},${user.level || 1},${user.totalXP || 0},"${joinDate}","${lastVisit}","${user.performanceLevel}"\n`;
+                });
+                
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `elders-cbt-users-${new Date().toISOString().split('T')[0]}.csv`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+                
+                showNotification('Users data exported successfully!', 'success');
+            } catch (error) {
+                showNotification('Export failed: ' + error.message, 'error');
+            }
+        }
+
+        function viewUserDetails(userId) {
+            const user = currentUsers.find(u => u.id === userId);
+            if (!user) return;
+            
+            const modal = document.createElement('div');
+            modal.className = 'user-modal-overlay';
+            modal.innerHTML = `
+                <div class="user-modal">
+                    <div class="modal-header">
+                        <h3>👤 ${user.name} - Detailed Analytics</h3>
+                        <button class="modal-close" onclick="this.parentElement.parentElement.parentElement.remove()">✕</button>
+                    </div>
+                    <div class="modal-content">
+                        <div class="user-stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Department</span>
+                                <span class="stat-value">${user.department || 'N/A'}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total Quizzes</span>
+                                <span class="stat-value">${user.totalQuizzesTaken || 0}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Average Score</span>
+                                <span class="stat-value">${user.averageScore || 0}%</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Perfect Scores</span>
+                                <span class="stat-value">${user.perfectScores || 0}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Study Streak</span>
+                                <span class="stat-value">${user.studyStreak || 0} days</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Level</span>
+                                <span class="stat-value">⭐ ${user.level || 1}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Total XP</span>
+                                <span class="stat-value">${user.totalXP || 0}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Achievements</span>
+                                <span class="stat-value">${user.achievements ? user.achievements.length : 0}</span>
+                            </div>
+                        </div>
+                        <div class="recent-quizzes">
+                            <h4>📊 Recent Quiz History</h4>
+                            <div class="quiz-history-list">
+                                ${user.quizHistory && user.quizHistory.length > 0 ? 
+                                    user.quizHistory.slice(-5).map(quiz => `
+                                        <div class="quiz-item">
+                                            <span class="quiz-course">${quiz.courseCode}</span>
+                                            <span class="quiz-score ${quiz.percentage >= 80 ? 'excellent' : quiz.percentage >= 60 ? 'good' : 'poor'}">${quiz.percentage}%</span>
+                                            <span class="quiz-date">${new Date(quiz.date).toLocaleDateString()}</span>
+                                        </div>
+                                    `).join('') : 
+                                    '<p class="no-data">No quiz history available</p>'
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+
+        function exportUserData(userId) {
+            const user = currentUsers.find(u => u.id === userId);
+            if (!user) return;
+            
+            const userData = {
+                userInfo: {
+                    name: user.name,
+                    department: user.department,
+                    joinDate: user.joinDate,
+                    lastVisit: user.lastVisit
+                },
+                statistics: {
+                    totalQuizzes: user.totalQuizzesTaken || 0,
+                    averageScore: user.averageScore || 0,
+                    perfectScores: user.perfectScores || 0,
+                    studyStreak: user.studyStreak || 0,
+                    level: user.level || 1,
+                    totalXP: user.totalXP || 0
+                },
+                quizHistory: user.quizHistory || [],
+                achievements: user.achievements || [],
+                weakAreas: user.weakAreas || {}
+            };
+            
+            const blob = new Blob([JSON.stringify(userData, null, 2)], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${user.name.replace(/\s+/g, '_')}_data_${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            showNotification(`${user.name}'s data exported successfully!`, 'success');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `admin-notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Login functionality
+        document.getElementById('admin-login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const usernameInput = document.getElementById('username').value;
+            const passwordInput = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            const loginBtn = document.getElementById('login-btn');
+
+            // Show loading state
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<span class="btn-text">🔐 Authenticating...</span>';
+
+            // Simulate authentication delay
+            setTimeout(() => {
+                // Check credentials
+                if (usernameInput === 'TheElders1Dev' && passwordInput === 'samdanbas1234') {
+                    // Success
+                    document.getElementById('login-container').style.display = 'none';
+                    document.getElementById('admin-dashboard').style.display = 'block';
+                    document.title = 'The Elders CBT - Admin Dashboard';
+                    
+                    // Load initial data
+                    loadAnalytics();
+                } else {
+                    // Error
+                    errorMessage.textContent = '❌ Invalid credentials. Access denied.';
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = '<span class="btn-text">🚀 Access Dashboard</span>';
+                }
+            }, 1000);
+        });
+        
+        // Theme toggle functionality
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        if (themeToggleBtn) {
+            const applyTheme = () => {
+                const currentTheme = localStorage.getItem('theme');
+                if (currentTheme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    themeToggleBtn.innerHTML = '☀️';
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    themeToggleBtn.innerHTML = '🌙';
+                }
+            };
+            
+            themeToggleBtn.addEventListener('click', () => {
+                let newTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme();
+            });
+            
+            applyTheme();
+        }
+    </script>
+</body>
+</html>
