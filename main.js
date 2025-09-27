@@ -597,6 +597,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             
+            // Check if this is a custom quiz
+            const customQuizData = JSON.parse(localStorage.getItem('customQuizData') || 'null');
+            const isCustomQuiz = customQuizData !== null;
+            
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<span class="btn-text">Submitting...</span>';
 
@@ -605,20 +609,24 @@ document.addEventListener('DOMContentLoaded', () => {
             const courseCode = params.get('course');
             const department = params.get('department');
             
-            // Record quiz result in user data
-            const result = userDataManager.recordQuizResult(
-                courseCode, 
-                currentSegmentNumber, 
-                score, 
-                currentQuizQuestions.length, 
-                timeSpent, 
-                markedQuestions.filter(marked => marked), 
-                wrongAnswers
-            );
+            let result = null;
+            
+            // Only record in user data if it's not a custom quiz or bookmark practice
+            if (!isCustomQuiz || !customQuizData.settings.isBookmarkPractice) {
+                result = userDataManager.recordQuizResult(
+                    courseCode, 
+                    currentSegmentNumber, 
+                    score, 
+                    currentQuizQuestions.length, 
+                    timeSpent, 
+                    markedQuestions.filter(marked => marked), 
+                    wrongAnswers
+                );
+            }
             
             let resultsMessage = `✅ Quiz Result: ${userName} ✅\n\n`;
             resultsMessage += `Dept: ${department}\nCourse: ${courseCode}\n`;
-            resultsMessage += `Segment: ${currentSegmentNumber}\n`;
+            resultsMessage += isCustomQuiz ? `Type: Custom Quiz\n` : `Segment: ${currentSegmentNumber}\n`;
             resultsMessage += `Score: ${score} out of ${currentQuizQuestions.length}`;
             if (result && result.xpGained) {
                 resultsMessage += `\nXP Gained: ${result.xpGained}`;
@@ -626,6 +634,11 @@ document.addEventListener('DOMContentLoaded', () => {
             sendNotification(resultsMessage);
 
             displayResultsOnScreen(result);
+            
+            // Clear custom quiz data after use
+            if (isCustomQuiz) {
+                localStorage.removeItem('customQuizData');
+            }
             
         };
 
@@ -675,6 +688,13 @@ document.addEventListener('DOMContentLoaded', () => {
                             <strong>💡 Explanation:</strong> ${q.explanation}
                         </div>` : '';
                     
+                    // Add bookmark button for each question
+                    const bookmarkBtn = `
+                        <button onclick="bookmarkQuestion(${i})" class="bookmark-btn" title="Bookmark this question">
+                            🔖 Bookmark
+                        </button>
+                    `;
+                    
                     const reviewCardHTML = `
                         <div class="review-card ${markedClass}">
                             <div class="review-card-header">
@@ -692,6 +712,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                     <strong>Correct Answer:</strong> ${q.answer}
                                 </p>` : ''}
                                 ${explanationHTML}
+                                <div class="question-actions">
+                                    ${bookmarkBtn}
+                                </div>
                             </div>
                         </div>
                     `;
@@ -765,36 +788,93 @@ document.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const userName = params.get('name');
         const courseCode = params.get('course');
+        const isCustom = params.get('custom') === 'true';
+        
         if (!userName || !courseCode) { window.location.href = 'home.html'; return; }
         document.getElementById('user-info-display').textContent = `User: ${userName} | Course: ${courseCode}`;
         
-        const script = document.createElement('script');
-        script.src = `courses/${courseCode}.js`;
+        // Check for custom quiz data
+        const customQuizData = JSON.parse(localStorage.getItem('customQuizData') || 'null');
         
-        const showCourseNotAvailableError = () => {
-            loadingQuizEl.innerHTML = `
-                <div class="error-message-container">
-                    <div class="error-icon">!</div>
-                    <h3 class="error-title">Course Not Available</h3>
-                    <p class="error-subtitle">This course has not been uploaded yet. Please try another one.</p>
-                    <a href="home.html" class="back-link-btn">← Go Back to Course Selection</a>
-                </div>
-            `;
-            loadingQuizEl.style.display = 'block'; 
-        };
-
-        script.onload = () => {
-            if (window.quizData?.questions?.length > 0) {
-                fullCourseQuestions = window.quizData.questions;
-                showScreen(segmentSelectionEl);
-            } else {
-                showCourseNotAvailableError();
+        if (isCustom && customQuizData) {
+            // Load custom quiz
+            fullCourseQuestions = customQuizData.questions;
+            document.getElementById('quiz-header-title').textContent = customQuizData.title;
+            
+            // For custom quizzes, skip segment selection and start directly
+            currentSegmentNumber = 1;
+            currentQuizQuestions = [...fullCourseQuestions];
+            
+            // Apply custom settings
+            if (customQuizData.settings.timeLimit) {
+                const customTimeLimit = customQuizData.settings.timeLimit;
+                // Update timer logic to use custom time limit
+                const startCustomTimer = () => {
+                    let timeLeft = customTimeLimit;
+                    clearInterval(timerInterval);
+                    const updateDisplay = () => {
+                        const minutes = Math.floor(timeLeft / 60);
+                        const seconds = timeLeft % 60;
+                        timerEl.textContent = `Time Left: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                    };
+                    updateDisplay();
+                    timerInterval = setInterval(() => {
+                        timeLeft--;
+                        updateDisplay();
+                        if (timeLeft <= 0) {
+                            clearInterval(timerInterval);
+                            submitQuiz();
+                        }
+                    }, 1000);
+                };
+                
+                // Override the original startTimer function
+                startTimer = startCustomTimer;
             }
-        };
-        script.onerror = () => {
-             showCourseNotAvailableError();
-        };
-        document.head.appendChild(script);
+            
+            userAnswers = new Array(currentQuizQuestions.length).fill(null);
+            markedQuestions = new Array(currentQuizQuestions.length).fill(false);
+            score = 0;
+            currentQuestionIndex = 0;
+            
+            totalQuestionsEl.textContent = currentQuizQuestions.length;
+            totalCountEl.textContent = currentQuizQuestions.length;
+
+            loadQuestion(0);
+            startTimer();
+            updateQuizProgress();
+            showScreen(quizContainer);
+            
+        } else {
+            // Load regular course quiz
+            const script = document.createElement('script');
+            script.src = `courses/${courseCode}.js`;
+        
+            const showCourseNotAvailableError = () => {
+                loadingQuizEl.innerHTML = `
+                    <div class="error-message-container">
+                        <div class="error-icon">!</div>
+                        <h3 class="error-title">Course Not Available</h3>
+                        <p class="error-subtitle">This course has not been uploaded yet. Please try another one.</p>
+                        <a href="home.html" class="back-link-btn">← Go Back to Course Selection</a>
+                    </div>
+                `;
+                loadingQuizEl.style.display = 'block'; 
+            };
+
+            script.onload = () => {
+                if (window.quizData?.questions?.length > 0) {
+                    fullCourseQuestions = window.quizData.questions;
+                    showScreen(segmentSelectionEl);
+                } else {
+                    showCourseNotAvailableError();
+                }
+            };
+            script.onerror = () => {
+                 showCourseNotAvailableError();
+            };
+            document.head.appendChild(script);
+        }
     }
     
     // =========================================================================
@@ -821,6 +901,66 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // =========================================================================
+// BOOKMARK FUNCTIONALITY
+// =========================================================================
+
+function bookmarkQuestion(questionIndex) {
+    const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+    const currentUser = userData.currentUser ? userData.users[userData.currentUser] : null;
+    
+    if (!currentUser) return;
+    
+    if (!currentUser.bookmarkedQuestions) {
+        currentUser.bookmarkedQuestions = [];
+    }
+    
+    const question = currentQuizQuestions[questionIndex];
+    const params = new URLSearchParams(window.location.search);
+    const courseCode = params.get('course');
+    
+    const bookmark = {
+        id: Date.now(),
+        course: courseCode,
+        question: question.question,
+        options: question.options,
+        answer: question.answer,
+        explanation: question.explanation || 'No explanation available',
+        bookmarkedAt: new Date().toISOString()
+    };
+    
+    // Check if already bookmarked
+    const existingBookmark = currentUser.bookmarkedQuestions.find(b => 
+        b.question === question.question && b.course === courseCode
+    );
+    
+    if (existingBookmark) {
+        showNotification('📚 Question already bookmarked!');
+        return;
+    }
+    
+    currentUser.bookmarkedQuestions.push(bookmark);
+    localStorage.setItem('eldersUserData', JSON.stringify(userData));
+    
+    showNotification('🔖 Question bookmarked successfully!');
+}
+
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 100);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// =========================================================================
 // GLOBAL FUNCTIONS (Called from HTML onclick attributes)
 // =========================================================================
 
@@ -840,4 +980,33 @@ function copyToClipboard(text, btn) {
 // Global function to show user dashboard
 function showUserDashboard() {
     window.location.href = 'home.html';
+}
+
+// Global function to track user activity
+function trackUserActivity(action, page, details = {}) {
+    const userData = JSON.parse(localStorage.getItem('eldersUserData') || '{}');
+    const currentUser = userData.currentUser ? userData.users[userData.currentUser] : null;
+    
+    if (!currentUser) return;
+    
+    if (!currentUser.activityLog) {
+        currentUser.activityLog = [];
+    }
+    
+    const activity = {
+        id: Date.now(),
+        action,
+        page,
+        details,
+        timestamp: new Date().toISOString()
+    };
+    
+    currentUser.activityLog.push(activity);
+    
+    // Keep only last 100 activities to prevent storage bloat
+    if (currentUser.activityLog.length > 100) {
+        currentUser.activityLog = currentUser.activityLog.slice(-100);
+    }
+    
+    localStorage.setItem('eldersUserData', JSON.stringify(userData));
 }

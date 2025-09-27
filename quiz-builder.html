@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elders CBT - Custom Quiz Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://the-elders-cbt-practice.netlify.app/" />
+    <meta property="og:title" content="The Elders CBT Practice - Custom Quiz Builder" />
+    <meta property="og:description" content="Create personalized quizzes tailored to your learning needs." />
+    <meta property="og:image" content="https://the-elders-cbt-practice.netlify.app/ELD.png" />
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="ELD.png" alt="The Elders CBT Practice Logo" id="header-logo">
+            <div>
+                <h1>Custom Quiz Builder</h1>
+                <p>Create personalized practice quizzes</p>
+            </div>
+            <button id="theme-toggle" class="nav-btn">🌙</button>
+        </div>
+    </header>
+
+    <main id="quiz-builder-page">
+        <div class="builder-container">
+            <div class="builder-sidebar">
+                <h3>📚 Course Selection</h3>
+                <div class="form-group">
+                    <label for="course-select">Choose Course:</label>
+                    <select id="course-select">
+                        <option value="">-- Select Course --</option>
+                    </select>
+                </div>
+
+                <div id="topics-section" style="display: none;">
+                    <h3>🎯 Topics</h3>
+                    <div id="topics-list" class="checkbox-group">
+                        <!-- Topics will be populated dynamically -->
+                    </div>
+                </div>
+
+                <div id="difficulty-section" style="display: none;">
+                    <h3>⚡ Difficulty Level</h3>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="easy" checked> Easy
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="medium" checked> Medium
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" value="hard" checked> Hard
+                        </label>
+                    </div>
+                </div>
+
+                <div id="quiz-settings" style="display: none;">
+                    <h3>⚙️ Quiz Settings</h3>
+                    <div class="form-group">
+                        <label for="question-count">Number of Questions:</label>
+                        <input type="range" id="question-count" min="10" max="100" value="25" step="5">
+                        <span id="question-count-display">25</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="time-limit">Time Limit (minutes):</label>
+                        <input type="range" id="time-limit" min="10" max="60" value="25" step="5">
+                        <span id="time-limit-display">25</span>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="shuffle-questions" checked> Shuffle Questions
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="show-explanations" checked> Show Explanations
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="focus-weak-areas"> Focus on Weak Areas
+                        </label>
+                    </div>
+                </div>
+
+                <div class="builder-actions">
+                    <button id="preview-quiz-btn" class="segment-btn" disabled>
+                        <span class="btn-text">Preview Quiz</span>
+                        <span class="btn-icon">👁️</span>
+                    </button>
+                    <button id="start-custom-quiz-btn" class="segment-btn primary" disabled>
+                        <span class="btn-text">Start Custom Quiz</span>
+                        <span class="btn-icon">🚀</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="builder-preview">
+                <div id="quiz-preview-empty" class="preview-empty">
+                    <div class="empty-icon">📝</div>
+                    <h3>Quiz Preview</h3>
+                    <p>Select a course and configure your quiz settings to see a preview here.</p>
+                </div>
+
+                <div id="quiz-preview-content" style="display: none;">
+                    <div class="preview-header">
+                        <h3>📋 Quiz Preview</h3>
+                        <div class="preview-stats">
+                            <span id="preview-question-count">0 questions</span>
+                            <span id="preview-topics">0 topics</span>
+                            <span id="preview-difficulty">All levels</span>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-questions" id="preview-questions-list">
+                        <!-- Preview questions will be shown here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>The Elders CBT - Practice Makes Perfect</p>
+            <div class="footer-links">
+                <a href="home.html">🏠 Home</a>
+                <a href="contact.html">📞 Contact</a>
+                <a href="about.html">ℹ️ About</a>
+                <a href="help.html">❓ Help</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js" defer></script>
+    <script src="quiz-builder.js" defer></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1639003968644981"
+     crossorigin="anonymous"></script>
+</body>
+</html>
