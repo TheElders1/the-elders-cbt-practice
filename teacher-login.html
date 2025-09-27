@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elders CBT - Teacher Login</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://the-elders-cbt-practice.netlify.app/" />
+    <meta property="og:title" content="The Elders CBT Practice - Teacher Login" />
+    <meta property="og:description" content="Teacher access to monitor student progress." />
+    <meta property="og:image" content="https://the-elders-cbt-practice.netlify.app/ELD.png" />
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="ELD.png" alt="The Elders CBT Practice Logo" id="header-logo">
+            <div>
+                <h1>Teacher Access</h1>
+                <p>Monitor student progress and performance</p>
+            </div>
+            <button id="theme-toggle" class="nav-btn">🌙</button>
+        </div>
+    </header>
+
+    <main id="teacher-login-page">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>🎓 Teacher Dashboard Access</h2>
+                <p class="login-subtitle">Enter your credentials to access the teacher dashboard</p>
+            </div>
+            
+            <form id="teacher-login-form">
+                <div class="form-group">
+                    <label for="teacher-username">Username:</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="teacher-username" placeholder="Enter teacher username" required>
+                        <span class="input-icon">👨‍🏫</span>
+                    </div>
+                    <div class="form-feedback" id="username-feedback"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="teacher-password">Password:</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="teacher-password" placeholder="Enter password" required>
+                        <span class="input-icon">🔒</span>
+                    </div>
+                    <div class="form-feedback" id="password-feedback"></div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="segment-btn">
+                        <span class="btn-text">Access Dashboard</span>
+                        <span class="btn-icon">🚀</span>
+                    </button>
+                </div>
+            </form>
+            
+            <div class="login-help">
+                <p>Need access? <a href="contact.html">Contact Administrator</a></p>
+                <p><a href="index.html">← Back to Student Login</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>The Elders CBT - Teacher Dashboard</p>
+            <div class="footer-links">
+                <a href="index.html">🏠 Home</a>
+                <a href="contact.html">📞 Contact</a>
+                <a href="about.html">ℹ️ About</a>
+                <a href="help.html">❓ Help</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('teacher-login-form');
+            
+            // Check if already logged in
+            const teacherAuth = localStorage.getItem('teacherAuth');
+            if (teacherAuth) {
+                window.location.href = 'teacher-dashboard.html';
+                return;
+            }
+            
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                const username = document.getElementById('teacher-username').value.trim();
+                const password = document.getElementById('teacher-password').value.trim();
+                
+                // Simple authentication (in production, this should be server-side)
+                const validCredentials = [
+                    { username: 'teacher', password: 'teacher123' },
+                    { username: 'admin', password: 'admin123' },
+                    { username: 'instructor', password: 'instructor123' }
+                ];
+                
+                const isValid = validCredentials.some(cred => 
+                    cred.username === username && cred.password === password
+                );
+                
+                if (isValid) {
+                    // Store authentication
+                    localStorage.setItem('teacherAuth', JSON.stringify({
+                        username: username,
+                        loginTime: new Date().toISOString()
+                    }));
+                    
+                    // Show success and redirect
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<span class="btn-text">Logging in...</span><span class="btn-icon">⏳</span>';
+                    
+                    setTimeout(() => {
+                        window.location.href = 'teacher-dashboard.html';
+                    }, 1000);
+                } else {
+                    // Show error
+                    document.getElementById('password-feedback').textContent = 'Invalid username or password';
+                    document.getElementById('password-feedback').className = 'form-feedback error';
+                }
+            });
+        });
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1639003968644981"
+     crossorigin="anonymous"></script>
+</body>
+</html>
