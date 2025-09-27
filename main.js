@@ -82,6 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
             if (lastStudy === yesterdayStr) {
                 // Continuing streak
                 user.studyStreak += 1;
+                
+                // Celebrate streak milestones
+                if (typeof window.motivationSystem !== 'undefined') {
+                    window.motivationSystem.celebrateStreak(user.studyStreak);
+                }
             } else if (lastStudy !== today) {
                 // Streak broken or first time
                 user.studyStreak = 1;
@@ -137,6 +142,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Check for achievements
             this.checkAchievements(user, quizResult);
+
+            // Trigger motivation system celebrations
+            if (typeof window.motivationSystem !== 'undefined') {
+                if (score === totalQuestions) {
+                    window.motivationSystem.celebratePerfectScore();
+                }
+                
+                // Check for new records
+                const bestScore = Math.max(...user.quizHistory.map(q => q.percentage));
+                if (quizResult.percentage === bestScore && user.quizHistory.length > 1) {
+                    window.motivationSystem.celebrateNewRecord('Best Score', `${bestScore}%`);
+                }
+                
+                // Check for level up
+                const oldLevel = Math.floor((user.totalXP - xpGained) / 1000) + 1;
+                if (user.level > oldLevel) {
+                    window.motivationSystem.celebrateLevelUp(user.level);
+                }
+                
+                // Update personal records display
+                window.motivationSystem.displayPersonalRecords(user);
+            }
 
             this.saveUserData();
             return { xpGained, newAchievements: this.getNewAchievements(user) };
@@ -198,6 +225,15 @@ document.addEventListener('DOMContentLoaded', () => {
             achievements.forEach(achievement => {
                 if (!user.achievements.includes(achievement.id) && achievement.condition()) {
                     user.achievements.push(achievement.id);
+                    
+                    // Trigger achievement celebration
+                    if (typeof window.motivationSystem !== 'undefined') {
+                        window.motivationSystem.celebrateAchievement({
+                            id: achievement.id,
+                            name: achievement.name,
+                            description: achievement.description
+                        });
+                    }
                 }
             });
         }

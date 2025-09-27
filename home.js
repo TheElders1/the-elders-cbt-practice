@@ -20,6 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update welcome message
         document.getElementById('user-welcome').textContent = `Welcome back, ${user.name}! (${user.department})`;
 
+        // Display study streak with motivation system
+        if (typeof window.motivationSystem !== 'undefined') {
+            window.motivationSystem.displayStudyStreak(user.studyStreak);
+            window.motivationSystem.displayPersonalRecords(user);
+        }
+
         // Populate course selection based on user's department
         populateCourseSelection(user.department);
 
