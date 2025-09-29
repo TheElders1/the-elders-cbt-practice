@@ -1715,7 +1715,7 @@ window.quizData = {
         "A unit for screen height."
       ],
       "answer": "A relative unit, often relative to the font-size of the element's parent.",
-      "explanation": "Responsive Design: Using flexible units (%, em, rem) and media queries." `em` is relative to the parent font size."
+      "explanation": "Responsive Design: Using flexible units (%, em, rem) and media queries, `em` is relative to the parent font size."
     },
     {
       "question": "What is the use of `rem` as a unit in CSS?",
