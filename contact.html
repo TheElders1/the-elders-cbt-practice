@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elders CBT - Contact & Support</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Open Graph / Facebook / LinkedIn / Link Preview Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://the-elders-cbt-practice.netlify.app/" />
+    <meta property="og:title" content="The Elders CBT Practice - Prepare for Success" />
+    <meta property="og:description" content="Master your CBT assessments with our practice quizzes across various departments and courses." />
+    <meta property="og:image" content="https://the-elders-cbt-practice.netlify.app/ELD.png" />
+
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://the-elders-cbt-practice.netlify.app/" />
+    <meta property="twitter:title" content="The Elders CBT Practice - Prepare for Success" />
+    <meta property="twitter:description" content="Master your CBT assessments with our practice quizzes across various departments and courses." />
+    <meta property="twitter:image" content="https://the-elders-cbt-practice.netlify.app/ELD.png" />
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <img src="ELD.png" alt="The Elders CBT Practice Logo" id="header-logo">
+            <div>
+                <h1>Contact & Support</h1>
+                <p>Get in touch or support the project</p>
+            </div>
+            <button id="theme-toggle" class="nav-btn">🌙</button>
+        </div>
+    </header>
+
+    <main id="contact-page">
+        <div class="page-header">
+            <h2>We're Here to Help</h2>
+            <p>Choose a contact method or consider supporting our mission.</p>
+        </div>
+
+        <div class="contact-grid">
+            <div class="advanced-card">
+                <div class="card-icon">💳</div>
+                <h3>Financial Support</h3>
+                <p class="card-description">Your support helps us maintain and improve this platform for everyone.</p>
+                <div class="card-details">
+                    <p><strong>Bank:</strong> Moniepoint</p>
+                    <p><strong>Name:</strong> Samuel Daniel Bassey</p>
+                    <div class="copy-container">
+                        <p><strong>Account:</strong> 5554267465</p>
+                        <button class="copy-btn" onclick="copyToClipboard('5554267465', this)">Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="advanced-card">
+                <div class="card-icon">💬</div>
+                <h3>General Inquiries</h3>
+                <p class="card-description">For questions, feedback, or issues, please reach out via WhatsApp or phone.</p>
+                <div class="card-actions">
+                    <a href="https://wa.me/2348162638106" class="action-btn whatsapp-btn">Message on WhatsApp</a>
+                    <a href="tel:+2347045900244" class="action-btn phone-btn">Call Us</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>The Elders CBT - Practice Makes Perfect</p>
+            <div class="footer-links">
+                <a href="home.html">🏠 Home</a>
+                <a href="about.html">ℹ️ About</a>
+                <a href="help.html">❓ Help</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js" defer></script>
+    <script>
+        function copyToClipboard(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(err => console.error('Failed to copy: ', err));
+        }
+    </script>
+</body>
+</html>
