@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { code: "COS121", name: "Problem Solving" },
                 { code: "PHY121", name: "Electricity & Magnetism" },
                 { code: "DTS121", name: "Web Development with Django" },
-                { code: "DTS122", name: "Data Analysis" }
+                { code: "DTS122", name: "Web Technologies" }
             ],
             "Information Technology": [
                 { code: "MTH121", name: "Elementary Mathematics II" },
