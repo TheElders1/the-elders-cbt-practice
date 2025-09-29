@@ -201,5 +201,17 @@
     <script src="motivation.js" defer></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1639003968644981"
      crossorigin="anonymous"></script>
+    <script>
+        // Remove any time displays from footer
+        document.addEventListener('DOMContentLoaded', () => {
+            // Remove any time elements that might be showing
+            const timeElements = document.querySelectorAll('.footer-time, .time-display, [class*="time"]');
+            timeElements.forEach(el => {
+                if (el.textContent && el.textContent.match(/\d{2}:\d{2}/)) {
+                    el.remove();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
