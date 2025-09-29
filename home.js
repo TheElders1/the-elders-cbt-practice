@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { code: "COS121", name: "Problem Solving" },
                 { code: "PHY121", name: "Electricity & Magnetism" },
                 { code: "CSC121", name: "Web Development with Django" },
-                { code: "CSC122", name: "Advanced Programming" }
+                { code: "CSC122", name: "Web Technologies" }
             ],
             "Cyber Security": [
                 { code: "MTH121", name: "Elementary Mathematics II" },
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { code: "COS121", name: "Problem Solving" },
                 { code: "PHY121", name: "Electricity & Magnetism" },
                 { code: "SEN121", name: "Web Development with Django" },
-                { code: "SEN122", name: "Software Architecture" }
+                { code: "SEN122", name: "Web Technologies" }
             ]
         };
 
