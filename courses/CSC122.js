@@ -1047,39 +1047,6 @@ window.quizData = {
       "explanation": "When combined: You build professional, responsive, interactive web applications."
     },
     {
-      "question": "What is the main role of HTML in the 'Trinity of Web Design'?",
-      "options": [
-        "Styling.",
-        "Behavior.",
-        "Structure.",
-        "Interactivity."
-      ],
-      "answer": "Structure.",
-      "explanation": "HTML: Structure – what appears on page (the skeleton)."
-    },
-    {
-      "question": "What is the main role of CSS in the 'Trinity of Web Design'?",
-      "options": [
-        "Structure.",
-        "Behavior.",
-        "Style.",
-        "Interactivity."
-      ],
-      "answer": "Style.",
-      "explanation": "CSS: Style – how it looks (the clothes)."
-    },
-    {
-      "question": "What is the main role of JavaScript in the 'Trinity of Web Design'?",
-      "options": [
-        "Structure.",
-        "Style.",
-        "Behavior.",
-        "Content."
-      ],
-      "answer": "Behavior.",
-      "explanation": "JS: Behavior – how it responds (the brain)."
-    },
-    {
       "question": "What HTML tag is used to embed video content in HTML5 without plugins?",
       "options": [
         "<embed>",
@@ -1542,7 +1509,7 @@ window.quizData = {
       "explanation": "Used in various examples for centering forms and boxes."
     },
     {
-      "question": "What is the purpose of a 'Hero Section' in a simple web page?",
+      "question": "What is a 'Hero Section' in a simple web page?",
       "options": [
         "To display navigation links.",
         "To present a prominent welcome message or headline and description.",
@@ -1622,7 +1589,7 @@ window.quizData = {
       "question": "Which HTML tag is used for a list item within both ordered and unordered lists?",
       "options": [
         "<ul>",
-        "<ol>",
+        "<li>",
         "<li>",
         "<item>"
       ],
@@ -1715,7 +1682,7 @@ window.quizData = {
         "A unit for screen height."
       ],
       "answer": "A relative unit, often relative to the font-size of the element's parent.",
-      "explanation": "Responsive Design: Using flexible units (%, em, rem) and media queries, `em` is relative to the parent font size."
+      "explanation": "Responsive Design: Using flexible units (%, em, rem) and media queries." `em` is relative to the parent font size."
     },
     {
       "question": "What is the use of `rem` as a unit in CSS?",
@@ -1808,7 +1775,7 @@ window.quizData = {
     {
       "question": "Which HTML tag is used for an unordered (bulleted) list?",
       "options": [
-        "<ol>",
+        "<ul>",
         "<li>",
         "<ul>",
         "<dl>"
@@ -4270,4 +4237,5 @@ window.quizData = {
       "explanation": "This provides visual feedback for user interaction."
     }
   ]
-}
+};
+```
