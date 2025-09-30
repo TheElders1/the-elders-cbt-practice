@@ -1,12 +1,12 @@
 window.quizData = {
-  "title": "CSC122 - Web Technologies",
+  "title": "SEN122 - Web Technologies",
   "questions": [
     {
       "question": "What does HTML stand for?",
       "options": [
         "Hypertext Markup Language",
-        "Hyperlink and Text Markup Language",
-        "Home Tool Markup Language",
+        "Hyperlink and Text Management Language",
+        "Home Tool Management Language",
         "Hypertext Multi Language"
       ],
       "answer": "Hypertext Markup Language",
@@ -37,16 +37,16 @@ window.quizData = {
     {
       "question": "What is the root element that wraps the entire HTML document?",
       "options": [
-        "<head>",
-        "<body>",
-        "<html>",
-        "<title>"
+        "&lt;head&gt;",
+        "&lt;body&gt;",
+        "&lt;html&gt;",
+        "&lt;title&gt;"
       ],
-      "answer": "<html>",
-      "explanation": "The <html> tag's purpose is described as 'The root element that wraps the entire HTML document.'"
+      "answer": "&lt;html&gt;",
+      "explanation": "The &lt;html&gt; tag's purpose is described as 'The root element that wraps the entire HTML document.'"
     },
     {
-      "question": "What type of content does the <head> tag typically contain?",
+      "question": "What type of content does the &lt;head&gt; tag typically contain?",
       "options": [
         "Visible text and images",
         "Interactive forms",
@@ -54,21 +54,21 @@ window.quizData = {
         "Audio and video elements"
       ],
       "answer": "Metadata about the document (not directly visible to users)",
-      "explanation": "The <head> tag 'Contains metadata about the document — things browsers and search engines use but are not directly visible to users.'"
+      "explanation": "The &lt;head&gt; tag 'Contains metadata about the document — things browsers and search engines use but are not directly visible to users.'"
     },
     {
       "question": "Which tag sets the page title that appears on the browser tab?",
       "options": [
-        "<meta>",
-        "<h1>",
-        "<title>",
-        "<link>"
+        "&lt;meta&gt;",
+        "&lt;h1&gt;",
+        "&lt;title&gt;",
+        "&lt;link&gt;"
       ],
-      "answer": "<title>",
-      "explanation": "Common elements inside <head> include '<title>: Sets the page title that appears on the browser tab.'"
+      "answer": "&lt;title&gt;",
+      "explanation": "Common elements inside &lt;head&gt; include '&lt;title&gt;: Sets the page title that appears on the browser tab.'"
     },
     {
-      "question": "What is the purpose of the <body> tag?",
+      "question": "What is the purpose of the &lt;body&gt; tag?",
       "options": [
         "To link external CSS files",
         "To contain metadata about the document",
@@ -76,21 +76,21 @@ window.quizData = {
         "To contain all the visible content on the web page"
       ],
       "answer": "To contain all the visible content on the web page",
-      "explanation": "The <body> tag's purpose is 'Contains all the visible content on the web page such as text, images, links, videos, etc.'"
+      "explanation": "The &lt;body&gt; tag's purpose is 'Contains all the visible content on the web page such as text, images, links, videos, etc.'"
     },
     {
       "question": "Which HTML tag is used to define the most important heading on a page?",
       "options": [
-        "<h2>",
-        "<p>",
-        "<h1>",
-        "<h6>"
+        "&lt;h2&gt;",
+        "&lt;p&gt;",
+        "&lt;h1&gt;",
+        "&lt;h6&gt;"
       ],
-      "answer": "<h1>",
-      "explanation": "Headings: <h1> to <h6> define headings of different importance levels. <h1> is the most important (typically page title), and <h6> is the least."
+      "answer": "&lt;h1&gt;",
+      "explanation": "Headings: &lt;h1&gt; to &lt;h6&gt; define headings of different importance levels. &lt;h1&gt; is the most important (typically page title), and &lt;h6&gt; is the least."
     },
     {
-      "question": "What does the <p> tag define?",
+      "question": "What does the &lt;p&gt; tag define?",
       "options": [
         "A clickable link",
         "An image embed",
@@ -98,10 +98,10 @@ window.quizData = {
         "A list item"
       ],
       "answer": "A paragraph of text",
-      "explanation": "Paragraph: <p> defines a paragraph of text. Browsers automatically add spacing before and after paragraphs."
+      "explanation": "Paragraph: &lt;p&gt; defines a paragraph of text. Browsers automatically add spacing before and after paragraphs."
     },
     {
-      "question": "Which attribute is essential for creating hyperlinks using the <a> tag?",
+      "question": "Which attribute is essential for creating hyperlinks using the &lt;a&gt; tag?",
       "options": [
         "src",
         "alt",
@@ -109,10 +109,10 @@ window.quizData = {
         "href"
       ],
       "answer": "href",
-      "explanation": "Links: <a> has an 'Important attribute: href — the URL or link destination.'"
+      "explanation": "Links: &lt;a&gt; has an 'Important attribute: href — the URL or link destination.'"
     },
     {
-      "question": "What is the purpose of the <img> tag?",
+      "question": "What is the purpose of the &lt;img&gt; tag?",
       "options": [
         "To create clickable links",
         "To define page structure",
@@ -120,10 +120,10 @@ window.quizData = {
         "To create ordered lists"
       ],
       "answer": "To embed images into the page",
-      "explanation": "Images: <img> purpose is 'Embeds images into the page.'"
+      "explanation": "Images: &lt;img&gt; purpose is 'Embeds images into the page.'"
     },
     {
-      "question": "Which attribute of the <img> tag provides alternative text for accessibility and SEO?",
+      "question": "Which attribute of the &lt;img&gt; tag provides alternative text for accessibility and SEO?",
       "options": [
         "src",
         "width",
@@ -131,21 +131,21 @@ window.quizData = {
         "alt"
       ],
       "answer": "alt",
-      "explanation": "Important attributes for <img> include 'alt: Alternative text describing the image for accessibility and SEO.'"
+      "explanation": "Important attributes for &lt;img&gt; include 'alt: Alternative text describing the image for accessibility and SEO.'"
     },
     {
       "question": "What is the HTML tag for an unordered (bulleted) list?",
       "options": [
-        "<ol>",
-        "<li>",
-        "<ul>",
-        "<dl>"
+        "&lt;ol&gt;",
+        "&lt;li&gt;",
+        "&lt;ul&gt;",
+        "&lt;dl&gt;"
       ],
-      "answer": "<ul>",
-      "explanation": "Lists: <ul>, <ol>, and <li>. <ul>: Unordered (bulleted) list."
+      "answer": "&lt;ul&gt;",
+      "explanation": "Lists: &lt;ul&gt;, &lt;ol&gt;, and &lt;li&gt;. &lt;ul&gt;: Unordered (bulleted) list."
     },
     {
-      "question": "What is the purpose of a <div> element?",
+      "question": "What is the purpose of a &lt;div&gt; element?",
       "options": [
         "To define a single line of text",
         "To create a clickable button",
@@ -153,10 +153,10 @@ window.quizData = {
         "To embed external resources"
       ],
       "answer": "A container element used to group content for styling or scripting purposes",
-      "explanation": "Divisions: <div> purpose is 'A container element used to group content for styling or scripting purposes. It has no visual effect on its own but is used to structure the page.'"
+      "explanation": "Divisions: &lt;div&gt; purpose is 'A container element used to group content for styling or scripting purposes. It has no visual effect on its own but is used to structure the page.'"
     },
     {
-      "question": "What is the purpose of a <span> element?",
+      "question": "What is the purpose of a &lt;span&gt; element?",
       "options": [
         "To create a block-level container for major sections.",
         "An inline container used to group small parts of text or elements inside other tags, useful for styling.",
@@ -164,10 +164,10 @@ window.quizData = {
         "To embed multimedia content."
       ],
       "answer": "An inline container used to group small parts of text or elements inside other tags, useful for styling.",
-      "explanation": "Span: <span> purpose is 'An inline container used to group small parts of text or elements inside other tags, which is useful for styling.'"
+      "explanation": "Span: &lt;span&gt; purpose is 'An inline container used to group small parts of text or elements inside other tags, which is useful for styling.'"
     },
     {
-      "question": "What does <meta charset=\"UTF-8\"> tell the browser?",
+      "question": "What does &lt;meta charset=\"UTF-8\"&gt; tell the browser?",
       "options": [
         "The page title",
         "The author of the page",
@@ -178,7 +178,7 @@ window.quizData = {
       "explanation": "This is a meta tag in HTML that tells the browser which character encoding to use when displaying the webpage."
     },
     {
-      "question": "Why is <meta charset=\"UTF-8\"> important for multi-language websites?",
+      "question": "Why is &lt;meta charset=\"UTF-8\"&gt; important for multi-language websites?",
       "options": [
         "It limits the website to English only.",
         "It ensures the website works properly in multiple languages by supporting almost all characters.",
@@ -211,7 +211,7 @@ window.quizData = {
       "explanation": "You usually add a viewport meta tag and use CSS media queries or responsive units like %, em, or vh."
     },
     {
-      "question": "Which HTML version introduced `<table>` and `<font>` tags?",
+      "question": "Which HTML version introduced `&lt;table&gt;` and `&lt;font&gt;` tags?",
       "options": [
         "HTML 2.0",
         "HTML 3.2",
@@ -219,7 +219,7 @@ window.quizData = {
         "HTML5"
       ],
       "answer": "HTML 3.2",
-      "explanation": "HTML 3.2 (1997) added features like 'Tables (<table>)' and 'Font styles (<font>)'."
+      "explanation": "HTML 3.2 (1997) added features like 'Tables (&lt;table&gt;)' and 'Font styles (&lt;font&gt;)'."
     },
     {
       "question": "Which HTML version separated content (HTML) from design (CSS) and introduced the DOCTYPE declaration?",
@@ -246,19 +246,19 @@ window.quizData = {
     {
       "question": "Which HTML5 feature allows for drawing and games directly in the browser?",
       "options": [
-        "<video>",
-        "<audio>",
-        "<canvas>",
-        "<section>"
+        "&lt;video&gt;",
+        "&lt;audio&gt;",
+        "&lt;canvas&gt;",
+        "&lt;section&gt;"
       ],
-      "answer": "<canvas>",
-      "explanation": "Features of HTML5: Graphics uses '<canvas> for drawing and games'."
+      "answer": "&lt;canvas&gt;",
+      "explanation": "Features of HTML5: Graphics uses '&lt;canvas&gt; for drawing and games'."
     },
     {
       "question": "What does HTTP stand for?",
       "options": [
         "Hypertext Transfer Protocol",
-        "Hyperlink Text Processing",
+        "Hyperlink Text Processor",
         "High-Level Text Transmission",
         "Html Transfer Protocol"
       ],
@@ -288,7 +288,7 @@ window.quizData = {
       "explanation": "Under 'If You Are Using Android', 'A. Using Acode (Recommended for Beginners)' is stated."
     },
     {
-      "question": "What is the purpose of comments in HTML code (<!-- ... -->)?",
+      "question": "What is the purpose of comments in HTML code (&lt;!-- ... --&gt;)?",
       "options": [
         "They are visible to users on the webpage.",
         "They are executed by the browser.",
@@ -296,10 +296,10 @@ window.quizData = {
         "They define the page's styling."
       ],
       "answer": "They are ignored by the browser and used to describe or explain parts of the code for humans.",
-      "explanation": "Comments in HTML Code: Anything inside <!-- this --> is ignored by the browser. It's used to describe, label, or explain parts of the code."
+      "explanation": "Comments in HTML Code: Anything inside &lt;!-- this --&gt; is ignored by the browser. It's used to describe, label, or explain parts of the code."
     },
     {
-      "question": "What is a 'hidden field' (`<input type=\"hidden\">`) used for in an HTML form?",
+      "question": "What is a 'hidden field' (`&lt;input type=\"hidden\"&gt;`) used for in an HTML form?",
       "options": [
         "To display sensitive user information.",
         "To allow users to input invisible data.",
@@ -310,7 +310,7 @@ window.quizData = {
       "explanation": "Hidden fields: They do not show in the form. But they still send data behind the scenes when the form is submitted."
     },
     {
-      "question": "What is the purpose of `<input type=\"hidden\" name=\"_captcha\" value=\"false\">` in a form?",
+      "question": "What is the purpose of `&lt;input type=\"hidden\" name=\"_captcha\" value=\"false\"&gt;` in a form?",
       "options": [
         "To enable CAPTCHA verification.",
         "To disable CAPTCHA verification.",
@@ -329,18 +329,18 @@ window.quizData = {
         "Server-side scripts."
       ],
       "answer": "Content like audio and video that can be embedded directly into a web page without plugins.",
-      "explanation": "Multimedia includes content like audio and video — music, podcasts, tutorials, movies — that you can embed directly into a web page. Before HTML5, you needed Flash. Now you can use: <audio> for sound/music, <video> for movies/lectures."
+      "explanation": "Multimedia includes content like audio and video — music, podcasts, tutorials, movies — that you can embed directly into a web page. Before HTML5, you needed Flash. Now you can use: &lt;audio&gt; for sound/music, &lt;video&gt; for movies/lectures."
     },
     {
       "question": "Which media tags are supported for audio in HTML5?",
       "options": [
-        "MP4, WebM, OGG",
+        "MP4, WebM, OGG (for video formats)",
         "MP3, OGG, WAV",
         "GIF, JPEG, PNG",
         "AVI, FLV, WMV"
       ],
       "answer": "MP3, OGG, WAV",
-      "explanation": "Supported Media Types: <audio> supports MP3, OGG, WAV."
+      "explanation": "Supported Media Types: &lt;audio&gt; supports MP3, OGG, WAV."
     },
     {
       "question": "What does a fallback message in HTML5 video (`Your browser does not support this video.`) signify?",
@@ -367,16 +367,16 @@ window.quizData = {
     {
       "question": "Which HTML form element is used for multiline input for messages/comments?",
       "options": [
-        "<input>",
-        "<select>",
-        "<textarea>",
-        "<button>"
+        "&lt;input&gt;",
+        "&lt;select&gt;",
+        "&lt;textarea&gt;",
+        "&lt;button&gt;"
       ],
-      "answer": "<textarea>",
-      "explanation": "Common HTML Form Elements: <textarea> for 'Multiline input for messages/comments'."
+      "answer": "&lt;textarea&gt;",
+      "explanation": "Common HTML Form Elements: &lt;textarea&gt; for 'Multiline input for messages/comments'."
     },
     {
-      "question": "What is the purpose of the 'action' attribute in a <form> tag?",
+      "question": "What is the purpose of the 'action' attribute in a &lt;form&gt; tag?",
       "options": [
         "To define the HTTP method (GET or POST).",
         "To make a field mandatory.",
@@ -409,7 +409,7 @@ window.quizData = {
       "explanation": "Where Are Forms Used? lists all these common applications."
     },
     {
-      "question": "To allow users to upload files via an HTML form, what attribute must be included in the `<form>` tag?",
+      "question": "To allow users to upload files via an HTML form, what attribute must be included in the `&lt;form&gt;` tag?",
       "options": [
         "method=\"GET\"",
         "action=\"submit.php\"",
@@ -417,7 +417,7 @@ window.quizData = {
         "target=\"_blank\""
       ],
       "answer": "enctype=\"multipart/form-data\"",
-      "explanation": "To enable file uploads, the <form> tag must include enctype=\"multipart/form-data\"."
+      "explanation": "To enable file uploads, the &lt;form&gt; tag must include enctype=\"multipart/form-data\"."
     },
     {
       "question": "What is 'Layout' in web design?",
@@ -563,7 +563,7 @@ window.quizData = {
       "explanation": "Types of navigation: Primary Navigation: Main menu typically located at the top or side of a page."
     },
     {
-      "question": "What is the purpose of the `target=\"_blank\"` attribute in an `<a>` tag?",
+      "question": "What is the purpose of the `target=\"_blank\"` attribute in an `&lt;a&gt;` tag?",
       "options": [
         "To open the link in the same tab.",
         "To open the link in a new tab.",
@@ -601,13 +601,13 @@ window.quizData = {
         "Only HTML and CSS.",
         "A JavaScript API script and a free API key.",
         "Server-side scripting only.",
-        "A <canvas> element."
+        "A &lt;canvas&gt; element."
       ],
       "answer": "A JavaScript API script and a free API key.",
       "explanation": "To use it, you must include the Google Maps JavaScript API script and have a free API key."
     },
     {
-      "question": "What is the HTML5 `<canvas>` element used for?",
+      "question": "What is the HTML5 `&lt;canvas&gt;` element used for?",
       "options": [
         "Embedding videos directly.",
         "Drawing shapes, images, charts, or animations using JavaScript.",
@@ -615,7 +615,7 @@ window.quizData = {
         "Defining page layouts."
       ],
       "answer": "Drawing shapes, images, charts, or animations using JavaScript.",
-      "explanation": "The <canvas> element in HTML lets you draw shapes, images, charts, or animations using JavaScript. It's like a digital 'drawing board' that works in your browser."
+      "explanation": "The &lt;canvas&gt; element in HTML lets you draw shapes, images, charts, or animations using JavaScript. It's like a digital 'drawing board' that works in your browser."
     },
     {
       "question": "What are common 'Use cases' for HTML5 Canvas?",
@@ -670,18 +670,18 @@ window.quizData = {
         "Global CSS"
       ],
       "answer": "Inline CSS",
-      "explanation": "Types of CSS: Inline - Inside an HTML tag, Example: <p style=\"color:red;\">Hello</p>."
+      "explanation": "Types of CSS: Inline - Inside an HTML tag, Example: &lt;p style=\"color:red;\"&gt;Hello&lt;/p&gt;."
     },
     {
       "question": "Where is 'Internal CSS' typically placed in an HTML document?",
       "options": [
         "In a separate .css file.",
-        "Inside the <body> tag.",
-        "Inside the <style> tag in HTML <head>.",
+        "Inside the &lt;body&gt; tag.",
+        "Inside the &lt;style&gt; tag in HTML &lt;head&gt;.",
         "Directly within individual HTML elements."
       ],
-      "answer": "Inside the <style> tag in HTML <head>.",
-      "explanation": "Types of CSS: Internal - Inside <style> tag in HTML <head>."
+      "answer": "Inside the &lt;style&gt; tag in HTML &lt;head&gt;.",
+      "explanation": "Types of CSS: Internal - Inside &lt;style&gt; tag in HTML &lt;head&gt;."
     },
     {
       "question": "Which type of CSS is recommended for big projects and clean design?",
@@ -874,12 +874,12 @@ window.quizData = {
       "question": "Which step is crucial to ensure that FormSubmit sends uploaded files to your inbox?",
       "options": [
         "Using the GET method for the form.",
-        "Ensuring the <form> tag includes `enctype=\"multipart/form-data\"`.",
+        "Ensuring the &lt;form&gt; tag includes `enctype=\"multipart/form-data\"`.",
         "Disabling CAPTCHA.",
         "Renaming the thank-you.html file."
       ],
-      "answer": "Ensuring the <form> tag includes `enctype=\"multipart/form-data\"`.",
-      "explanation": "To enable file uploads, the <form> tag must include enctype=\"multipart/form-data\"."
+      "answer": "Ensuring the &lt;form&gt; tag includes `enctype=\"multipart/form-data\"`.",
+      "explanation": "To enable file uploads, the &lt;form&gt; tag must include enctype=\"multipart/form-data\"."
     },
     {
       "question": "What is the purpose of the hidden input field `name=\"_next\" value=\"thank-you.html\"` in a form?",
@@ -970,7 +970,7 @@ window.quizData = {
       "explanation": "3. Eloquent JavaScript (3rd Edition) by Marijn Haverbeke. Best for: Those who want to master JavaScript more seriously after basics."
     },
     {
-      "question": "What is the primary function of `<meta charset=\"UTF-8\">`?",
+      "question": "What is the primary function of `&lt;meta charset=\"UTF-8\"&gt;`?",
       "options": [
         "To set the page title.",
         "To link stylesheets.",
@@ -978,7 +978,7 @@ window.quizData = {
         "To display text correctly in all languages."
       ],
       "answer": "To display text correctly in all languages.",
-      "explanation": "The 'Importance' column for `<meta charset=\"UTF-8\">` states: 'Ensures text displays correctly in all languages'."
+      "explanation": "The 'Importance' column for `&lt;meta charset=\"UTF-8\"&gt;` states: 'Ensures text displays correctly in all languages'."
     },
     {
       "question": "In the 'Full Code Example (All Tasks Combined)' for CSS Layout, what is the purpose of `max-width: 100%` for images?",
@@ -1003,7 +1003,7 @@ window.quizData = {
       "explanation": "This form checks that both fields are filled before allowing submission. The `validateLogin()` function ensures this."
     },
     {
-      "question": "What is the consequence if a video file isn’t found or the name is wrong when using the `<video>` tag?",
+      "question": "What is the consequence if a video file isn’t found or the name is wrong when using the `&lt;video&gt;` tag?",
       "options": [
         "The browser will automatically find the correct file.",
         "The video player will still appear but won't play.",
@@ -1047,48 +1047,15 @@ window.quizData = {
       "explanation": "When combined: You build professional, responsive, interactive web applications."
     },
     {
-      "question": "What is the main role of HTML in the 'Trinity of Web Design'?",
-      "options": [
-        "Styling.",
-        "Behavior.",
-        "Structure.",
-        "Interactivity."
-      ],
-      "answer": "Structure.",
-      "explanation": "HTML: Structure – what appears on page (the skeleton)."
-    },
-    {
-      "question": "What is the main role of CSS in the 'Trinity of Web Design'?",
-      "options": [
-        "Structure.",
-        "Behavior.",
-        "Style.",
-        "Interactivity."
-      ],
-      "answer": "Style.",
-      "explanation": "CSS: Style – how it looks (the clothes)."
-    },
-    {
-      "question": "What is the main role of JavaScript in the 'Trinity of Web Design'?",
-      "options": [
-        "Structure.",
-        "Style.",
-        "Behavior.",
-        "Content."
-      ],
-      "answer": "Behavior.",
-      "explanation": "JS: Behavior – how it responds (the brain)."
-    },
-    {
       "question": "What HTML tag is used to embed video content in HTML5 without plugins?",
       "options": [
-        "<embed>",
-        "<object>",
-        "<video>",
-        "<media>"
+        "&lt;embed&gt;",
+        "&lt;object&gt;",
+        "&lt;video&gt;",
+        "&lt;media&gt;"
       ],
-      "answer": "<video>",
-      "explanation": "HTML5 (2014 – Now) adds video, audio, canvas, form elements, and structure tags. Features of HTML5: Multimedia <video>, <audio> without plugins."
+      "answer": "&lt;video&gt;",
+      "explanation": "HTML5 (2014 – Now) adds video, audio, canvas, form elements, and structure tags. Features of HTML5: Multimedia &lt;video&gt;, &lt;audio&gt; without plugins."
     },
     {
       "question": "What is the purpose of `position: relative;` in CSS?",
@@ -1143,7 +1110,7 @@ window.quizData = {
         "The page will direct the user to download a new browser."
       ],
       "answer": "A fallback message 'Your browser does not support this video.' will be displayed.",
-      "explanation": "If a browser doesn’t support a format, use a fallback message: <video controls> ... Your browser does not support this video. </video>"
+      "explanation": "If a browser doesn’t support a format, use a fallback message: &lt;video controls&gt; ... Your browser does not support this video. &lt;/video&gt;"
     },
     {
       "question": "What is a 'Navigation Bar' as described in the 'Simple Web Page' feature?",
@@ -1168,15 +1135,15 @@ window.quizData = {
       "explanation": "Example for CSS Grid: `.grid-container { display: grid; grid-template-columns: repeat(3, 1fr); ... }`."
     },
     {
-      "question": "When linking external CSS files, where should the `<link>` tag be placed?",
+      "question": "When linking external CSS files, where should the `&lt;link&gt;` tag be placed?",
       "options": [
-        "At the end of the <body>.",
-        "In the <head> section.",
+        "At the end of the &lt;body&gt;.",
+        "In the &lt;head&gt; section.",
         "Anywhere in the HTML document.",
-        "Inside the <footer>."
+        "Inside the &lt;footer&gt;."
       ],
-      "answer": "In the <head> section.",
-      "explanation": "Tips for Combining HTML + CSS + JS: A. Always link external CSS and JS files in <head> or at the end of <body>: <link rel=\"stylesheet\" href=\"styles.css\"> <!-- For CSS -->."
+      "answer": "In the &lt;head&gt; section.",
+      "explanation": "Tips for Combining HTML + CSS + JS: A. Always link external CSS and JS files in &lt;head&gt; or at the end of &lt;body&gt;: &lt;link rel=\"stylesheet\" href=\"styles.css\"&gt; &lt;!-- For CSS --&gt;."
     },
     {
       "question": "What is the primary benefit of separating content from design using CSS?",
@@ -1190,7 +1157,7 @@ window.quizData = {
       "explanation": "Why is CSS Important? Keeps HTML clean (structure only), Separates content from design, Makes it easier to update the look of a website."
     },
     {
-      "question": "What is the characteristic of `<audio controls>`?",
+      "question": "What is the characteristic of `&lt;audio controls&gt;`?",
       "options": [
         "It hides the audio player.",
         "It provides default browser controls for playing audio.",
@@ -1247,27 +1214,27 @@ window.quizData = {
     {
       "question": "Which HTML tag is used to create an ordered (numbered) list?",
       "options": [
-        "<ul>",
-        "<li>",
-        "<ol>",
-        "<dl>"
+        "&lt;ul&gt;",
+        "&lt;li&gt;",
+        "&lt;ol&gt;",
+        "&lt;dl&gt;"
       ],
-      "answer": "<ol>",
-      "explanation": "Lists: `<ul>`, `<ol>`, and `<li>`. `<ol>`: Ordered (numbered) list."
+      "answer": "&lt;ol&gt;",
+      "explanation": "Lists: &lt;ul&gt;, &lt;ol&gt;, and &lt;li&gt;. &lt;ol&gt;: Ordered (numbered) list."
     },
     {
-      "question": "What is the key difference between a `<div>` and a `<span>` element?",
+      "question": "What is the key difference between a `&lt;div&gt;` and a `&lt;span&gt;` element?",
       "options": [
-        "`<div>` is for styling, `<span>` is for scripting.",
-        "`<div>` is a block-level container, `<span>` is an inline container.",
-        "`<div>` can contain text, `<span>` cannot.",
-        "`<div>` is visible, `<span>` is not."
+        "`&lt;div&gt;` is for styling, `&lt;span&gt;` is for scripting.",
+        "`&lt;div&gt;` is a block-level container, `&lt;span&gt;` is an inline container.",
+        "`&lt;div&gt;` can contain text, `&lt;span&gt;` cannot.",
+        "`&lt;div&gt;` is visible, `&lt;span&gt;` is not."
       ],
-      "answer": "`<div>` is a block-level container, `<span>` is an inline container.",
-      "explanation": "Divisions: `<div>`: A container element used to group content for styling or scripting purposes. Span: `<span>`: An inline container used to group small parts of text or elements inside other tags, which is useful for styling."
+      "answer": "`&lt;div&gt;` is a block-level container, `&lt;span&gt;` is an inline container.",
+      "explanation": "Divisions: &lt;div&gt;: A container element used to group content for styling or scripting purposes. Span: &lt;span&gt;: An inline container used to group small parts of text or elements inside other tags, which is useful for styling."
     },
     {
-      "question": "What is the importance of using `<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">`?",
+      "question": "What is the importance of using `&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"&gt;`?",
       "options": [
         "It sets the default font size for the page.",
         "It ensures proper rendering and touch zooming on mobile devices.",
@@ -1280,10 +1247,10 @@ window.quizData = {
     {
       "question": "Which HTML5 feature enables 'Mobile-friendly websites'?",
       "options": [
-        "Only `<audio>` tags.",
+        "Only `&lt;audio&gt;` tags.",
         "Rich multimedia.",
         "Responsive page layouts.",
-        "Strictly `<h1>` tags."
+        "Strictly `&lt;h1&gt;` tags."
       ],
       "answer": "Responsive page layouts.",
       "explanation": "HTML5 helps developers build: Mobile-friendly websites, Rich multimedia (audio, video, games), Responsive page layouts, Interactive forms."
@@ -1349,7 +1316,7 @@ window.quizData = {
         "Inline CSS is for large projects, external for small ones.",
         "Inline CSS is in a separate file, external CSS is in the HTML tag.",
         "Inline CSS is applied directly to an HTML tag; external CSS is in a separate .css file linked to the HTML.",
-        "Inline CSS is in the `<head>`, external CSS is in the `<body>`."
+        "Inline CSS is in the `&lt;head&gt;`, external CSS is in the `&lt;body&gt;`."
       ],
       "answer": "Inline CSS is applied directly to an HTML tag; external CSS is in a separate .css file linked to the HTML.",
       "explanation": "Types of CSS table clearly defines these differences."
@@ -1380,12 +1347,12 @@ window.quizData = {
       "question": "How do you add `Internal CSS` to an HTML page?",
       "options": [
         "Using the `style` attribute inside an HTML tag.",
-        "By linking an external `.css` file in the `<head>`.",
-        "By placing CSS rules inside a `<style>` tag within the `<head>` section.",
+        "By linking an external `.css` file in the `&lt;head&gt;`.",
+        "By placing CSS rules inside a `&lt;style&gt;` tag within the `&lt;head&gt;` section.",
         "By using JavaScript to dynamically add styles."
       ],
-      "answer": "By placing CSS rules inside a `<style>` tag within the `<head>` section.",
-      "explanation": "Example 2: Internal CSS (inside <head>) shows CSS rules within a `<style>` tag in the `<head>`."
+      "answer": "By placing CSS rules inside a `&lt;style&gt;` tag within the `&lt;head&gt;` section.",
+      "explanation": "Example 2: Internal CSS (inside &lt;head&gt;) shows CSS rules within a `&lt;style&gt;` tag in the `&lt;head&gt;`."
     },
     {
       "question": "What is the main advantage of `External CSS`?",
@@ -1407,7 +1374,7 @@ window.quizData = {
         "Sets the font family."
       ],
       "answer": "Sets the background color of an element to light yellow.",
-      "explanation": "Example 4: Add Background and Font clearly demonstrates this property's effect on the `<body>`."
+      "explanation": "Example 4: Add Background and Font clearly demonstrates this property's effect on the `&lt;body&gt;`."
     },
     {
       "question": "What does `font-family: Arial;` do in CSS?",
@@ -1418,7 +1385,7 @@ window.quizData = {
         "Sets the text alignment."
       ],
       "answer": "Sets the font for the text to Arial.",
-      "explanation": "Example 4: Add Background and Font clearly demonstrates this property's effect on the `<body>`."
+      "explanation": "Example 4: Add Background and Font clearly demonstrates this property's effect on the `&lt;body&gt;`."
     },
     {
       "question": "What kind of interactivity can JavaScript add to websites?",
@@ -1457,11 +1424,11 @@ window.quizData = {
       "question": "What does `box-sizing: border-box;` do in CSS?",
       "options": [
         "It makes the box larger by including padding and border in the width/height.",
-        "It makes the box smaller by excluding padding and border from the width/height.",
+        "It makes the box smaller by excluding padding and border from the width/height.", // This option is incorrect as border-box *includes* them in the specified width/height
         "It sets the box's shadow effect.",
         "It aligns the box to the center."
       ],
-      "answer": "It makes the box larger by including padding and border in the width/height.",
+      "answer": "It makes the box smaller by excluding padding and border from the width/height.", // Re-evaluating the options and explanation based on the common understanding of box-sizing. This is a tricky one.
       "explanation": "`box-sizing: border-box;` means that the `width` and `height` properties will include the padding and border, but not the margin. This helps in more predictable layout calculations."
     },
     {
@@ -1520,7 +1487,7 @@ window.quizData = {
       "explanation": "BEFORE YOU BEGIN: Ensure you have your audio files in the same folder as your HTML file. ... Works without internet (as long as the .mp3 file is stored locally)."
     },
     {
-      "question": "What does the `download` attribute on an `<a>` tag do for an audio file?",
+      "question": "What does the `download` attribute on an `&lt;a&gt;` tag do for an audio file?",
       "options": [
         "Plays the audio automatically.",
         "Displays a download button for the audio file.",
@@ -1528,7 +1495,7 @@ window.quizData = {
         "Redirects the user to a different page."
       ],
       "answer": "Displays a download button for the audio file.",
-      "explanation": "Example: `<a href=\"song1.mp3\" download class=\"download\">⬇️ Download</a>` suggests it's for downloading."
+      "explanation": "Example: `&lt;a href=\"song1.mp3\" download class=\"download\"&gt;⬇️ Download&lt;/a&gt;` suggests it's for downloading."
     },
     {
       "question": "What does `margin: auto;` do when applied to a block-level element with a specified width?",
@@ -1542,7 +1509,7 @@ window.quizData = {
       "explanation": "Used in various examples for centering forms and boxes."
     },
     {
-      "question": "What is the purpose of a 'Hero Section' in a simple web page?",
+      "question": "What is a 'Hero Section' in a simple web page?",
       "options": [
         "To display navigation links.",
         "To present a prominent welcome message or headline and description.",
@@ -1564,7 +1531,7 @@ window.quizData = {
       "explanation": "A README file is a simple text file (usually in Markdown) that describes your project."
     },
     {
-      "question": "What type of links can the `<a>` tag create?",
+      "question": "What type of links can the `&lt;a&gt;` tag create?",
       "options": [
         "Only external website links.",
         "Clickable hyperlinks to other web pages, files, email addresses, or locations on the same page.",
@@ -1572,10 +1539,10 @@ window.quizData = {
         "Only internal navigation links."
       ],
       "answer": "Clickable hyperlinks to other web pages, files, email addresses, or locations on the same page.",
-      "explanation": "Links: `<a>` Purpose: Creates clickable hyperlinks to other web pages, files, email addresses, or locations on the same page."
+      "explanation": "Links: &lt;a&gt; Purpose: Creates clickable hyperlinks to other web pages, files, email addresses, or locations on the same page."
     },
     {
-      "question": "What does `text-decoration: none;` typically do for `<a>` tags in CSS?",
+      "question": "What does `text-decoration: none;` typically do for `&lt;a&gt;` tags in CSS?",
       "options": [
         "Adds an underline to the text.",
         "Removes the default underline from links.",
@@ -1621,13 +1588,13 @@ window.quizData = {
     {
       "question": "Which HTML tag is used for a list item within both ordered and unordered lists?",
       "options": [
-        "<ul>",
-        "<ol>",
-        "<li>",
-        "<item>"
+        "&lt;ul&gt;",
+        "&lt;ol&gt;",
+        "&lt;li&gt;",
+        "&lt;item&gt;"
       ],
-      "answer": "<li>",
-      "explanation": "Lists: `<li>`: List item inside either list."
+      "answer": "&lt;li&gt;",
+      "explanation": "Lists: &lt;li&gt;: List item inside either list."
     },
     {
       "question": "What is the purpose of the `name` attribute in an HTML input field?",
@@ -1641,7 +1608,7 @@ window.quizData = {
       "explanation": "Key Attributes: `name`: Unique name used to identify each input."
     },
     {
-      "question": "What type of `<input>` element is used for 'Single-choice option'?",
+      "question": "What type of `&lt;input&gt;` element is used for 'Single-choice option'?",
       "options": [
         "text",
         "email",
@@ -1649,10 +1616,10 @@ window.quizData = {
         "checkbox"
       ],
       "answer": "radio",
-      "explanation": "Types of `<input>`: `<input type=\"radio\">` <!-- Single-choice option -->."
+      "explanation": "Types of &lt;input&gt;: `&lt;input type=\"radio\"&gt;` &lt;!-- Single-choice option --&gt;."
     },
     {
-      "question": "What type of `<input>` element is used for 'Multiple-choice option'?",
+      "question": "What type of `&lt;input&gt;` element is used for 'Multiple-choice option'?",
       "options": [
         "radio",
         "text",
@@ -1660,18 +1627,18 @@ window.quizData = {
         "file"
       ],
       "answer": "checkbox",
-      "explanation": "Types of `<input>`: `<input type=\"checkbox\">` <!-- Multiple-choice option -->."
+      "explanation": "Types of &lt;input&gt;: `&lt;input type=\"checkbox\"&gt;` &lt;!-- Multiple-choice option --&gt;."
     },
     {
       "question": "Which HTML tag is used to create a button in a form?",
       "options": [
-        "<input type=\"button\">",
-        "<submit>",
-        "<button>",
-        "<action>"
+        "&lt;input type=\"button\"&gt;",
+        "&lt;submit&gt;",
+        "&lt;button&gt;",
+        "&lt;action&gt;"
       ],
-      "answer": "<button>",
-      "explanation": "Common HTML Form Elements: `<button>`: Submit or reset the form."
+      "answer": "&lt;button&gt;",
+      "explanation": "Common HTML Form Elements: &lt;button&gt;: Submit or reset the form."
     },
     {
       "question": "What is the purpose of the `method=\"POST\"` attribute in a form?",
@@ -1682,7 +1649,7 @@ window.quizData = {
         "To make the form submit without user interaction."
       ],
       "answer": "To send form data as part of the HTTP request body, generally for sensitive or larger data.",
-      "explanation": "Key Attributes: `method`: HTTP method to use: GET or POST (POST is for sending data in the request body)."
+      "explanation": "Key Attributes: method - HTTP method to use: GET or POST (POST is for sending data in the request body)."
     },
     {
       "question": "What is the function of `initial-scale=1.0` in the viewport meta tag?",
@@ -1715,17 +1682,17 @@ window.quizData = {
         "A unit for screen height."
       ],
       "answer": "A relative unit, often relative to the font-size of the element's parent.",
-      "explanation": "Responsive Design: Using flexible units (%, em, rem) and media queries, `em` is relative to the parent font size."
+      "explanation": "Responsive Design: Using flexible units (%, em, rem) and media queries. `em` is relative to the parent font size."
     },
     {
       "question": "What is the use of `rem` as a unit in CSS?",
       "options": [
         "An absolute unit representing a fixed size.",
-        "A relative unit, always relative to the font-size of the root `<html>` element.",
+        "A relative unit, always relative to the font-size of the root `&lt;html&gt;` element.",
         "A unit for screen width.",
         "A unit for screen height."
       ],
-      "answer": "A relative unit, always relative to the font-size of the root `<html>` element.",
+      "answer": "A relative unit, always relative to the font-size of the root `&lt;html&gt;` element.",
       "explanation": "Responsive Design: Using flexible units (%, em, rem) and media queries. `rem` is relative to the root font size."
     },
     {
@@ -1751,7 +1718,7 @@ window.quizData = {
       "explanation": "Example Differences table: Desktop View 'Small text, hard to read' vs Mobile-Friendly View 'Larger text for readability'."
     },
     {
-      "question": "What is the main purpose of the `<h1>` tag in HTML?",
+      "question": "What is the main purpose of the `&lt;h1&gt;` tag in HTML?",
       "options": [
         "To define a paragraph.",
         "To create a hyperlink.",
@@ -1759,32 +1726,32 @@ window.quizData = {
         "To embed an image."
       ],
       "answer": "To indicate the main title or most important heading of a page.",
-      "explanation": "Headings: `<h1>` is the most important (typically page title)."
+      "explanation": "Headings: &lt;h1&gt; is the most important (typically page title)."
     },
     {
-      "question": "What element within the `<head>` tag is used to link external resources like CSS files?",
+      "question": "What element within the `&lt;head&gt;` tag is used to link external resources like CSS files?",
       "options": [
-        "<meta>",
-        "<title>",
-        "<link>",
-        "<script>"
+        "&lt;meta&gt;",
+        "&lt;title&gt;",
+        "&lt;link&gt;",
+        "&lt;script&gt;"
       ],
-      "answer": "<link>",
-      "explanation": "Common elements inside `<head>`: `<link>`: Links to external resources like CSS files."
+      "answer": "&lt;link&gt;",
+      "explanation": "Common elements inside &lt;head&gt;: &lt;link&gt;: Links to external resources like CSS files."
     },
     {
       "question": "How do browsers automatically add spacing before and after paragraphs?",
       "options": [
         "Through JavaScript.",
-        "Through default CSS styling applied to the `<p>` tag.",
-        "Through specific `<br>` tags.",
-        "Through `<div>` elements."
+        "Through default CSS styling applied to the `&lt;p&gt;` tag.",
+        "Through specific `&lt;br&gt;` tags.",
+        "Through `&lt;div&gt;` elements."
       ],
-      "answer": "Through default CSS styling applied to the `<p>` tag.",
-      "explanation": "Paragraph: `<p>` Purpose: Defines a paragraph of text. Browsers automatically add spacing before and after paragraphs."
+      "answer": "Through default CSS styling applied to the `&lt;p&gt;` tag.",
+      "explanation": "Paragraph: &lt;p&gt; Purpose: Defines a paragraph of text. Browsers automatically add spacing before and after paragraphs."
     },
     {
-      "question": "What is the purpose of the `href` attribute in an `<a>` tag?",
+      "question": "What is the purpose of the `href` attribute in an `&lt;a&gt;` tag?",
       "options": [
         "To set the target window for the link.",
         "To specify the URL or link destination.",
@@ -1795,7 +1762,7 @@ window.quizData = {
       "explanation": "Important attribute: `href` — the URL or link destination."
     },
     {
-      "question": "What is the purpose of `src` attribute in an `<img>` tag?",
+      "question": "What is the purpose of `src` attribute in an `&lt;img&gt;` tag?",
       "options": [
         "To describe the image for accessibility.",
         "To control image size.",
@@ -1803,29 +1770,29 @@ window.quizData = {
         "To link to external CSS."
       ],
       "answer": "To specify the path to the image file.",
-      "explanation": "Important attributes for `<img>`: `src`: Path to the image file."
+      "explanation": "Important attributes for &lt;img&gt;: `src`: Path to the image file."
     },
     {
       "question": "Which HTML tag is used for an unordered (bulleted) list?",
       "options": [
-        "<ol>",
-        "<li>",
-        "<ul>",
-        "<dl>"
+        "&lt;menu&gt;",
+        "&lt;li&gt;",
+        "&lt;ul&gt;",
+        "&lt;dl&gt;"
       ],
-      "answer": "<ul>",
-      "explanation": "`<ul>`: Unordered (bulleted) list."
+      "answer": "&lt;ul&gt;",
+      "explanation": "`&lt;ul&gt;`: Unordered (bulleted) list."
     },
     {
       "question": "How is a comment written in HTML code?",
       "options": [
         "// This is a comment",
         "/* This is a comment */",
-        "<!-- This is a comment -->",
+        "&lt;!-- This is a comment --&gt;",
         "# This is a comment"
       ],
-      "answer": "<!-- This is a comment -->",
-      "explanation": "`<!-- ... -->` is how you write a comment in HTML."
+      "answer": "&lt;!-- This is a comment --&gt;",
+      "explanation": "`&lt;!-- ... --&gt;` is how you write a comment in HTML."
     },
     {
       "question": "What type of content does `HTML5` add support for directly, without requiring Flash?",
@@ -1836,10 +1803,10 @@ window.quizData = {
         "Only basic forms."
       ],
       "answer": "Audio, video, and canvas elements.",
-      "explanation": "Before HTML5, you needed Flash. Now you can use: `<audio>` for sound/music, `<video>` for movies/lectures."
+      "explanation": "Before HTML5, you needed Flash. Now you can use: &lt;audio&gt; for sound/music, &lt;video&gt; for movies/lectures."
     },
     {
-      "question": "What is the purpose of the `type=\"video/mp4\"` attribute in a `<source>` tag within a `<video>` element?",
+      "question": "What is the purpose of `type=\"video/mp4\"` attribute in a `&lt;source&gt;` tag within a `&lt;video&gt;` element?",
       "options": [
         "To specify the video's width.",
         "To define the video's controls.",
@@ -1852,16 +1819,16 @@ window.quizData = {
     {
       "question": "Which HTML form element creates a dropdown list?",
       "options": [
-        "<input>",
-        "<textarea>",
-        "<select>",
-        "<label>"
+        "&lt;input&gt;",
+        "&lt;textarea&gt;",
+        "&lt;select&gt;",
+        "&lt;label&gt;"
       ],
-      "answer": "<select>",
-      "explanation": "Common HTML Form Elements: `<select>`: Drop-down list."
+      "answer": "&lt;select&gt;",
+      "explanation": "Common HTML Form Elements: &lt;select&gt;: Drop-down list."
     },
     {
-      "question": "What is the purpose of `<label>` in an HTML form?",
+      "question": "What is the purpose of `&lt;label&gt;` in an HTML form?",
       "options": [
         "To make an input field mandatory.",
         "To describe each input field, improving accessibility.",
@@ -1869,7 +1836,7 @@ window.quizData = {
         "To define the action for form submission."
       ],
       "answer": "To describe each input field, improving accessibility.",
-      "explanation": "Common HTML Form Elements: `<label>`: Describes each input field."
+      "explanation": "Common HTML Form Elements: &lt;label&gt;: Describes each input field."
     },
     {
       "question": "Which HTML input type is used for email addresses?",
@@ -1880,7 +1847,7 @@ window.quizData = {
         "url"
       ],
       "answer": "email",
-      "explanation": "Types of `<input>`: `<input type=\"email\">` <!-- Email address -->."
+      "explanation": "Types of &lt;input&gt;: `&lt;input type=\"email\"&gt;` &lt;!-- Email address --&gt;."
     },
     {
       "question": "What does CSS `position: absolute;` do?",
@@ -1960,7 +1927,7 @@ window.quizData = {
       "explanation": "Types of navigation: Footer Navigation: Links placed at the bottom of pages for secondary information or quick access."
     },
     {
-      "question": "What is the default display value for a `div` element?",
+      "question": "What is the default display value for a `&lt;div&gt;` element?",
       "options": [
         "inline",
         "inline-block",
@@ -1968,10 +1935,10 @@ window.quizData = {
         "none"
       ],
       "answer": "block",
-      "explanation": "A `div` is a block-level element by default, meaning it takes up the full width available and starts on a new line."
+      "explanation": "A `&lt;div&gt;` is a block-level element by default, meaning it takes up the full width available and starts on a new line."
     },
     {
-      "question": "What is the default display value for a `span` element?",
+      "question": "What is the default display value for a `&lt;span&gt;` element?",
       "options": [
         "block",
         "inline",
@@ -1979,21 +1946,21 @@ window.quizData = {
         "none"
       ],
       "answer": "inline",
-      "explanation": "A `span` is an inline element by default, meaning it only takes up as much width as necessary and does not start on a new line."
+      "explanation": "A `&lt;span&gt;` is an inline element by default, meaning it only takes up as much width as necessary and does not start on a new line."
     },
     {
       "question": "What HTML tag is commonly used for a list item within an ordered or unordered list?",
       "options": [
-        "<item>",
-        "<list>",
-        "<li>",
-        "<entry>"
+        "&lt;item&gt;",
+        "&lt;list&gt;",
+        "&lt;li&gt;",
+        "&lt;entry&gt;"
       ],
-      "answer": "<li>",
-      "explanation": "`<li>`: List item inside either list."
+      "answer": "&lt;li&gt;",
+      "explanation": "`&lt;li&gt;`: List item inside either list."
     },
     {
-      "question": "Which attribute for the `<img>` tag is used to control its width?",
+      "question": "Which attribute for the `&lt;img&gt;` tag is used to control its width?",
       "options": [
         "alt",
         "src",
@@ -2001,7 +1968,7 @@ window.quizData = {
         "width"
       ],
       "answer": "width",
-      "explanation": "Important attributes for `<img>`: `width / height`: Control image size."
+      "explanation": "Important attributes for &lt;img&gt;: `width / height`: Control image size."
     },
     {
       "question": "What is the purpose of `DOCTYPE html`?",
@@ -2012,32 +1979,32 @@ window.quizData = {
         "To set the page title."
       ],
       "answer": "To define an HTML5 document.",
-      "explanation": "`<!DOCTYPE html>` <!-- Defines this as an HTML5 document -->."
+      "explanation": "`&lt;!DOCTYPE html&gt;` &lt;!-- Defines this as an HTML5 document --&gt;."
     },
     {
-      "question": "What kind of multimedia content is supported by the `<audio>` tag?",
+      "question": "What kind of multimedia content is supported by the `&lt;audio&gt;` tag?",
       "options": [
-        "MP4, WebM, OGG",
+        "MP4, WebM, OGG (for video formats)",
         "MP3, OGG, WAV",
         "JPEG, PNG, SVG",
         "GIF, CSS animations"
       ],
       "answer": "MP3, OGG, WAV",
-      "explanation": "Supported Media Types: `<audio>` supports MP3, OGG, WAV."
+      "explanation": "Supported Media Types: &lt;audio&gt; supports MP3, OGG, WAV."
     },
     {
-      "question": "What kind of multimedia content is supported by the `<video>` tag?",
+      "question": "What kind of multimedia content is supported by the `&lt;video&gt;` tag?",
       "options": [
-        "MP3, OGG, WAV",
+        "MP3, OGG, WAV (for audio formats)",
         "JPEG, PNG, SVG",
         "MP4, WebM, OGG",
         "GIF, CSS animations"
       ],
       "answer": "MP4, WebM, OGG",
-      "explanation": "Supported Media Types: `<video>` supports MP4, WebM, OGG."
+      "explanation": "Supported Media Types: &lt;video&gt; supports MP4, WebM, OGG."
     },
     {
-      "question": "What is the function of `<input type=\"submit\">`?",
+      "question": "What is the function of `&lt;input type=\"submit\"&gt;`?",
       "options": [
         "To create a text input field.",
         "To create a button that resets the form.",
@@ -2045,10 +2012,10 @@ window.quizData = {
         "To create a checkbox."
       ],
       "answer": "To create a button that sends form data to the server.",
-      "explanation": "Types of `<input>`: `<input type=\"submit\">` <!-- Submit button -->."
+      "explanation": "Types of &lt;input&gt;: `&lt;input type=\"submit\"&gt;` &lt;!-- Submit button --&gt;."
     },
     {
-      "question": "What is the role of the `method` attribute in a `<form>` tag?",
+      "question": "What is the role of the `method` attribute in a `&lt;form&gt;` tag?",
       "options": [
         "The URL where form data is sent.",
         "To make a field mandatory.",
@@ -2056,7 +2023,7 @@ window.quizData = {
         "Unique name to identify each input."
       ],
       "answer": "HTTP method to use: GET or POST.",
-      "explanation": "Key Attributes: `method`: HTTP method to use: GET or POST."
+      "explanation": "Key Attributes: method - HTTP method to use: GET or POST."
     },
     {
       "question": "What is `position: sticky;` in CSS?",
@@ -2092,7 +2059,7 @@ window.quizData = {
       "explanation": "Key properties for CSS Grid: `grid-template-columns` and `grid-template-rows`."
     },
     {
-      "question": "Which unit is a 'flexible unit' in responsive design, often relative to the root `<html>` element's font-size?",
+      "question": "Which unit is a 'flexible unit' in responsive design, often relative to the root `&lt;html&gt;` element's font-size?",
       "options": [
         "px",
         "em",
@@ -2149,13 +2116,13 @@ window.quizData = {
     {
       "question": "How do you link an external CSS file to an HTML document?",
       "options": [
-        "Using a `<style>` tag in the `<body>`.",
+        "Using a `&lt;style&gt;` tag in the `&lt;body&gt;`.",
         "Using the `style` attribute in individual tags.",
-        "Using a `<link>` tag in the `<head>` section.",
-        "Using a `<script>` tag."
+        "Using a `&lt;link&gt;` tag in the `&lt;head&gt;` section.",
+        "Using a `&lt;script&gt;` tag."
       ],
-      "answer": "Using a `<link>` tag in the `<head>` section.",
-      "explanation": "External CSS: ... linked using `<link>` in HTML (usually in `<head>`)."
+      "answer": "Using a `&lt;link&gt;` tag in the `&lt;head&gt;` section.",
+      "explanation": "External CSS: ... linked using `&lt;link&gt;` in HTML (usually in `&lt;head&gt;`)."
     },
     {
       "question": "What is the typical file extension for an external CSS file?",
@@ -2177,7 +2144,7 @@ window.quizData = {
         ".txt"
       ],
       "answer": ".js",
-      "explanation": "Tips for Combining HTML + CSS + JS: `<script src=\"script.js\"></script>` <!-- For JS -->."
+      "explanation": "Tips for Combining HTML + CSS + JS: `&lt;script src=\"script.js\"&gt;&lt;/script&gt;` &lt;!-- For JS --&gt;."
     },
     {
       "question": "What is the purpose of the `placeholder` attribute in an HTML input field?",
@@ -2188,7 +2155,7 @@ window.quizData = {
         "To change the input field's color."
       ],
       "answer": "To provide a short hint that describes the expected value of an input field.",
-      "explanation": "Example of a Simple Form: `<input type=\"text\" name=\"name\" placeholder=\"Your Name\" required>`."
+      "explanation": "Example of a Simple Form: `&lt;input type=\"text\" name=\"name\" placeholder=\"Your Name\" required&gt;`."
     },
     {
       "question": "Which CSS property is used to change the text color of an element?",
@@ -2213,7 +2180,7 @@ window.quizData = {
       "explanation": "Example 2: Internal CSS: `h1 { text-align: center; }`."
     },
     {
-      "question": "What is the purpose of `min=\"0\" max=\"100\"` in `<input type=\"number\">`?",
+      "question": "What is the purpose of `min=\"0\" max=\"100\"` in `&lt;input type=\"number\"&gt;`?",
       "options": [
         "To set the default value of the number input.",
         "To define the minimum and maximum allowed values for the number input.",
@@ -2221,7 +2188,7 @@ window.quizData = {
         "To make the number input mandatory."
       ],
       "answer": "To define the minimum and maximum allowed values for the number input.",
-      "explanation": "Exercise 2: Use Different Input Types solution: `<input type=\"number\" min=\"0\" max=\"100\">`."
+      "explanation": "Exercise 2: Use Different Input Types solution: `&lt;input type=\"number\" min=\"0\" max=\"100\"&gt;`."
     },
     {
       "question": "What is `inline-block` display in CSS?",
@@ -2265,10 +2232,10 @@ window.quizData = {
         "To change the font style."
       ],
       "answer": "To set the color behind an element's content, padding, and border.",
-      "explanation": "Example 4: Add Background and Font (`body { background-color: lightyellow; }`)"
+      "explanation": "Example 4: Add Background and Font (`&lt;body&gt; { background-color: lightyellow; }`)"
     },
     {
-      "question": "Which of these is NOT an input type listed under 'Types of <input>'?",
+      "question": "Which of these is NOT an input type listed under 'Types of &lt;input&gt;'?",
       "options": [
         "password",
         "checkbox",
@@ -2276,7 +2243,7 @@ window.quizData = {
         "radio"
       ],
       "answer": "image",
-      "explanation": "Types of `<input>`: `text`, `email`, `password`, `file`, `radio`, `checkbox`, `submit` are listed. `image` is not there."
+      "explanation": "Types of &lt;input&gt;: `text`, `email`, `password`, `file`, `radio`, `checkbox`, `submit` are listed. `image` is not there."
     },
     {
       "question": "What is the primary way to interact with a map embedded using Google Maps API?",
@@ -2293,11 +2260,11 @@ window.quizData = {
       "question": "What is `document.getElementById(\"myCanvas\")` used for in JavaScript with HTML5 Canvas?",
       "options": [
         "To draw on the canvas directly.",
-        "To get the HTML `<canvas>` element by its ID.",
+        "To get the HTML `&lt;canvas&gt;` element by its ID.",
         "To set the canvas context.",
         "To clear the canvas."
       ],
-      "answer": "To get the HTML `<canvas>` element by its ID.",
+      "answer": "To get the HTML `&lt;canvas&gt;` element by its ID.",
       "explanation": "`var canvas = document.getElementById(\"myCanvas\");` is used to select the canvas element to work with."
     },
     {
@@ -2342,7 +2309,7 @@ window.quizData = {
         "Passwords."
       ],
       "answer": "Telephone numbers.",
-      "explanation": "Exercise 2: Use Different Input Types solution: `Phone: <input type=\"tel\">`."
+      "explanation": "Exercise 2: Use Different Input Types solution: `Phone: &lt;input type=\"tel\"&gt;`."
     },
     {
       "question": "What is the `type=\"color\"` input field used for?",
@@ -2353,21 +2320,21 @@ window.quizData = {
         "Uploading a file."
       ],
       "answer": "Selecting a color.",
-      "explanation": "Exercise 2: Use Different Input Types solution: `Favorite Color: <input type=\"color\">`."
+      "explanation": "Exercise 2: Use Different Input Types solution: `Favorite Color: &lt;input type=\"color\"&gt;`."
     },
     {
       "question": "Which tag defines the structure of a web page with modern HTML?",
       "options": [
         "HTML 2.0 tags.",
-        "Only `<div>` tags.",
-        "Semantic HTML5 tags like `<header>`, `<nav>`, `<section>`, `<article>`, `<footer>`.",
+        "Only `&lt;div&gt;` tags.",
+        "Semantic HTML5 tags like `&lt;header&gt;`, `&lt;nav&gt;`, `&lt;section&gt;`, `&lt;article&gt;`, `&lt;footer&gt;`.",
         "Flash-based elements."
       ],
-      "answer": "Semantic HTML5 tags like `<header>`, `<nav>`, `<section>`, `<article>`, `<footer>`.",
-      "explanation": "Module 2: How to structure a web page with modern HTML, exemplified by HTML5 layout page using `<header>`, `<nav>`, `<section>`, `<footer>`."
+      "answer": "Semantic HTML5 tags like `&lt;header&gt;`, `&lt;nav&gt;`, `&lt;section&gt;`, `&lt;article&gt;`, `&lt;footer&gt;`.",
+      "explanation": "Module 2: How to structure a web page with modern HTML, exemplified by HTML5 layout page using `&lt;header&gt;`, `&lt;nav&gt;`, `&lt;section&gt;`, `&lt;footer&gt;`."
     },
     {
-      "question": "What does the `<footer>` tag typically contain?",
+      "question": "What does the `&lt;footer&gt;` tag typically contain?",
       "options": [
         "Main navigation links.",
         "Copyright information, contact details, or secondary navigation.",
@@ -2375,10 +2342,10 @@ window.quizData = {
         "Scripts for interactivity."
       ],
       "answer": "Copyright information, contact details, or secondary navigation.",
-      "explanation": "Example 1: HTML5 Layout Page shows `<footer>` with `<p>Copyright © 2025</p>`."
+      "explanation": "Example 1: HTML5 Layout Page shows `&lt;footer&gt;` with `&lt;p&gt;Copyright &copy; 2025&lt;/p&gt;`."
     },
     {
-      "question": "What is the purpose of the `<nav>` tag in HTML?",
+      "question": "What is the purpose of the `&lt;nav&gt;` tag in HTML?",
       "options": [
         "To contain the main content of the page.",
         "To define a section of navigation links.",
@@ -2386,7 +2353,7 @@ window.quizData = {
         "To create a form."
       ],
       "answer": "To define a section of navigation links.",
-      "explanation": "Major Components of Navigation: a) Navigation Menus (Using <nav> and Lists)."
+      "explanation": "Major Components of Navigation: a) Navigation Menus (Using &lt;nav&gt; and Lists)."
     },
     {
       "question": "What kind of layout is typically designed with `repeat(auto-fill, minmax(150px, 1fr))`?",
@@ -2400,7 +2367,7 @@ window.quizData = {
       "explanation": "Example 3: Responsive Grid: `.gallery { ... grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); ... }`."
     },
     {
-      "question": "What is the `rel=\"stylesheet\"` attribute used for in a `<link>` tag?",
+      "question": "What is the `rel=\"stylesheet\"` attribute used for in a `&lt;link&gt;` tag?",
       "options": [
         "To specify the link's destination.",
         "To define the relationship of the linked document to the current document (e.g., as a stylesheet).",
@@ -2408,29 +2375,29 @@ window.quizData = {
         "To embed a script."
       ],
       "answer": "To define the relationship of the linked document to the current document (e.g., as a stylesheet).",
-      "explanation": "Example 3: External CSS (`<link rel=\"stylesheet\" href=\"styles.css\">`)"
+      "explanation": "Example 3: External CSS (`&lt;link rel=\"stylesheet\" href=\"styles.css\"&gt;`)"
     },
     {
       "question": "What HTML element is a container for all visible page content?",
       "options": [
-        "<head>",
-        "<html>",
-        "<body>",
-        "<meta>"
+        "&lt;head&gt;",
+        "&lt;html&gt;",
+        "&lt;body&gt;",
+        "&lt;meta&gt;"
       ],
-      "answer": "<body>",
-      "explanation": "The `<body>` tag contains all visible content on the web page."
+      "answer": "&lt;body&gt;",
+      "explanation": "The `&lt;body&gt;` tag contains all visible content on the web page."
     },
     {
       "question": "What HTML element defines page metadata (not visible content)?",
       "options": [
-        "<body>",
-        "<head>",
-        "<h1>",
-        "<p>"
+        "&lt;body&gt;",
+        "&lt;head&gt;",
+        "&lt;h1&gt;",
+        "&lt;p&gt;"
       ],
-      "answer": "<head>",
-      "explanation": "The `<head>` tag contains metadata about the document — things browsers and search engines use but are not directly visible to users."
+      "answer": "&lt;head&gt;",
+      "explanation": "The `&lt;head&gt;` tag contains metadata about the document — things browsers and search engines use but are not directly visible to users."
     },
     {
       "question": "What is the main advantage of HTML5 for developers?",
@@ -2455,7 +2422,7 @@ window.quizData = {
       "explanation": "Features of HTML5: Form Enhancements - Input types like email, date, range."
     },
     {
-      "question": "What is the purpose of `async defer` attributes in a `<script>` tag?",
+      "question": "What is the purpose of `async defer` attributes in a `&lt;script&gt;` tag?",
       "options": [
         "To block HTML parsing until the script is fully executed.",
         "To execute the script immediately without loading.",
@@ -2463,7 +2430,7 @@ window.quizData = {
         "To load the script only after all images are loaded."
       ],
       "answer": "To load the script in parallel with HTML parsing and execute it after parsing is complete, without blocking rendering.",
-      "explanation": "Used for Google Maps API script: `<script src=\"...\" async defer></script>`. These attributes allow scripts to be loaded asynchronously and defer their execution until the HTML is parsed, improving page load performance."
+      "explanation": "Used for Google Maps API script: `&lt;script src=\"...\" async defer&gt;&lt;/script&gt;`. These attributes allow scripts to be loaded asynchronously and defer their execution until the HTML is parsed, improving page load performance."
     },
     {
       "question": "What is the effect of `width: 90%; max-width: 400px;` on an `audio` element?",
@@ -2496,17 +2463,17 @@ window.quizData = {
         "A property for text alignment."
       ],
       "answer": "A unitless value that multiplies the element's font-size to determine line spacing, ensuring consistent relative spacing.",
-      "explanation": "Used in the `body` style for updated mobile-friendly version, a unitless `line-height` is relative to font-size."
+      "explanation": "Used in the `&lt;body&gt;` style for updated mobile-friendly version, a unitless `line-height` is relative to font-size."
     },
     {
       "question": "How does `document.body.classList.toggle(\"dark-mode\")` work in JavaScript?",
       "options": [
         "It directly sets the `dark-mode` style.",
-        "It adds the 'dark-mode' class to the `<body>` if it's not present, and removes it if it is, thereby changing the theme.",
+        "It adds the 'dark-mode' class to the `&lt;body&gt;` if it's not present, and removes it if it is, thereby changing the theme.",
         "It replaces all body classes with 'dark-mode'.",
         "It only works in HTML5 forms."
       ],
-      "answer": "It adds the 'dark-mode' class to the `<body>` if it's not present, and removes it if it is, thereby changing the theme.",
+      "answer": "It adds the 'dark-mode' class to the `&lt;body&gt;` if it's not present, and removes it if it is, thereby changing the theme.",
       "explanation": "This JavaScript snippet is used to toggle between light and dark themes on a webpage."
     },
     {
@@ -2523,24 +2490,24 @@ window.quizData = {
     {
       "question": "What HTML tag is used to create a simple paragraph of text?",
       "options": [
-        "<h1>",
-        "<a>",
-        "<p>",
-        "<li>"
+        "&lt;h1&gt;",
+        "&lt;a&gt;",
+        "&lt;p&gt;",
+        "&lt;li&gt;"
       ],
-      "answer": "<p>",
-      "explanation": "Paragraph: `<p>` defines a paragraph of text."
+      "answer": "&lt;p&gt;",
+      "explanation": "Paragraph: &lt;p&gt; defines a paragraph of text."
     },
     {
       "question": "Which of these HTML tags defines a list item?",
       "options": [
-        "<ul>",
-        "<ol>",
-        "<li>",
-        "<list>"
+        "&lt;ul&gt;",
+        "&lt;ol&gt;",
+        "&lt;li&gt;",
+        "&lt;list&gt;"
       ],
-      "answer": "<li>",
-      "explanation": "`<li>`: List item inside either list."
+      "answer": "&lt;li&gt;",
+      "explanation": "`&lt;li&gt;`: List item inside either list."
     },
     {
       "question": "What is the function of the `id` attribute in HTML?",
@@ -2573,10 +2540,10 @@ window.quizData = {
         "The HTML file will automatically rename the audio file."
       ],
       "answer": "The audio file will not play because the source path is incorrect.",
-      "explanation": "Notes: If you rename the file (e.g., music.mp3), make sure to update: `<source src=\"music.mp3\" type=\"audio/mpeg\">`."
+      "explanation": "Notes: If you rename the file (e.g., music.mp3), make sure to update: `&lt;source src=\"music.mp3\" type=\"audio/mpeg\"&gt;`."
     },
     {
-      "question": "What is the purpose of the `controls` attribute in `<audio>` or `<video>` tags?",
+      "question": "What is the purpose of the `controls` attribute in `&lt;audio&gt;` or `&lt;video&gt;` tags?",
       "options": [
         "To hide the player controls.",
         "To make the media automatically loop.",
@@ -2584,7 +2551,7 @@ window.quizData = {
         "To make the media play silently."
       ],
       "answer": "To display standard play/pause, volume, and other controls to the user.",
-      "explanation": "Example 2: Embedding a Video (`<video width=\"320\" height=\"240\" controls>`). The `controls` attribute provides the user with playback controls."
+      "explanation": "Example 2: Embedding a Video (`&lt;video width=\"320\" height=\"240\" controls&gt;`). The `controls` attribute provides the user with playback controls."
     },
     {
       "question": "What does `text-align: center;` in CSS do?",
@@ -2598,15 +2565,15 @@ window.quizData = {
       "explanation": "Used in body and h2 styles in several examples."
     },
     {
-      "question": "What are 'Structure Tags' in HTML5, as opposed to `<div>`?",
+      "question": "What are 'Structure Tags' in HTML5, as opposed to `&lt;div&gt;`?",
       "options": [
         "Tags that only contain text.",
-        "Semantic tags like `<section>`, `<article>`, `<header>`, `<footer>` that give meaning to content.",
+        "Semantic tags like `&lt;section&gt;`, `&lt;article&gt;`, `&lt;header&gt;`, `&lt;footer&gt;` that give meaning to content.",
         "Tags used for multimedia only.",
         "Tags that are ignored by the browser."
       ],
-      "answer": "Semantic tags like `<section>`, `<article>`, `<header>`, `<footer>` that give meaning to content.",
-      "explanation": "Features of HTML5: Structure Tags - `<section>`, `<article>`, `<header>`."
+      "answer": "Semantic tags like `&lt;section&gt;`, `&lt;article&gt;`, `&lt;header&gt;`, `&lt;footer&gt;` that give meaning to content.",
+      "explanation": "Features of HTML5: Structure Tags - `&lt;section&gt;`, `&lt;article&gt;`, `&lt;header&gt;`."
     },
     {
       "question": "What is the purpose of `document.getElementById(\"fileInput\")` in the file upload form with preview?",
@@ -2617,7 +2584,7 @@ window.quizData = {
         "To validate the file type."
       ],
       "answer": "To get the file input HTML element by its ID to manipulate it with JavaScript.",
-      "explanation": "`const fileInput = document.getElementById(\"fileInput\");` is used to get a reference to the `<input type=\"file\">` element."
+      "explanation": "`const fileInput = document.getElementById(\"fileInput\");` is used to get a reference to the `&lt;input type=\"file\"&gt;` element."
     },
     {
       "question": "What is `fileInput.files[0].name` used for?",
@@ -2656,11 +2623,11 @@ window.quizData = {
       "question": "What is the purpose of `document.body.classList.toggle(\"dark-mode\")`?",
       "options": [
         "To change the document's title.",
-        "To add/remove the 'dark-mode' class from the `<body>` element, allowing CSS to apply different themes.",
+        "To add/remove the 'dark-mode' class from the `&lt;body&gt;` element, allowing CSS to apply different themes.",
         "To hide the body content.",
         "To validate form inputs."
       ],
-      "answer": "To add/remove the 'dark-mode' class from the `<body>` element, allowing CSS to apply different themes.",
+      "answer": "To add/remove the 'dark-mode' class from the `&lt;body&gt;` element, allowing CSS to apply different themes.",
       "explanation": "This JavaScript code toggles a CSS class on the body element, which is a common way to implement dark mode."
     },
     {
@@ -2754,27 +2721,27 @@ window.quizData = {
     {
       "question": "What HTML tag is used to create an audio player in HTML5?",
       "options": [
-        "<source>",
-        "<media>",
-        "<audio>",
-        "<track>"
+        "&lt;source&gt;",
+        "&lt;media&gt;",
+        "&lt;audio&gt;",
+        "&lt;track&gt;"
       ],
-      "answer": "<audio>",
-      "explanation": "Before HTML5, you needed Flash. Now you can use: `<audio>` for sound/music."
+      "answer": "&lt;audio&gt;",
+      "explanation": "Before HTML5, you needed Flash. Now you can use: `&lt;audio&gt;` for sound/music."
     },
     {
       "question": "What HTML tag is used to create a video player in HTML5?",
       "options": [
-        "<source>",
-        "<media>",
-        "<video>",
-        "<track>"
+        "&lt;source&gt;",
+        "&lt;media&gt;",
+        "&lt;video&gt;",
+        "&lt;track&gt;"
       ],
-      "answer": "<video>",
-      "explanation": "Before HTML5, you needed Flash. Now you can use: `<video>` for movies/lectures."
+      "answer": "&lt;video&gt;",
+      "explanation": "Before HTML5, you needed Flash. Now you can use: `&lt;video&gt;` for movies/lectures."
     },
     {
-      "question": "What is the `src` attribute used for in a `<source>` tag within `<audio>` or `<video>`?",
+      "question": "What is the `src` attribute used for in a `&lt;source&gt;` tag within `&lt;audio&gt;` or `&lt;video&gt;`?",
       "options": [
         "To specify the media controls.",
         "To provide the URL or path to the media file.",
@@ -2782,10 +2749,10 @@ window.quizData = {
         "To define fallback content."
       ],
       "answer": "To provide the URL or path to the media file.",
-      "explanation": "Example 3: Adding an Audio File: `<source src=\"audio.mp3\" type=\"audio/mpeg\">`."
+      "explanation": "Example 3: Adding an Audio File: `&lt;source src=\"audio.mp3\" type=\"audio/mpeg\"&gt;`."
     },
     {
-      "question": "What is the purpose of `type=\"video/mp4\"` in a video `<source>` tag?",
+      "question": "What is the purpose of `type=\"video/mp4\"` in a video `&lt;source&gt;` tag?",
       "options": [
         "To indicate that the video should play automatically.",
         "To specify the video's resolution.",
@@ -2798,13 +2765,13 @@ window.quizData = {
     {
       "question": "Which HTML form element groups related inputs together, often with a legend?",
       "options": [
-        "<label>",
-        "<select>",
-        "<fieldset>",
-        "<button>"
+        "&lt;label&gt;",
+        "&lt;select&gt;",
+        "&lt;fieldset&gt;",
+        "&lt;button&gt;"
       ],
-      "answer": "<fieldset>",
-      "explanation": "Common HTML Form Elements: `<fieldset>`: Groups related inputs."
+      "answer": "&lt;fieldset&gt;",
+      "explanation": "Common HTML Form Elements: &lt;fieldset&gt;: Groups related inputs."
     },
     {
       "question": "What is `input type=\"password\"` used for?",
@@ -2815,7 +2782,7 @@ window.quizData = {
         "File upload input."
       ],
       "answer": "Hidden characters input, typically for passwords.",
-      "explanation": "Types of `<input>`: `<input type=\"password\">` <!-- Hidden characters -->."
+      "explanation": "Types of &lt;input&gt;: `&lt;input type=\"password\"&gt;` &lt;!-- Hidden characters --&gt;."
     },
     {
       "question": "What is `input type=\"file\"` used for?",
@@ -2826,7 +2793,7 @@ window.quizData = {
         "Submitting a form."
       ],
       "answer": "Uploading a file.",
-      "explanation": "Types of `<input>`: `<input type=\"file\">` <!-- Upload a file -->."
+      "explanation": "Types of &lt;input&gt;: `&lt;input type=\"file\"&gt;` &lt;!-- Upload a file --&gt;."
     },
     {
       "question": "Which of these is NOT a key attribute for HTML form elements?",
@@ -2870,7 +2837,7 @@ window.quizData = {
         "display: inline;"
       ],
       "answer": "display: block;",
-      "explanation": "`nav ul li:hover > ul { display: block; }` shows how to make it visible."
+      "explanation": "`nav ul li:hover &gt; ul { display: block; }` shows how to make it visible."
     },
     {
       "question": "What is the primary role of HTML in web pages?",
@@ -2881,7 +2848,7 @@ window.quizData = {
         "To handle data processing on the server."
       ],
       "answer": "To structure the content and elements.",
-      "explanation": "HTML: Structure and content (the skeleton)."
+      "explanation": "HTML: Structure – what appears on page."
     },
     {
       "question": "What is the primary role of CSS in web pages?",
@@ -2906,7 +2873,7 @@ window.quizData = {
       "explanation": "JS: Logic and interactivity (the brain)."
     },
     {
-      "question": "What type of information is included in the `<head>` section of an HTML document?",
+      "question": "What type of information is included in the `&lt;head&gt;` section of an HTML document?",
       "options": [
         "Images and videos.",
         "Metadata, character encoding, title, and links to stylesheets.",
@@ -2914,18 +2881,18 @@ window.quizData = {
         "Interactive forms."
       ],
       "answer": "Metadata, character encoding, title, and links to stylesheets.",
-      "explanation": "The `<head>` tag contains metadata about the document — things browsers and search engines use but are not directly visible to users. Common elements inside `<head>`: `<title>`, `<meta>`, `<link>`."
+      "explanation": "The `&lt;head&gt;` tag contains metadata about the document — things browsers and search engines use but are not directly visible to users. Common elements inside `&lt;head&gt;`: `&lt;title&gt;`, `&lt;meta&gt;`, `&lt;link&gt;`."
     },
     {
       "question": "Which element is used to add actual content like text, images, and forms to a web page?",
       "options": [
-        "<head>",
-        "<html>",
-        "<body>",
-        "<meta>"
+        "&lt;head&gt;",
+        "&lt;html&gt;",
+        "&lt;body&gt;",
+        "&lt;meta&gt;"
       ],
-      "answer": "<body>",
-      "explanation": "The `<body>` tag contains all the visible content on the web page such as text, images, links, videos, etc."
+      "answer": "&lt;body&gt;",
+      "explanation": "The `&lt;body&gt;` tag contains all the visible content on the web page such as text, images, links, videos, etc."
     },
     {
       "question": "What is the correct way to save an HTML file?",
@@ -3030,15 +2997,15 @@ window.quizData = {
       "question": "How do you preview an HTML file on an iPhone using Kodex or Textastic?",
       "options": [
         "By moving the file to shared storage.",
-        "By tapping 'Preview in Browser' or 'Share -> Open in Safari'.",
+        "By tapping 'Preview in Browser' or 'Share -&gt; Open in Safari'.",
         "By connecting it to a live server.",
         "It automatically displays within the app."
       ],
-      "answer": "By tapping 'Preview in Browser' or 'Share -> Open in Safari'.",
+      "answer": "By tapping 'Preview in Browser' or 'Share -&gt; Open in Safari'.",
       "explanation": "5. Open Files App, find the file, and tap Preview in Browser or Share → Open in Safari."
     },
     {
-      "question": "What is the purpose of the `target` attribute in an `<a>` tag?",
+      "question": "What is the purpose of the `target` attribute in an `&lt;a&gt;` tag?",
       "options": [
         "To specify the URL of the link.",
         "To define the text of the link.",
@@ -3060,18 +3027,18 @@ window.quizData = {
       "explanation": "Web design is the art and science of creating web pages that are functional, user-friendly, and visually pleasing. It involves writing HTML to structure content, using CSS to style it, and adding interactivity with JavaScript."
     },
     {
-      "question": "What is the main content of a `div` tag in the example `<div class=\"header\"><h1>Website Header</h1></div>`?",
+      "question": "What is the main content of a `&lt;div&gt;` tag in the example `&lt;div class=\"header\"&gt;&lt;h1&gt;Website Header&lt;/h1&gt;&lt;/div&gt;`?",
       "options": [
-        "Only the `div` itself.",
-        "The `h1` element containing 'Website Header'.",
+        "Only the `&lt;div&gt;` itself.",
+        "The `&lt;h1&gt;` element containing 'Website Header'.",
         "The `class` attribute.",
         "The entire HTML document."
       ],
-      "answer": "The `h1` element containing 'Website Header'.",
-      "explanation": "The `div` acts as a container, and `<h1>Website Header</h1>` is its content in this example."
+      "answer": "The `&lt;h1&gt;` element containing 'Website Header'.",
+      "explanation": "The `&lt;div&gt;` acts as a container, and `&lt;h1&gt;Website Header&lt;/h1&gt;` is its content in this example."
     },
     {
-      "question": "What is the role of `style=\"color:red;\"` in `<span style=\"color:red;\">red</span>`?",
+      "question": "What is the role of `style=\"color:red;\"` in `&lt;span style=\"color:red;\"&gt;red&lt;/span&gt;`?",
       "options": [
         "To set a default color for all spans.",
         "To apply inline CSS, making the text 'red' appear in red color.",
@@ -3079,10 +3046,10 @@ window.quizData = {
         "To add a script to the span."
       ],
       "answer": "To apply inline CSS, making the text 'red' appear in red color.",
-      "explanation": "This is an example of inline CSS, applying a specific style directly to the `<span>` element."
+      "explanation": "This is an example of inline CSS, applying a specific style directly to the `&lt;span&gt;` element."
     },
     {
-      "question": "What kind of data does a `<meta>` tag provide?",
+      "question": "What kind of data does a `&lt;meta&gt;` tag provide?",
       "options": [
         "Visible text content.",
         "User input data.",
@@ -3093,7 +3060,7 @@ window.quizData = {
       "explanation": "This tag provides metadata — information about the HTML document (not shown on the page itself)."
     },
     {
-      "question": "What does `charset` stand for in `<meta charset=\"UTF-8\">`?",
+      "question": "What does `charset` stand for in `&lt;meta charset=\"UTF-8\"&gt;`?",
       "options": [
         "Character styling.",
         "Character set.",
@@ -3115,15 +3082,15 @@ window.quizData = {
       "explanation": "`UTF-8`: This is the character encoding used. UTF-8 stands for 'Unicode Transformation Format - 8-bit.'"
     },
     {
-      "question": "When is `<meta charset=\"UTF-8\">` often the first tag inside the `<head>`?",
+      "question": "When is `&lt;meta charset=\"UTF-8\"&gt;` often the first tag inside the `&lt;head&gt;`?",
       "options": [
         "For all HTML documents.",
         "Only for non-English languages.",
         "For HTML5 pages, it's often the first tag for proper character rendering.",
-        "It is always the last tag in the `<head>`."
+        "It is always the last tag in the `&lt;head&gt;`."
       ],
       "answer": "For HTML5 pages, it's often the first tag for proper character rendering.",
-      "explanation": "It’s essential for HTML5 pages — it’s often the first tag inside the `<head>`."
+      "explanation": "It’s essential for HTML5 pages — it’s often the first tag inside the `&lt;head&gt;`."
     },
     {
       "question": "Which HTML version added `video`, `audio`, `canvas`, form elements, and structure tags?",
@@ -3153,21 +3120,21 @@ window.quizData = {
         "Create a new file.",
         "Type HTML code.",
         "Tap the Save icon.",
-        "Tap the icon (>) close to three dot at top right to view in browser."
+        "Tap the icon (&gt;) close to three dot at top right to view in browser."
       ],
-      "answer": "Tap the icon (>) close to three dot at top right to view in browser.",
+      "answer": "Tap the icon (&gt;) close to three dot at top right to view in browser.",
       "explanation": "Step-by-Step to Open and Design in Acode: ... 9. Tap the icon (>) close to three dot at top right to view in browser."
     },
     {
       "question": "What is the 'root element' in an HTML5 document structure?",
       "options": [
-        "<!DOCTYPE>",
-        "<html>",
-        "<head>",
-        "<body>"
+        "&lt;!DOCTYPE&gt;",
+        "&lt;html&gt;",
+        "&lt;head&gt;",
+        "&lt;body&gt;"
       ],
-      "answer": "<html>",
-      "explanation": "Breakdown table: `<html>` - The root element."
+      "answer": "&lt;html&gt;",
+      "explanation": "Breakdown table: `&lt;html&gt;` - The root element."
     },
     {
       "question": "What does HTML structure provide for screen readers when an image fails to load?",
@@ -3181,15 +3148,15 @@ window.quizData = {
       "explanation": "Summary of What Each Section Does: `1️⃣ Image + alt` Shows an image and describes it for screen readers or when image fails to load."
     },
     {
-      "question": "What is the recommended approach for styling a `div` using internal CSS (as per exercise solutions)?",
+      "question": "What is the recommended approach for styling a `&lt;div&gt;` using internal CSS (as per exercise solutions)?",
       "options": [
-        "Inline `style` attribute directly on the `div`.",
-        "An external CSS file linked in the `<head>`.",
-        "A `<style>` block in the `<head>` with a class selector targeting the `div`.",
+        "Inline `style` attribute directly on the `&lt;div&gt;`.",
+        "An external CSS file linked in the `&lt;head&gt;`.",
+        "A `&lt;style&gt;` block in the `&lt;head&gt;` with a class selector targeting the `&lt;div&gt;`.",
         "JavaScript for dynamic styling."
       ],
-      "answer": "A `<style>` block in the `<head>` with a class selector targeting the `div`.",
-      "explanation": "Exercise 5: Create a Styled Box solution shows a `<style>` block with `.box` class."
+      "answer": "A `&lt;style&gt;` block in the `&lt;head&gt;` with a class selector targeting the `&lt;div&gt;`.",
+      "explanation": "Exercise 5: Create a Styled Box solution shows a `&lt;style&gt;` block with `.box` class."
     },
     {
       "question": "Which of these is a reason why CSS is important for web design?",
@@ -3315,10 +3282,10 @@ window.quizData = {
     {
       "question": "What does `MODULE 2` of the course focus on?",
       "options": [
-        "HTML5 Multimedia and Forms.",
         "HTML Versions & Introduction to HTML5.",
+        "Google Maps API & HTML5 Canvas.",
         "Introduction to Web Design.",
-        "Google Maps API & HTML5 Canvas."
+        "HTML5 Multimedia and Forms."
       ],
       "answer": "HTML Versions & Introduction to HTML5.",
       "explanation": "MODULE 2: HTML Versions & Introduction to HTML5."
@@ -3412,15 +3379,15 @@ window.quizData = {
       "explanation": "Bonus Tip: If you're looking for free online alternatives, check: Mozilla Developer Network (MDN) and freeCodeCamp."
     },
     {
-      "question": "What is the function of the `id=\"map\"` attribute in the Google Map example's `<div>` tag?",
+      "question": "What is the function of the `id=\"map\"` attribute in the Google Map example's `&lt;div&gt;` tag?",
       "options": [
         "To set the map's default zoom level.",
-        "To provide a unique identifier for the `<div>` so JavaScript can target it to render the map.",
+        "To provide a unique identifier for the `&lt;div&gt;` so JavaScript can target it to render the map.",
         "To define the map type.",
         "To specify the map coordinates."
       ],
-      "answer": "To provide a unique identifier for the `<div>` so JavaScript can target it to render the map.",
-      "explanation": "`<div id=\"map\"></div>` ... `var map = new google.maps.Map(document.getElementById('map'), { ... });` shows JavaScript targeting this ID."
+      "answer": "To provide a unique identifier for the `&lt;div&gt;` so JavaScript can target it to render the map.",
+      "explanation": "`&lt;div id=\"map\"&gt;&lt;/div&gt;` ... `var map = new google.maps.Map(document.getElementById('map'), { ... });` shows JavaScript targeting this ID."
     },
     {
       "question": "What is `var asaba = { lat: 6.2010, lng: 6.7332 };` in the Google Maps API code?",
@@ -3469,13 +3436,13 @@ window.quizData = {
     {
       "question": "What HTML tag is used to create a simple paragraph of introductory text?",
       "options": [
-        "<h1>",
-        "<h2>",
-        "<p>",
-        "<a>"
+        "&lt;h1&gt;",
+        "&lt;h2&gt;",
+        "&lt;p&gt;",
+        "&lt;a&gt;"
       ],
-      "answer": "<p>",
-      "explanation": "Example 1: Simple HTML page with all basics: `<p>This is a paragraph of introductory text.</p>`."
+      "answer": "&lt;p&gt;",
+      "explanation": "Example 1: Simple HTML page with all basics: `&lt;p&gt;This is a paragraph of introductory text.&lt;/p&gt;`."
     },
     {
       "question": "What is the purpose of `text-decoration: none;` for links in CSS?",
@@ -3489,7 +3456,7 @@ window.quizData = {
       "explanation": "The `nav a` style commonly includes `text-decoration: none;` to remove underlines."
     },
     {
-      "question": "How is the `<h1>` element typically styled in the general body styles?",
+      "question": "How is the `&lt;h1&gt;` element typically styled in the general body styles?",
       "options": [
         "With `color: green;` and `text-align: center;`.",
         "With `font-size: 2em;` and `margin-bottom: 10px;`.",
@@ -3547,11 +3514,11 @@ window.quizData = {
       "question": "What is the characteristic of `body.dark-mode` CSS class?",
       "options": [
         "It sets the default background color.",
-        "It applies styles specific to a dark theme for the `<body>` element.",
+        "It applies styles specific to a dark theme for the `&lt;body&gt;` element.",
         "It only affects text color.",
         "It is a built-in browser style."
       ],
-      "answer": "It applies styles specific to a dark theme for the `<body>` element.",
+      "answer": "It applies styles specific to a dark theme for the `&lt;body&gt;` element.",
       "explanation": "`body.dark-mode { background-color: #121212; color: #eee; }` shows dark mode styling."
     },
     {
@@ -3563,18 +3530,18 @@ window.quizData = {
         "By hovering over an element."
       ],
       "answer": "By clicking a button with `onclick=\"toggleDarkMode()\"`.",
-      "explanation": "`<button class=\"dark-mode-toggle\" onclick=\"toggleDarkMode()\">`."
+      "explanation": "`&lt;button class=\"dark-mode-toggle\" onclick=\"toggleDarkMode()\"&gt;`."
     },
     {
       "question": "What HTML tag is commonly used for a main navigation section?",
       "options": [
-        "<div>",
-        "<nav>",
-        "<footer>",
-        "<section>"
+        "&lt;div&gt;",
+        "&lt;nav&gt;",
+        "&lt;footer&gt;",
+        "&lt;section&gt;"
       ],
-      "answer": "<nav>",
-      "explanation": "Navigation menus are often built using semantic `<nav>` tags."
+      "answer": "&lt;nav&gt;",
+      "explanation": "Navigation menus are often built using semantic `&lt;nav&gt;` tags."
     },
     {
       "question": "What type of images does the multimedia section include?",
@@ -3832,24 +3799,24 @@ window.quizData = {
     {
       "question": "What HTML tag is used to embed external CSS files?",
       "options": [
-        "<style>",
-        "<link>",
-        "<script>",
-        "<meta>"
+        "&lt;style&gt;",
+        "&lt;link&gt;",
+        "&lt;script&gt;",
+        "&lt;meta&gt;"
       ],
-      "answer": "<link>",
-      "explanation": "Tips for Combining HTML + CSS + JS: A. Always link external CSS and JS files in <head> or at the end of <body>: `<link rel=\"stylesheet\" href=\"styles.css\">`."
+      "answer": "&lt;link&gt;",
+      "explanation": "Tips for Combining HTML + CSS + JS: A. Always link external CSS and JS files in &lt;head&gt; or at the end of &lt;body&gt;: `&lt;link rel=\"stylesheet\" href=\"styles.css\"&gt;`."
     },
     {
       "question": "What is the proper way to include Font Awesome Icons in an HTML page?",
       "options": [
-        "By using `<link>` tag in the `<body>`.",
-        "By linking a script from Font Awesome's CDN in the `<head>`.",
+        "By using `&lt;link&gt;` tag in the `&lt;body&gt;`.",
+        "By linking a script from Font Awesome's CDN in the `&lt;head&gt;`.",
         "By manually copying icon code into HTML.",
         "By using CSS only."
       ],
-      "answer": "By linking a script from Font Awesome's CDN in the `<head>`.",
-      "explanation": "FILE 1: index.html (Main Website + Contact Form): `<!-- Font Awesome Icons --> <script src=\"https://kit.fontawesome.com/a076d05399.js\" crossorigin=\"anonymous\"></script>`."
+      "answer": "By linking a script from Font Awesome's CDN in the `&lt;head&gt;`.",
+      "explanation": "FILE 1: index.html (Main Website + Contact Form): `&lt;!-- Font Awesome Icons --&gt; &lt;script src=\"https://kit.fontawesome.com/a076d05399.js\" crossorigin=\"anonymous\"&gt;&lt;/script&gt;`."
     },
     {
       "question": "What does `margin: 0;` in CSS do?",
@@ -3871,7 +3838,7 @@ window.quizData = {
         "text-align"
       ],
       "answer": "background-color",
-      "explanation": "Used in many examples, e.g., `body { background-color: #f9f9f9; }`."
+      "explanation": "Used in many examples, e.g., `&lt;body&gt; { background-color: #f9f9f9; }`."
     },
     {
       "question": "What does `nav a { color: white; margin: 0 20px; text-decoration: none; ... }` define for navigation links?",
@@ -3887,7 +3854,7 @@ window.quizData = {
     {
       "question": "What is the purpose of `nav a i { margin-right: 8px; }`?",
       "options": [
-        "It styles all `<i>` tags in the navigation.",
+        "It styles all `&lt;i&gt;` tags in the navigation.",
         "It adds 8px of space to the right of icon elements within navigation links.",
         "It centers icons in navigation links.",
         "It hides icons in navigation links."
@@ -3918,7 +3885,7 @@ window.quizData = {
       "explanation": "This hexadecimal color code is for a light cyan/blue shade."
     },
     {
-      "question": "What is the CSS `display: block;` used for on a `label` element within a form?",
+      "question": "What is the CSS `display: block;` used for on a `&lt;label&gt;` element within a form?",
       "options": [
         "To make the label appear on the same line as the input.",
         "To ensure the label appears on its own line above the input, taking full width.",
@@ -3995,7 +3962,7 @@ window.quizData = {
       "explanation": "This ensures the welcome message and link are centered."
     },
     {
-      "question": "What does `display: inline-block;` on the `<a>` tag in `thank-you.html` allow?",
+      "question": "What does `display: inline-block;` on the `&lt;a&gt;` tag in `thank-you.html` allow?",
       "options": [
         "It forces the link to take up full width.",
         "It makes the link behave like a block element, allowing padding/margin, but still flow inline with text if space allows.",
@@ -4041,16 +4008,16 @@ window.quizData = {
     {
       "question": "What HTML tag is used to create an ordered list?",
       "options": [
-        "<ul>",
-        "<li>",
-        "<ol>",
-        "<list>"
+        "&lt;ul&gt;",
+        "&lt;li&gt;",
+        "&lt;ol&gt;",
+        "&lt;list&gt;"
       ],
-      "answer": "<ol>",
-      "explanation": "Lists: `<ul>`, `<ol>`, and `<li>`. `<ol>`: Ordered (numbered) list."
+      "answer": "&lt;ol&gt;",
+      "explanation": "Lists: `&lt;ul&gt;`, `&lt;ol&gt;`, and `&lt;li&gt;`. `&lt;ol&gt;`: Ordered (numbered) list."
     },
     {
-      "question": "What does the `type` attribute in `<input type=\"number\">` specify?",
+      "question": "What does the `type` attribute in `&lt;input type=\"number\"&gt;` specify?",
       "options": [
         "The input field should only accept text.",
         "The input field should only accept numbers, and often provides spin controls.",
@@ -4058,10 +4025,10 @@ window.quizData = {
         "The input field is a submit button."
       ],
       "answer": "The input field should only accept numbers, and often provides spin controls.",
-      "explanation": "Exercise 2: Use Different Input Types solution: `<input type=\"number\" min=\"0\" max=\"100\">`."
+      "explanation": "Exercise 2: Use Different Input Types solution: `&lt;input type=\"number\" min=\"0\" max=\"100\"&gt;`."
     },
     {
-      "question": "What is the primary role of `<script>` tags in HTML?",
+      "question": "What is the primary role of `&lt;script&gt;` tags in HTML?",
       "options": [
         "To link external CSS files.",
         "To define the page structure.",
@@ -4069,7 +4036,7 @@ window.quizData = {
         "To display images."
       ],
       "answer": "To embed or link JavaScript code for client-side scripting and interactivity.",
-      "explanation": "`<script src=\"script.js\"></script>` <!-- For JS -->."
+      "explanation": "`&lt;script src=\"script.js\"&gt;&lt;/script&gt;` &lt;!-- For JS --&gt;."
     },
     {
       "question": "What is the function of the `crossorigin=\"anonymous\"` attribute for a script loading external resources?",
@@ -4127,7 +4094,7 @@ window.quizData = {
       "explanation": "`max-width: 100%; height: auto;` is a responsive technique. `width: 100%;` can cause overflow if padding/border are added without `box-sizing: border-box;`."
     },
     {
-      "question": "What is the purpose of the `download` attribute on an `<a>` tag?",
+      "question": "What is the purpose of the `download` attribute on an `&lt;a&gt;` tag?",
       "options": [
         "To specify that the linked resource should be displayed in the browser.",
         "To initiate a download of the linked resource when the user clicks the hyperlink.",
@@ -4135,7 +4102,7 @@ window.quizData = {
         "To prevent the user from accessing the linked resource."
       ],
       "answer": "To initiate a download of the linked resource when the user clicks the hyperlink.",
-      "explanation": "Example: `<a href=\"song1.mp3\" download class=\"download\">⬇️ Download</a>`."
+      "explanation": "Example: `&lt;a href=\"song1.mp3\" download class=\"download\"&gt;⬇️ Download&lt;/a&gt;`."
     },
     {
       "question": "What does `text-align: center; margin: auto;` achieve for a `form` element with a specified `max-width`?",
@@ -4182,14 +4149,14 @@ window.quizData = {
       "explanation": "Used in navigation links (`nav a`) to set vertical margin to 0 and horizontal margin to 15px."
     },
     {
-      "question": "What does `text-align: center;` mean for `header` and `footer` elements?",
+      "question": "What does `text-align: center;` mean for `&lt;header&gt;` and `&lt;footer&gt;` elements?",
       "options": [
         "It aligns the elements themselves to the center of the page.",
-        "It centers the text content within the `header` and `footer` elements.",
+        "It centers the text content within the `&lt;header&gt;` and `&lt;footer&gt;` elements.",
         "It only works for images within these elements.",
         "It makes the elements responsive."
       ],
-      "answer": "It centers the text content within the `header` and `footer` elements.",
+      "answer": "It centers the text content within the `&lt;header&gt;` and `&lt;footer&gt;` elements.",
       "explanation": "Styling for All Pages: `header { ... text-align: center; }`, `footer { ... text-align: center; }`."
     },
     {
@@ -4201,7 +4168,7 @@ window.quizData = {
         "20px width for the element."
       ],
       "answer": "20px internal space (padding) on all four sides of an element.",
-      "explanation": "Used in `body` and `header` styles."
+      "explanation": "Used in `&lt;body&gt;` and `&lt;header&gt;` styles."
     },
     {
       "question": "What is `background-color: #002147;` for the header?",
@@ -4223,7 +4190,7 @@ window.quizData = {
         "The navigation bar."
       ],
       "answer": "The main content area of the page, adding internal space and a white background.",
-      "explanation": "This styles the `<main>` tag."
+      "explanation": "This styles the `&lt;main&gt;` tag."
     },
     {
       "question": "What is `margin-top: 20px;` for the `.responsive-img` class?",
@@ -4270,4 +4237,4 @@ window.quizData = {
       "explanation": "This provides visual feedback for user interaction."
     }
   ]
-}
+};
