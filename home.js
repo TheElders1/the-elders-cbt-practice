@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { code: "COS121", name: "Problem Solving" },
                 { code: "PHY121", name: "Electricity & Magnetism" },
                 { code: "CSC121", name: "Web Development with Django" },
-                { code: "CSC122", name: "Web Technologies" }
+                { code: "CSC122", name: "Web Technologies" },
+                { code: "PHY122", name: "Physics Practicals" }
             ],
             "Cyber Security": [
                 { code: "MTH121", name: "Elementary Mathematics II" },
@@ -74,7 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { code: "COS121", name: "Problem Solving" },
                 { code: "PHY121", name: "Electricity & Magnetism" },
                 { code: "CYB121", name: "Ethical Issues In Cyber Security" },
-                { code: "CYB122", name: "Critical Thinking" }
+                { code: "CYB122", name: "Critical Thinking" },
+                { code: "PHY122", name: "Physics Practicals" }
             ],
             "Data Science": [
                 { code: "MTH121", name: "Elementary Mathematics II" },
@@ -82,7 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { code: "COS121", name: "Problem Solving" },
                 { code: "PHY121", name: "Electricity & Magnetism" },
                 { code: "DTS121", name: "Web Development with Django" },
-                { code: "DTS122", name: "Web Technologies" }
+                { code: "DTS122", name: "Web Technologies" },
+                { code: "PHY122", name: "Physics Practicals" }
             ],
             "Information Technology": [
                 { code: "MTH121", name: "Elementary Mathematics II" },
@@ -90,7 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 { code: "COS121", name: "Problem Solving" },
                 { code: "PHY121", name: "Electricity & Magnetism" },
                 { code: "IFT121", name: "Ethical Issues in Cyber Security" },
-                { code: "IFT122", name: "Critical Thinking" }
+                { code: "IFT122", name: "Critical Thinking" },
+                { code: "PHY122", name: "Physics Practicals" }
             ],
             "Software Engineering": [
                 { code: "MTH121", name: "Elementary Mathematics II" },
@@ -99,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { code: "PHY121", name: "Electricity & Magnetism" },
                 { code: "SEN121", name: "Web Development with Django" },
                 { code: "SEN122", name: "Web Technologies" }
+                { code: "PHY122", name: "Physics Practicals" }
             ]
         };
 
